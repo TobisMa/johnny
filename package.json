@@ -24,6 +24,6 @@
   },
   "homepage": "https://github.com/TobisMa/johnny#readme",
   "devDependencies": {
-    "electron": "^24.2.0"
+    "electron": "^8.3.0"
   }
 }
