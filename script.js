@@ -539,7 +539,6 @@ function insertRowAbove() {
 		selectedRamModule = i;
 		if (getRamRow().getElementsByClassName("col2")[0].innerText === "00.000") {
 			emptyRow = getRamRow();
-			console.log("emptyRow: ", emptyRow);
 			break;
 		}
 	}
