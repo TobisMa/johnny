@@ -514,7 +514,7 @@ function highlightRamAccess() {//übernimmt auch das ändern der unteren Tabelle
 		getRamRow().style.background = "yellow";
 
 	} else {
-		document.getElementById(dataHighlightedRamModule).style.background = "";
+		getHighlightRamRow().style.background = "";
 
 
 	}
@@ -522,12 +522,16 @@ function highlightRamAccess() {//übernimmt auch das ändern der unteren Tabelle
 	if (MicroCodeCounter != 1) { //nichtanzeigen beim FETCH befehl
 
 		dataHighlightedRamModule = Addressbus;
-		document.getElementById(dataHighlightedRamModule).style.background = "#00F45D";
+		getHighlightRamRow().style.background = "#00F45D";
 
 	}
 
 	console.log("hi")
 
+}
+
+function getHighlightRamRow() {
+	return document.getElementById("RamTBody").childNodes[dataHighlightedRamModule];
 }
 
 function insertRowAbove() {
