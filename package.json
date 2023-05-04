@@ -1,0 +1,28 @@
+{
+  "name": "johnny",
+  "version": "1.0.0",
+  "description": "Simulation of a von neumann arcitecture",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TobisMa/johnny.git"
+  },
+  "keywords": [
+    "simulation",
+    "johnny",
+    "neumann",
+    "arcitecture"
+  ],
+  "author": "TobisMa",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/TobisMa/johnny/issues"
+  },
+  "homepage": "https://github.com/TobisMa/johnny#readme",
+  "devDependencies": {
+    "electron": "^24.2.0"
+  }
+}
