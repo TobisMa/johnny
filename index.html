@@ -37,7 +37,7 @@ mit dank an Dr. Peter Dauscher
 		var LoadStart = new Date().getTime();//this is so that the splash screen is always on for the same time
 
 		if ('serviceWorker' in navigator) {
-			navigator.serviceWorker.register('./service-worker.js'); //for testing this should be commented out so the reloading does take the cached conntent
+			// navigator.serviceWorker.register('./service-worker.js'); for testing this should be commented out so the reloading does take the cached conntent
 		}
 
 
@@ -106,8 +106,11 @@ mit dank an Dr. Peter Dauscher
 			</div>
 			<div id="rightPanel">
 				<div id="controlUnitToggle">
-					<abbr title="show control unit"><img tabindex=0 src="./images/show_control.svg" id="crtIcon"></img
-							tabindex=0></abbr>
+					<abbr title="show control unit">
+						<label for="controlUnitCheckbox">
+							<img tabindex=0 src="./images/show_control.svg" id="crtIcon" tabindex=0 />
+						</label>
+					</abbr>
 					<abbr title="show control unit"><input id="controlUnitCheckbox" type="checkbox"
 							onchange="ToggleControlUnit()"></abbr>
 				</div>
