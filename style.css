@@ -603,3 +603,10 @@ input[type="number"] {
 #ramFile, #ramExecution {
 	display: inline
 }
+
+
+#InsertRowButton {
+	position: fixed;
+	top: 80vh;
+	left: 10vh;
+}

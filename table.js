@@ -60,10 +60,8 @@ function generateRam(){
 	Att= document.createAttribute("class");
 	Att.value = "RamCell";
 	newtr.setAttributeNode(Att);
-	Att= document.createAttribute("ID");
-	Att.value =  n;
+	newtr.dataset.addr = n;
 
-	newtr.setAttributeNode(Att);
 	p.appendChild(newtr);
 	//Onclick event für eingeben von Daten
 

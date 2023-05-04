@@ -94,7 +94,7 @@ function initialize() {
 	document.addEventListener("mousedown", mouseDownHandler); //nur zum überspringen des ladebildschirms (wird nach dem Laden wieder entfernt)
 	window.addEventListener('resize', resize);
 
-	document.getElementById(0).style.background = "#00F45D";
+	getRamRow().style.background = "#00F45D";
 	//ladeBildschirm
 	loaded = true;
 	document.getElementById("loading").innerText = "";
@@ -147,12 +147,16 @@ function mouseDownHandler() {
 
 }
 
+function getRamRow() {
+	return document.getElementById("RamTBody").childNodes[selectedRamModule];
+}
+
 
 function resize() {
 
 	RamEingabeHeight = getObjectHeight(document.getElementById("RamEingabe"))  //neupositionierung des Peiles für die Rameingabe bei änderung der Größe
-	tabelHeight = getObjectHeight(document.getElementById(selectedRamModule))
-	document.getElementById("RamEingabe").style.top = (document.getElementById(selectedRamModule).getBoundingClientRect().top - RamEingabeHeight / 2 + tabelHeight / 2) + "px";
+	tabelHeight = getObjectHeight(getRamRow())
+	document.getElementById("RamEingabe").style.top = (getRamRow().getBoundingClientRect().top - RamEingabeHeight / 2 + tabelHeight / 2) + "px";
 
 	//needed for the Safari fix
 	scrollMaxX = document.body.scrollWidth - window.innerWidth;
@@ -436,20 +440,20 @@ function pauseProgramm() {
 
 function nextRamModule() {
 	//entfärben of Ram
-	document.getElementById(selectedRamModule).style.background = "";
+	getRamRow().style.background = "";
 	if (selectedRamModule < parseInt("9".repeat(ramLength - 1))) {
 
 		selectedRamModule++
 	}
 
 	//gelbfärbung der Spalte
-	document.getElementById(selectedRamModule).style.background = "yellow";
+	getRamRow().style.background = "yellow";
 
-	if (document.getElementById(selectedRamModule).getBoundingClientRect().top + tabelHeight / 2 < document.getElementById("RamDiv").getBoundingClientRect().bottom) {
-		document.getElementById("RamEingabe").style.top = (document.getElementById(selectedRamModule).getBoundingClientRect().top - RamEingabeHeight / 2 + tabelHeight / 2) + "px"; //neupositionierung des Peiles für die Rameingabe
+	if (getRamRow().getBoundingClientRect().top + tabelHeight / 2 < document.getElementById("RamDiv").getBoundingClientRect().bottom) {
+		document.getElementById("RamEingabe").style.top = (getRamRow().getBoundingClientRect().top - RamEingabeHeight / 2 + tabelHeight / 2) + "px"; //neupositionierung des Peiles für die Rameingabe
 	} else {
 		document.getElementById("innerRamDiv").scrollTop = (selectedRamModule - 1) * tabelHeight;
-		document.getElementById("RamEingabe").style.top = (document.getElementById(selectedRamModule).getBoundingClientRect().top - RamEingabeHeight / 2 + tabelHeight / 2) + "px"; //neupositionierung des Peiles für die Rameingabe
+		document.getElementById("RamEingabe").style.top = (getRamRow().getBoundingClientRect().top - RamEingabeHeight / 2 + tabelHeight / 2) + "px"; //neupositionierung des Peiles für die Rameingabe
 	}
 }
 
@@ -457,17 +461,17 @@ function EditRam(CellNumber) {
 	if (!turboMode) {
 		//entfärben des alten Moduls
 		if (dataHighlightedRamModule != selectedRamModule) {
-			document.getElementById(selectedRamModule).style.background = "";
+			getRamRow().style.background = "";
 		}
 
 		if (typeof (CellNumber) == "object") {
 			//erkennen der Spalte
-			selectedRamModule = CellNumber.srcElement.parentNode.id;
+			selectedRamModule = CellNumber.srcElement.parentNode.dataset.addr;
 		} else {
 			selectedRamModule = CellNumber;
 
 		}
-		let selectedRamModuleTr = document.getElementById(selectedRamModule);
+		let selectedRamModuleTr = getRamRow();
 		//gelbfärbung der Spalte
 		if (dataHighlightedRamModule != selectedRamModule) {
 			selectedRamModuleTr.style.background = "yellow";
@@ -480,8 +484,8 @@ function EditRam(CellNumber) {
 			document.getElementById("innerRamDiv").scrollTop = (selectedRamModule - 1) * tabelHeight;
 			ramInput.style.top = (selectedRamModuleTr.getBoundingClientRect().top - RamEingabeHeight / 2 + tabelHeight / 2) + "px"; //neupositionierung des Peiles für die Rameingabe
 		}
-		console.log(selectedRamModuleTr.childNodes[1]);
 		document.getElementById("RamInput").value = selectedRamModuleTr.childNodes[1].innerText;
+		document.getElementById("RamInput").focus();  // requesting write cursor
 	}
 
 }
@@ -507,7 +511,7 @@ function highlightMc(collum) {	//übernimmt auch springen
 function highlightRamAccess() {//übernimmt auch das ändern der unteren Tabelle
 
 	if (dataHighlightedRamModule == selectedRamModule) {
-		document.getElementById(selectedRamModule).style.background = "yellow";
+		getRamRow().style.background = "yellow";
 
 	} else {
 		document.getElementById(dataHighlightedRamModule).style.background = "";
@@ -524,6 +528,47 @@ function highlightRamAccess() {//übernimmt auch das ändern der unteren Tabelle
 
 	console.log("hi")
 
+}
+
+function insertRowAbove() {
+	getRamRow().style.background = "unset"; // reset background color
+
+	let newSelect = selectedRamModule;
+	let emptyRow = undefined;
+	for (let i = 999; i >= 900; i--) {
+		selectedRamModule = i;
+		if (getRamRow().getElementsByClassName("col2")[0].innerText === "00.000") {
+			emptyRow = getRamRow();
+			console.log("emptyRow: ", emptyRow);
+			break;
+		}
+	}
+	if (!emptyRow) {
+		console.error("All last 99 rows are used already");
+		return;
+	}
+	selectedRamModule = newSelect;
+	getRamRow().parentNode.insertBefore(emptyRow, getRamRow());
+	
+	fixRamNumbers(newSelect);
+	selectedRamModule = newSelect; // important; override in fixRamNumbers could happen
+	EditRam(selectedRamModule);
+}
+
+function fixRamNumbers(offset) {
+	for (let row = 0; row < 1000; row++) {
+		let node = document.getElementById("RamTBody").childNodes[row];
+		let number = node.getElementsByClassName("col2")[0].innerText.split(".");
+		// fix Address
+		node.dataset.addr = row;
+		node.getElementsByClassName("col1")[0].innerText = row;
+
+		// fix data; should fix asm and opand as well
+		if (number[0] !== "00" && parseInt(number[1]) >= offset) {
+			writeToRam(CheckNumber(parseInt(number.join("")) + 1, (1 + "9".repeat(ramLength)).toString(),0), row);
+		}
+
+	}
 }
 
 /*
