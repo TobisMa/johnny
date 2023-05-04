@@ -37,13 +37,13 @@ mit dank an Dr. Peter Dauscher
 		var LoadStart = new Date().getTime();//this is so that the splash screen is always on for the same time
 
 		if ('serviceWorker' in navigator) {
-			// navigator.serviceWorker.register('./service-worker.js'); for testing this should be commented out so the reloading does take the cached conntent
+			// for testing this should be commented out so the reloading does take the cached conntent
+			navigator.serviceWorker.register('./service-worker.js');
 		}
 
 
 	</script>
 </head>
-
 <body onload="initialize()">
 	<div id="startscreen">
 		<p style="  font-size:15vmin ">Johnny 2.0</p>
@@ -54,8 +54,7 @@ mit dank an Dr. Peter Dauscher
 		<p style="  font-size:4vmin">Peter Dauscher</p>
 		<p style="  font-size:4vmin ">2009-2014</p>
 	</div>
-
-	<div id="programm" style="display : none">
+	<div id="programm" style="display: none">
 		<!-- Bilder die die Datenbewegung anzeigen (reinfolge nicht verändern!) -->
 		<img src="./images/datamovement/dbram.png" class="dataMovement" />
 		<img src="./images/datamovement/ramdb.png" class="dataMovement" />
@@ -74,10 +73,6 @@ mit dank an Dr. Peter Dauscher
 		<div class="dataMovement" id="NullMcHighlight"></div>
 		<div class="dataMovement" id="HaltButtonHighlight"></div>
 		<div class="dataMovement" id="IncPc0Highlight"></div>
-		<div class="dataMovement" id="IncPcHighlight"></div>
-
-
-
 
 		<!--Bilder der Kopfzeile -->
 		<nav id="control-nav">
@@ -138,9 +133,6 @@ mit dank an Dr. Peter Dauscher
 				<button id="settings_button">settings</button>
 			</div>
 		</nav>
-
-
-
 
 		<input type="number" id="AddressBusInput" min="0" max="999">
 		<input type="number" id="DataBusInput">

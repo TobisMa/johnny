@@ -215,9 +215,14 @@ function ManuellRam(){
 
 	//ignorieren des Punktes der hi und low trennt
 	var input = document.getElementById("RamInput").value.split(numberDevisionChar)
-	writeToRam(CheckNumber(parseInt(input.join("")),(1 +"9".repeat(ramLength)).toString(),0),SelectetRamModule)
+	if (input.length >= 3) {
+		return;
+	} 
+	let num = input.length == 2 ? input[0].padStart(2, "0") + input[1].padStart(3, "0") : input;
+	writeToRam(CheckNumber(parseInt(num),(1 +"9".repeat(ramLength)).toString(),0),selectedRamModule)
 	nextRamModule();
-	}
+}
+
 
 function ManuellDb(){
 writeToDb(CheckNumber(parseInt(document.getElementById("DataBusInput").value),(1 +"9".repeat(ramLength)).toString(),0))
