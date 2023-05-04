@@ -1,4 +1,4 @@
-var indicators= document.getElementsByClassName("dataMovement")
+var indicators= document.getElementsByClassName("dataMovement");
 
 
 function FadeOut(number){
