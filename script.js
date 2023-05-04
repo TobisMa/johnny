@@ -535,7 +535,7 @@ function getHighlightRamRow() {
 }
 
 function insertRowAbove() {
-	getRamRow().style.background = "unset"; // reset background color
+	getRamRow().style.background = ""; // reset background color
 
 	let newSelect = selectedRamModule;
 	let emptyRow = undefined;
