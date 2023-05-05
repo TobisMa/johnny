@@ -19,9 +19,9 @@ This edited version can be viewed at [https://tobisma.github.io/johnny](https://
 
 ## browser compatibility
 I recommend to use Firefox (continue reading for the reason).  
-This website works on Firefox and chrome based browsers (Edge, Chrome, ...). Not listed browsers have not been tested which does not mean they are not compatible.
+This website works on Firefox and chromium based browsers (Edge, Chrome, ...). Not listed browsers have not been tested which does not mean they are not compatible.
 
-The function called when clicking on `Insert Row` takes on chrome based browsers up to 3sec for whatever reason while Firefox can handle the click event nearly instantly.
+Apparently, the function called when clicking on `Insert Row` takes on chromium based browsers up to 3sec for whatever reason while Firefox can handle the click event nearly instantly.
 
 ## package using electron
 1. Clone the repository locally and move into the folder
