@@ -27,6 +27,6 @@ The function called when clicking on `Insert Row` takes on chrome based browsers
 1. Clone the repository locally and move into the folder
 2. Run `npm install`
 3. Make sure `npx` is globally accessable, otherwise edit either package.json to match your requirements or install npx
-4. For Windows run `npm run package-win` and for linux run `npm run package-linux`. This will create a folder in `executables` for the windows executable version. Beware, that it overwrites this folder, should this folder already exist
+4. For Windows run `npm run package-win` and for linux run `npm run package-linux`. This will create a folder in `executables` for the windows or linux executable version. Beware, that it overwrites this folder, should this folder already exist and it is always for the `x64` arcitecture. To change that behaviour, edit the `package.json` file
 5. Go into the generated folder and run `Johnny.exe` to start
 This edited version can be viewed at [https://tobisma.github.io/johnny](https://tobisma.github.io/johnny)
