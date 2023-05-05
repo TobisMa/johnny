@@ -1,0 +1,66 @@
+on:
+  push:
+    tags:
+      - v*.*.*
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14
+      - run: npm ci
+      - name: build windows
+        run: npm run package-win
+      - name: build linux
+        run: npm run package-linux
+      - name: Install zip
+        run: sudo apt-get install zip
+      - name: Zip windows version
+        run: zip -r johnny-win32-x64.zip executables/Johnny-win32-x64
+      - name: Zip linux version
+        run: zip -r johnny-linux-x64.zip executables/Johnny-linux-x64
+      - name: create release
+        uses: actions/create-release@v1
+        id: create_release
+        with:
+          draft: false
+          prerelease: false
+          release_name: RSA Tools ${{ github.ref_name }}
+          tag_name: ${{ github.ref_name }}
+          body_path: ./CHANGELOG.md
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      - name: add terminal exe to release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./dist/rsa-tools-terminal.exe
+          asset_name: rsa-tools-terminal.exe
+          asset_content_type: application/vnd.microsoft.portable-executable
+
+      - name: add windows version to release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./johnny-win32-x64.zip
+          asset_name: johnny-win32-x64.zip
+          asset_content_type: application/zip
+
+      - name: add linux version to release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./johnny-linux-x64.zip
+          asset_name: johnny-linux-x64.zip
+          asset_content_type: application/zip
