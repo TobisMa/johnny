@@ -19,7 +19,7 @@ jobs:
         run: npm run package-linux
       - name: Install zip
         run: sudo apt-get install zip
-      - name: Zip windows version
+      - name: Zip linux version
         run: zip -r johnny-linux-x64.zip executables/Johnny-linux-x64
       - name: create release
         uses: actions/create-release@v1
