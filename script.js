@@ -559,19 +559,28 @@ function insertRowAbove() {
 }
 
 function fixRamNumbers(offset) {
+	let nodes = document.getElementById("RamTBody").childNodes;
+	let addressCols = document.getElementById("RamTBody").getElementsByClassName("col1");
+	let dataCols = document.getElementById("RamTBody").getElementsByClassName("col2");
+	let maxNumber = (1 + "9".repeat(ramLength)).toString();
+
+	// console.time("AddressFix");
 	for (let row = 0; row < 1000; row++) {
-		let node = document.getElementById("RamTBody").childNodes[row];
-		let number = node.getElementsByClassName("col2")[0].innerText.split(".");
 		// fix Address
-		node.dataset.addr = row;
-		node.getElementsByClassName("col1")[0].innerText = row;
+		nodes[row].dataset.addr = row;
+		addressCols[row].innerText = row;
+	}
+	// console.timeEnd("AddressFix");
+	// console.time("DataFix");
+	for (let row = 0; row < 1000; row++) {
+		let number = dataCols[row].innerText.split(".");
 
 		// fix data; should fix asm and opand as well
-		if (number[0] !== "00" && parseInt(number[1]) >= offset) {
-			writeToRam(CheckNumber(parseInt(number.join("")) + 1, (1 + "9".repeat(ramLength)).toString(),0), row);
+		if (number[0] !== "00" && number[0] !== "10" && parseInt(number[1]) >= offset) {
+			writeToRam(CheckNumber(parseInt(number.join("")) + 1, maxNumber,0), row);
 		}
-
 	}
+	// console.timeEnd("DataFix");
 }
 
 /*
