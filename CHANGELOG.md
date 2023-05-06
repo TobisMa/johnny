@@ -1,4 +1,7 @@
 ## Changes since last release
+- time improvment when pressing on `Insert Row` in chromium browsers 
+
+### base feature
 This edited version can be viewed at [https://tobisma.github.io/johnny](https://tobisma.github.io/johnny)
 - implement a button to insert a row above the current selection
 - when selecting an address row, make the value available to edit directly in the input field
