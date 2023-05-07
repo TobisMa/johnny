@@ -107,6 +107,8 @@ function shortCutEventHandler(e) {
             case "Escape":
                 LeaveVimCmdMode();
                 break;
+            case "Backspace":
+                vimCmd = vimCmd.substring(0, vimCmd.length - 1);
             default:
                 if (e.ctrlKey && e.key === "c") {
                     LeaveVimCmdMode();
