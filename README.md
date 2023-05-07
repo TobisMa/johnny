@@ -69,6 +69,7 @@ NOTE: Currently, visual feedback is still missing. Use Dev Tools to view what is
 NOTE: they are also working when the control unit is not visible
 
 | Command | Button |
+| --- | --- |
 | `im` | `ins --> mc` |
 | `ip` | `ins --> pc` |
 | `ia` | `ins --> ab` |
