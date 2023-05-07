@@ -58,6 +58,7 @@ const ramSize = 1000  //this ideally has to be a multiple of 10
 const ramLength = Math.log10(ramSize) + 1;
 
 const allowedRamInputChars = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "Delete", "Backspace", "ArrowRight", "ArrowLeft"]
+const digits = "0123456789".split("");
 
 var Ram = JSON.parse(localStorage.getItem('johnny-ram'));
 if (Ram == null) {//default if local store has been cleared or johnny is started for the first time
@@ -173,11 +174,15 @@ function resize() {
 	*/
 }
 
+function shouldPreventDefault(e, allowedChars) {
+	return (!allowedChars.includes(e.key) && e.key.length === 1 && !e.ctrlKey && !e.altKey && !e.metaKey) || e.key == "ArrowDown" || e.key == "ArrowUp"
+}
+
 function RamInputKeydown(e) {
 	if (e.key == "Enter") {
 		ManuellRam();
 	}
-	else if (!allowedRamInputChars.includes(e.key) && !e.ctrlKey && e.key !== "Control") {
+	else if (shouldPreventDefault(e, allowedRamInputChars)) {
 		e.preventDefault();
 	}
 }
@@ -186,6 +191,9 @@ function DataBusInputKeydown(e) {
 	if (e.key === "Enter") {
 		ManuellDb()
 	}
+	else if (shouldPreventDefault(e, digits)) {
+		e.preventDefault();
+	}
 
 }
 
@@ -193,7 +201,9 @@ function AddressBusInputKeydown(e) {
 	if (e.key === "Enter") {
 		ManuellAB()
 	}
-
+	else if (shouldPreventDefault(e, digits)) {
+		e.preventDefault();
+	}
 }
 
 
@@ -487,8 +497,13 @@ function EditRam(CellNumber) {
 			document.getElementById("innerRamDiv").scrollTop = (selectedRamModule - 1) * tabelHeight;
 			ramInput.style.top = (selectedRamModuleTr.getBoundingClientRect().top - RamEingabeHeight / 2 + tabelHeight / 2) + "px"; //neupositionierung des Peiles für die Rameingabe
 		}
-		document.getElementById("RamInput").value = selectedRamModuleTr.childNodes[1].innerText;
-		document.getElementById("RamInput").focus();  // requesting write cursor
+		let ramInputField = document.getElementById("RamInput");
+		ramInputField.value = selectedRamModuleTr.childNodes[1].innerText;
+		ramInputField.focus();  // requesting write cursor
+		// moving cursor to the input end
+		let val = ramInputField.value;
+		ramInputField.value = '';
+		ramInputField.value = val;
 	}
 
 }

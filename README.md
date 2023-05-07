@@ -39,6 +39,9 @@ This edited version can be viewed at [https://tobisma.github.io/johnny](https://
 | <kbd>⌥ Option</kbd><kbd>C</kbd> | Clear RAM |
 | <kbd>:</kbd> | Enter command mode for buttons |
 | <kbd>v</kbd> | Enter command mode for buttons |
+| <kbd>D</kbd> | Focus Data bus input |
+| <kbd>A</kbd> | Focus Address bus input |
+| <kbd>W</kbd> | Focus RAM row input |
 
 ### shortcuts for buttons like `ram --> db`
 Those shortcuts are in VIM style meaning you need to enter command mode first by pressing <kbd>:</kbd> or <kbd>v</kbd>.

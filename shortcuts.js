@@ -12,6 +12,14 @@ function moveRam(delta) {
     EditRam(CheckNumber(selectedRamModule + delta, 999, 1));
 }
 
+function focusInputElement(element) {
+    element.focus();
+    // moves cursor to the end of the input
+    let val = element.value;
+    element.value = '';
+    element.value = val;
+}
+
 const functionMapping = {
     e: () => {
         resetComputer();
@@ -33,13 +41,16 @@ const functionMapping = {
     },
     ":": EnterVimCmdMode,
     "v": EnterVimCmdMode,
+    "a": () => { focusInputElement(document.getElementById("AddressBusInput")) },
+    "d": () => { focusInputElement(document.getElementById("DataBusInput")) },
+    "w": () => { focusInputElement(document.getElementById("RamInput")) }
 }
 
 const vimCmdMapping = {
     "a": ManuellAB,
     "a+": IncAccClick,
     "a++": IncAccClick,
-    "a-": DecAccClick, 
+    "a-": DecAccClick,
     "a--": DecAccClick,
     "a0": NullAccClick,
     "ar": NullAccClick,
@@ -71,6 +82,8 @@ function EnterVimCmdMode() {
     vimCmd = "";
     document.getElementById("RamInput").blur();
     document.getElementById("RamInput").disabled = true;
+    document.getElementById("AddressBusInput").disabled = true;
+    document.getElementById("DataBusInput").disabled = true;
 }
 
 function ExecuteVimCmd() {
@@ -89,12 +102,11 @@ function ExecuteVimCmd() {
 function LeaveVimCmdMode() {
     vimCmdMode = false;
     vimCmd = "";
+    document.getElementById("AddressBusInput").disabled = false;
+    document.getElementById("DataBusInput").disabled = false;
     let ramInput = document.getElementById("RamInput");
     ramInput.disabled = false;
-    ramInput.focus();
-    let val = ramInput.value;
-    ramInput.value = ''; // moves cursor to the end of the input
-    ramInput.value = val;
+    focusInputElement(ramInput);
     console.log("Left VIM CMD mode");
 }
 
