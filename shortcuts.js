@@ -1,16 +1,27 @@
 const slider = document.getElementById("executeSpeedSlider");
 const sliderStep = slider.max / 20;
+
+const cmdHTMLContainer = document.getElementById("cmdLine");
+const cmdHTML = document.getElementById("cmdLine").getElementsByClassName("cmd")[0];
+const cmdHTMLFeedback = document.getElementById("cmdFeedback");
+const validCmdColor = "#00c149";
+const invalidCmdColor = "#d60029";
+const continueCmdColor = "#ff8531";
+
 let vimCmdMode = false;
 let vimCmd = "";
+
 
 function changeSliderBy(delta) {
     slider.value = parseInt(slider.value) + delta;
     updateSpeed();
 }
 
+
 function moveRam(delta) {
     EditRam(CheckNumber(selectedRamModule + delta, 999, 1));
 }
+
 
 function focusInputElement(element) {
     element.focus();
@@ -40,10 +51,11 @@ const functionMapping = {
         ToggleControlUnit();
     },
     ":": EnterVimCmdMode,
-    "v": EnterVimCmdMode,
-    "a": () => { focusInputElement(document.getElementById("AddressBusInput")) },
-    "d": () => { focusInputElement(document.getElementById("DataBusInput")) },
-    "w": () => { focusInputElement(document.getElementById("RamInput")) }
+    v: EnterVimCmdMode,
+    a: () => { focusInputElement(document.getElementById("AddressBusInput")) },
+    d: () => { focusInputElement(document.getElementById("DataBusInput")) },
+    w: () => { focusInputElement(document.getElementById("RamInput")) },
+    Escape: () => { cmdHTML.classList.remove("afterExecution") }
 }
 
 const vimCmdMapping = {
@@ -84,12 +96,17 @@ function EnterVimCmdMode() {
     document.getElementById("RamInput").disabled = true;
     document.getElementById("AddressBusInput").disabled = true;
     document.getElementById("DataBusInput").disabled = true;
+    cmdHTMLContainer.classList.remove("afterExecution");
+    cmdHTMLContainer.classList.add("active");
 }
+
 
 function ExecuteVimCmd() {
     console.log("Execute VIM CMD:", vimCmd);
     if (!vimCmdMapping.hasOwnProperty(vimCmd)) {
         console.error("No VIM CMD:", vimCmd);
+        cmdHTMLFeedback.innerText = `Unknown command '${vimCmd}'`;
+        cmdHTMLContainer.classList.add("afterExecution");
     }
     else {
         let f = vimCmdMapping[vimCmd];
@@ -105,6 +122,7 @@ function ExecuteVimCmd() {
     LeaveVimCmdMode();
 }
 
+
 function LeaveVimCmdMode() {
     vimCmdMode = false;
     vimCmd = "";
@@ -113,8 +131,31 @@ function LeaveVimCmdMode() {
     let ramInput = document.getElementById("RamInput");
     ramInput.disabled = false;
     focusInputElement(ramInput);
+    updateVisualCmdMode();
+    cmdHTMLContainer.classList.remove("active")
     console.log("Left VIM CMD mode");
+
 }
+
+
+function updateVisualCmdMode() {
+    cmdHTML.innerText = vimCmd;
+    if (vimCmdMapping.hasOwnProperty(vimCmd)) {
+        cmdHTML.style.color = validCmdColor;
+    }
+    else {
+        let keys = Object.keys(vimCmdMapping)
+        let found = false;
+        for (let i = 0; i < keys.length; i++) {
+            if (keys[i].startsWith(vimCmd)) {
+                found = true;
+                break;
+            }
+        }
+        cmdHTML.style.color = found ? continueCmdColor : invalidCmdColor;
+    }
+}
+
 
 function shortCutEventHandler(e) {
     if (vimCmdMode) {
@@ -138,7 +179,7 @@ function shortCutEventHandler(e) {
                     vimCmd = vimCmd.concat(e.key);
                 }
         }
-        // TODO update visual feedback i.e. implement visual feedback
+        updateVisualCmdMode();
     }
     else if (functionMapping.hasOwnProperty(e.key)) {
         functionMapping[e.key]();

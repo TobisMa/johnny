@@ -610,3 +610,49 @@ input[type="number"] {
 	top: 80vh;
 	left: 10vh;
 }
+
+
+#cmdLine {
+	font-size: 150%;
+	height: 2em;
+	width: 15ch;
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	background-color: #393E46;
+	color: white;
+	padding: 0 1ch;
+	align-items: center;
+	outline: 3px solid white;
+	box-shadow: 2px -1px 10px black;
+	display: none;
+}
+
+#cmdLine.active, #cmdLine.afterExecution {
+	display: flex;
+}
+
+#cmdLine.afterExecution {
+	text-align: center;
+}
+
+#cmdLine span {
+	color: inherit;
+}
+
+#cmdLine.afterExecution * {
+	display: none;
+}
+
+#cmdLine span:first-of-type {
+	margin-right: 1ch;
+}
+
+#cmdFeedback {
+	display: none;
+}
+
+#cmdLine.afterExecution #cmdFeedback {
+	display: inline;
+	color: #cc0e34
+}
