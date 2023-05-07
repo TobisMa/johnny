@@ -52,6 +52,7 @@ NOTE: Currently, visual feedback is still missing. Use Dev Tools to view what is
 #### List of commands in command mode
 | Command | Button |
 | :--- | :--- |
+| `a` | `ManuellAb` |
 | `a+` | `acc++` |
 | `a++` | `acc++` |
 | `a-` | `acc--` |
@@ -61,7 +62,7 @@ NOTE: Currently, visual feedback is still missing. Use Dev Tools to view what is
 | `i` | `Insert Row` |
 | `dr` | `db --> ram` |
 | `rd` | `ram --> db` |
-| `d` | `ManuellDB` |
+| `d` | `ManuellDb` |
 | `da` | `db --> acc` |
 | `p` | `plus` |
 | `s` | `minus` |
