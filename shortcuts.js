@@ -1,16 +1,26 @@
 const slider = document.getElementById("executeSpeedSlider");
 const sliderStep = slider.max / 20;
+
+const cmdHTMLContainer = document.getElementById("cmdLine");
+const cmdHTML = document.getElementById("cmdLine").getElementsByClassName("cmd")[0];
+const validCmdColor = "#00c149";
+const invalidCmdColor = "#d60029";
+const continueCmdColor = "#ff8531";
+
 let vimCmdMode = false;
 let vimCmd = "";
+
 
 function changeSliderBy(delta) {
     slider.value = parseInt(slider.value) + delta;
     updateSpeed();
 }
 
+
 function moveRam(delta) {
     EditRam(CheckNumber(selectedRamModule + delta, 999, 1));
 }
+
 
 function focusInputElement(element) {
     element.focus();
@@ -84,7 +94,9 @@ function EnterVimCmdMode() {
     document.getElementById("RamInput").disabled = true;
     document.getElementById("AddressBusInput").disabled = true;
     document.getElementById("DataBusInput").disabled = true;
+    cmdHTMLContainer.classList.add("active");
 }
+
 
 function ExecuteVimCmd() {
     console.log("Execute VIM CMD:", vimCmd);
@@ -105,6 +117,7 @@ function ExecuteVimCmd() {
     LeaveVimCmdMode();
 }
 
+
 function LeaveVimCmdMode() {
     vimCmdMode = false;
     vimCmd = "";
@@ -113,8 +126,31 @@ function LeaveVimCmdMode() {
     let ramInput = document.getElementById("RamInput");
     ramInput.disabled = false;
     focusInputElement(ramInput);
+    updateVisualCmdMode();
+    cmdHTMLContainer.classList.remove("active")
     console.log("Left VIM CMD mode");
+
 }
+
+
+function updateVisualCmdMode() {
+    cmdHTML.innerText = vimCmd;
+    if (vimCmdMapping.hasOwnProperty(vimCmd)) {
+        cmdHTML.style.color = validCmdColor;
+    }
+    else {
+        let keys = Object.keys(vimCmdMapping)
+        let found = false;
+        for (let i = 0; i < keys.length; i++) {
+            if (keys[i].startsWith(vimCmd)) {
+                found = true;
+                break;
+            }
+        }
+        cmdHTML.style.color = found ? continueCmdColor : invalidCmdColor;
+    }
+}
+
 
 function shortCutEventHandler(e) {
     if (vimCmdMode) {
@@ -138,7 +174,7 @@ function shortCutEventHandler(e) {
                     vimCmd = vimCmd.concat(e.key);
                 }
         }
-        // TODO update visual feedback i.e. implement visual feedback
+        updateVisualCmdMode();
     }
     else if (functionMapping.hasOwnProperty(e.key)) {
         functionMapping[e.key]();
