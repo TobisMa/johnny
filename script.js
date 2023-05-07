@@ -491,13 +491,13 @@ function EditRam(CellNumber) {
 			selectedRamModuleTr.style.background = "yellow";
 		}
 
-		let ramInput = document.getElementById("RamEingabe");
-		if (selectedRamModuleTr.getBoundingClientRect().top + tabelHeight / 2 < document.getElementById("RamDiv").getBoundingClientRect().bottom) {
-			ramInput.style.top = (selectedRamModuleTr.getBoundingClientRect().top - RamEingabeHeight / 2 + tabelHeight / 2) + "px"; //neupositionierung des Peiles für die Rameingabe
-		} else {
+		if (selectedRamModuleTr.getBoundingClientRect().top + tabelHeight / 2 >= document.getElementById("RamDiv").getBoundingClientRect().bottom) {
 			document.getElementById("innerRamDiv").scrollTop = (selectedRamModule - 1) * tabelHeight;
-			ramInput.style.top = (selectedRamModuleTr.getBoundingClientRect().top - RamEingabeHeight / 2 + tabelHeight / 2) + "px"; //neupositionierung des Peiles für die Rameingabe
+		} else if (selectedRamModuleTr.getBoundingClientRect().top - tabelHeight / 2 <= document.getElementById("RamDiv").getBoundingClientRect().top) {
+			document.getElementById("innerRamDiv").scrollTop = (selectedRamModule - 1) * tabelHeight;
+
 		}
+		document.getElementById("RamEingabe").style.top = (selectedRamModuleTr.getBoundingClientRect().top - RamEingabeHeight / 2 + tabelHeight / 2) + "px"; //neupositionierung des Peiles für die Rameingabe
 		let ramInputField = document.getElementById("RamInput");
 		ramInputField.value = selectedRamModuleTr.childNodes[1].innerText;
 		ramInputField.focus();  // requesting write cursor
