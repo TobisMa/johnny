@@ -68,7 +68,7 @@ The visual feedback is in command mode in the bottom left corner
 | `ad` | `acc --> db` |
 | `di` | `db --> ins` |
 
-#### List of command for the control unit
+#### List of commands for the control unit
 NOTE: they are also working when the control unit is not visible
 
 | Command | Button | Meaning 
@@ -85,7 +85,7 @@ NOTE: they are also working when the control unit is not visible
 | `h` | `stop` | HALT program |
 
 ### How to remember them?
-They are made off "operators":
+They are made of "operators":
 | Operator | Meaning(s) |
 | --- | --- |
 | `a` | `Accumulator`, `Address Bus` |
