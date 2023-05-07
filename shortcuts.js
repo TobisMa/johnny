@@ -94,7 +94,13 @@ function ExecuteVimCmd() {
     else {
         let f = vimCmdMapping[vimCmd];
         console.log(f);
-        f();
+        try {
+            f();
+        }
+        catch (e) {
+            // IncPcClick fails always due to a missing number in an object
+            console.error(e);
+        }
     }
     LeaveVimCmdMode();
 }
