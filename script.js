@@ -24,9 +24,9 @@ var recordingCounter = 150; //gibt an an welcher stelle
 //daten die nicht zurückgesetzt werden müssen
 var bonsai = false;
 /*
-	var screenShown = false;
-	var resolution = 50; //allways square
-	var pixelSize;
+var screenShown = false;
+var resolution = 50; //allways square
+var pixelSize;
 */
 var timeoutforexecution  //zum abbrechen des ausführen des Programms
 var alterProgrammzaeler = 0;
@@ -57,12 +57,14 @@ var loaded = false;
 const ramSize = 1000  //this ideally has to be a multiple of 10
 const ramLength = Math.log10(ramSize) + 1;
 
+const allowedRamInputChars = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "Delete", "Backspace", "ArrowRight", "ArrowLeft"]
+
 var Ram = JSON.parse(localStorage.getItem('johnny-ram'));
 if (Ram == null) {//default if local store has been cleared or johnny is started for the first time
 	Ram = [];
 	for (i = 0; i < ramSize; i++) {
 		Ram[i] = 0;
-
+		
 	}
 }
 
@@ -72,7 +74,7 @@ var turboMode = false;
 //funktionen ohne Zuordnung
 function initialize() {
 	Befehlsauswahl = document.getElementById("CommandSelect");
-
+	
 	generateRam();
 
 	MicroCode = JSON.parse(localStorage.getItem('johnny-microcode'));
@@ -174,8 +176,9 @@ function resize() {
 function RamInputKeydown(e) {
 	if (e.key == "Enter") {
 		ManuellRam();
-
-
+	}
+	else if (!allowedRamInputChars.includes(e.key) && !e.ctrlKey && e.key !== "Control") {
+		e.preventDefault();
 	}
 }
 

@@ -16,6 +16,26 @@ This edited version can be viewed at [https://tobisma.github.io/johnny](https://
 - intelligent number reading when editing RAM values (e. g. `1.3` is understood as `01.003` which would be `TAKE 003`) 
 - fixing some issues when resizing the page
 - made electron packagable
+- implemented shortcuts for menu bar and ram moving
+
+## shortcuts
+| Key | Action |
+| :--- | :--- | 
+| <kbd>E</kbd> | Reset & Execute Program |
+| <kbd>R</kbd> | Reset |
+| <kbd>S</kbd> | Execute one macro step |
+| <kbd>P</kbd> | Pause execution |
+| <kbd>⇧ Shift</kbd><kbd>S</kbd> | Execute one micro step |
+| <kbd>↑</kbd> | Move one up in RAM |
+| <kbd>↓</kbd> | Move one down in RAM |
+| <kbd>K</kbd> | Move one up in RAM |
+| <kbd>J</kbd> | Move one down in RAM |
+| <kbd>U</kbd> | Toggle control unit view |
+| <kbd>+</kbd> | Make execution faster |
+| <kbd>-</kbd> | Make execution slower |
+| <kbd>Alt</kbd><kbd>C</kbd> | Clear Ram |
+| <kbd>⌥ Option</kbd><kbd>C</kbd> | Clear RAM |
+
 
 ## browser compatibility
 I recommend to use Firefox (continue reading for the reason).  
