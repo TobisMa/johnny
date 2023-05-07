@@ -105,10 +105,13 @@ function shortCutEventHandler(e) {
                 LeaveVimCmdMode();
                 break;
             default:
-                if (e.ctrlKey || e.altKey) {
+                if (e.ctrlKey && e.key === "c") {
+                    LeaveVimCmdMode();
+                }
+                else if (e.ctrlKey || e.altKey) {
                     return;
                 }
-                if (e.key.length == 1) {
+                else if (e.key.length == 1) {
                     vimCmd = vimCmd.concat(e.key);
                 }
         }
