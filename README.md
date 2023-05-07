@@ -21,27 +21,27 @@ This edited version can be viewed at [https://tobisma.github.io/johnny](https://
 
 ## shortcuts
 ### basic shortcuts for menu and RAM
-| Key | Action |
-| :--- | :--- | 
-| <kbd>E</kbd> | Reset & Execute Program |
-| <kbd>R</kbd> | Reset |
-| <kbd>S</kbd> | Execute one macro step |
-| <kbd>P</kbd> | Pause execution |
-| <kbd>⇧ Shift</kbd><kbd>S</kbd> | Execute one micro step |
-| <kbd>↑</kbd> | Move one up in RAM |
-| <kbd>↓</kbd> | Move one down in RAM |
-| <kbd>K</kbd> | Move one up in RAM |
-| <kbd>J</kbd> | Move one down in RAM |
-| <kbd>U</kbd> | Toggle control unit view |
-| <kbd>+</kbd> | Make execution faster |
-| <kbd>-</kbd> | Make execution slower |
-| <kbd>Alt</kbd><kbd>C</kbd> | Clear Ram |
-| <kbd>⌥ Option</kbd><kbd>C</kbd> | Clear RAM |
-| <kbd>:</kbd> | Enter command mode for buttons |
-| <kbd>v</kbd> | Enter command mode for buttons |
-| <kbd>D</kbd> | Focus Data bus input |
-| <kbd>A</kbd> | Focus Address bus input |
-| <kbd>W</kbd> | Focus RAM row input |
+| Key | Action | Key meaining |
+| :--- | :--- | :--- |
+| <kbd>E</kbd> | Reset & Execute Program | Execute |
+| <kbd>R</kbd> | Reset | Reset |
+| <kbd>S</kbd> | Execute one macro step | Step |
+| <kbd>P</kbd> | Pause execution | Pause |
+| <kbd>⇧ Shift</kbd><kbd>S</kbd> | Execute one micro step | Step |
+| <kbd>↑</kbd> | Move one up in RAM | |
+| <kbd>↓</kbd> | Move one down in RAM | |
+| <kbd>K</kbd> | Move one up in RAM | _Vim keybinding_ |
+| <kbd>J</kbd> | Move one down in RAM | _Vim keybinding_ |
+| <kbd>U</kbd> | Toggle control unit view | Unit |
+| <kbd>+</kbd> | Make execution faster | |
+| <kbd>-</kbd> | Make execution slower | |
+| <kbd>Alt</kbd><kbd>C</kbd> | Clear Ram | Clear |
+| <kbd>⌥ Option</kbd><kbd>C</kbd> | Clear RAM | Clear |
+| <kbd>:</kbd> | Enter command mode for buttons | _Vim keybinding_ | 
+| <kbd>v</kbd> | Enter command mode for buttons | Vim |
+| <kbd>D</kbd> | Focus Data bus input | Data Bus |
+| <kbd>A</kbd> | Focus Address bus input | Address Bus |
+| <kbd>W</kbd> | Focus RAM row input | Write (to RAM) |
 
 ### shortcuts for buttons like `ram --> db`
 Those shortcuts are in VIM style meaning you need to enter command mode first by pressing <kbd>:</kbd> or <kbd>v</kbd>.
@@ -49,8 +49,8 @@ Afterwards you type the commmand from the list below. Then press <kbd>⏎ Enter<
 The visual feedback is in command mode in the bottom left corner
 
 #### List of commands in command mode
-| Command | Button |
-| :--- | :--- |
+| Command | Button | Meaning & Notes |
+| :--- | :--- | --- |
 | `a` | `ManuellAb` |
 | `a+` | `acc++` |
 | `a++` | `acc++` |
@@ -58,21 +58,21 @@ The visual feedback is in command mode in the bottom left corner
 | `a--` | `acc--` |
 | `a0` | `acc:=0` |
 | `ar` | `acc:=0` |
-| `i` | `Insert Row` |
+| `i` | `Insert Row` | Inserts always above selection (like in vim before the cursor) |
 | `dr` | `db --> ram` |
 | `rd` | `ram --> db` |
 | `d` | `ManuellDb` |
 | `da` | `db --> acc` |
-| `p` | `plus` |
-| `s` | `minus` |
+| `p` | `plus` | plus |
+| `s` | `minus` | subtract |
 | `ad` | `acc --> db` |
 | `di` | `db --> ins` |
 
 #### List of command for the control unit
 NOTE: they are also working when the control unit is not visible
 
-| Command | Button |
-| --- | --- |
+| Command | Button | Meaning 
+| --- | --- | --- |
 | `im` | `ins --> mc` |
 | `ip` | `ins --> pc` |
 | `ia` | `ins --> ab` |
@@ -82,7 +82,21 @@ NOTE: they are also working when the control unit is not visible
 | `=0` | `=0:pc++` |
 | `m0` | `mc:=0` |
 | `stop` | `stop` |
-| `h` | `stop` |
+| `h` | `stop` | HALT program |
+
+### How to remember them?
+They are made off "operators":
+| Operator | Meaning(s) |
+| --- | --- |
+| `a` | `Accumulator`, `Address Bus` |
+| `d` | `Data Bus` |
+| `r` | `Ram` |
+| `p` | `Program counter` |
+| `i` | `Instruction Register` |
+
+By putting them together buttons like `ram --> db` are represented as `rd` with the meaning from `r`(ram) to `d`(data bus).
+
+Adding `+` or `-` causes counting buttons to be triggered. For example `p+` means to add to the program counter. An alias would be `p++`. Just for the case someone types two `+`. In a context like `a+` the `a` stands for `Accumulator` instead of `Address Bus` because there are no counting buttons for the address bus.
 
 
 ## browser compatibility
