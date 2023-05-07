@@ -1,4 +1,4 @@
-# johnny
+# johnny - original
 Simulation of a von neumann arcitecture
 
 The programm is hosted by inf-schule.de
@@ -8,6 +8,7 @@ With the hosting at inf-schule.de it does take some time for them to apply new v
 https://laubersheini.github.io/johnny
 which automatically updates as soon as i make a commit to the master branch of this repo so it should always be more up to date.
 
+# johnny - modifications
 ## johnny changes
 This edited version can be viewed at [https://tobisma.github.io/johnny](https://tobisma.github.io/johnny)
 - implement a button to insert a row above the current selection
@@ -20,6 +21,8 @@ This edited version can be viewed at [https://tobisma.github.io/johnny](https://
 - implemented VIM style shortcuts for buttons
 - remember execution speed
 - only allow writing numbers in input fields
+- remember configured execution speed
+
 
 ## shortcuts
 ### basic shortcuts for menu and RAM
