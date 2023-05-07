@@ -120,6 +120,7 @@ function shortCutEventHandler(e) {
                     vimCmd = vimCmd.concat(e.key);
                 }
         }
+        // TODO update visual feedback i.e. implement visual feedback
     }
     else if (functionMapping.hasOwnProperty(e.key)) {
         functionMapping[e.key]();
