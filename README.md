@@ -17,8 +17,10 @@ This edited version can be viewed at [https://tobisma.github.io/johnny](https://
 - fixing some issues when resizing the page
 - made electron packagable
 - implemented shortcuts for menu bar and ram moving
+- implemented VIM style shortcuts for buttons
 
 ## shortcuts
+### basic shortcuts for menu and RAM
 | Key | Action |
 | :--- | :--- | 
 | <kbd>E</kbd> | Reset & Execute Program |
@@ -35,6 +37,43 @@ This edited version can be viewed at [https://tobisma.github.io/johnny](https://
 | <kbd>-</kbd> | Make execution slower |
 | <kbd>Alt</kbd><kbd>C</kbd> | Clear Ram |
 | <kbd>⌥ Option</kbd><kbd>C</kbd> | Clear RAM |
+| <kbd>:</kbd> | Enter command mode for buttons |
+| <kbd>v</kbd> | Enter command mode for buttons |
+
+### shortcuts for buttons like `ram --> db`
+Those shortcuts are in VIM style meaning you need to enter command mode first by pressing <kbd>:</kbd> or <kbd>v</kbd>.
+Afterwards you type the commmand from the list below. Then press <kbd>⏎ Enter</kbd> to emulate pressing the button. While in command mode you can press <kbd>Esc</kbd> or <kbd>Ctrl</kbd><kbd>C</kbd>. While in command mode all basic shortcuts above are disabled.
+
+NOTE: Currently, visual feedback is still missing. Use Dev Tools to view what is happening in command mode.
+
+#### List of commands in command mode
+| Command | Button |
+| :--- | :--- |
+| `a+` | `acc++` |
+| `a++` | `acc++` |
+| `a-` | `acc--` |
+| `a--` | `acc--` |
+| `a0` | `acc:=0` |
+| `ar` | `acc:=0` |
+| `i` | `Insert Row` |
+| `dr` | `db --> ram` |
+| `rd` | `ram --> db` |
+| `d` | `ManuellDB` |
+| `da` | `db --> acc` |
+| `p` | `plus` |
+| `s` | `minus` |
+| `ad` | `acc --> db` |
+| `di` | `db --> ins` |
+| `im` | `ins --> mc` |
+| `ip` | `ins --> pc` |
+| `ia` | `ins --> ab` |
+| `pa` | `pc --> ab` |
+| `p+` | `pc++` |
+| `p++` | `pc++` |
+| `=0` | `=0:pc++` |
+| `m0` | `mc:=0` |
+| `stop` | `stop` |
+| `h` | `stop`
 
 
 ## browser compatibility

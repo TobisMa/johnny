@@ -61,6 +61,7 @@ const vimCmdMapping = {
     "=0": IncPc0Click,
     "m0": NullMcClick,
     "stop": HaltClick,
+    "h": HaltClick
 }
 
 
@@ -78,7 +79,9 @@ function ExecuteVimCmd() {
         console.error("No VIM CMD:", vimCmd);
     }
     else {
-        vimCmdMapping[vimCmd]();
+        let f = vimCmdMapping[vimCmd];
+        console.log(f);
+        f();
     }
     LeaveVimCmdMode();
 }
