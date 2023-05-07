@@ -5,7 +5,7 @@ const cmdHTMLContainer = document.getElementById("cmdLine");
 const cmdHTML = document.getElementById("cmdLine").getElementsByClassName("cmd")[0];
 const cmdHTMLFeedback = document.getElementById("cmdFeedback");
 const validCmdColor = "#00c149";
-const invalidCmdColor = "#d60029";
+const invalidCmdColor = "#ff5151";
 const continueCmdColor = "#ff8531";
 
 let vimCmdMode = false;
