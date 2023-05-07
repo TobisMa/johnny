@@ -64,6 +64,11 @@ NOTE: Currently, visual feedback is still missing. Use Dev Tools to view what is
 | `s` | `minus` |
 | `ad` | `acc --> db` |
 | `di` | `db --> ins` |
+
+#### List of command for the control unit
+NOTE: they are also working when the control unit is not visible
+
+| Command | Button |
 | `im` | `ins --> mc` |
 | `ip` | `ins --> pc` |
 | `ia` | `ins --> ab` |
