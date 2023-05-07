@@ -30,7 +30,7 @@ var pixelSize;
 */
 var timeoutforexecution  //zum abbrechen des ausführen des Programms
 var alterProgrammzaeler = 0;
-var geschwindigkeit = 1700; // intervall in dem Befehle ausgeführt werden
+var geschwindigkeit = parseInt(localStorage.getItem("execSpeed")) || 1300; // intervall in dem Befehle ausgeführt werden
 
 var selectedRamModule = 0;
 var dataHighlightedRamModule = 0;
@@ -87,7 +87,7 @@ function initialize() {
 
 
 
-	document.getElementById("executeSpeedSlider").value = geschwindigkeit;
+	document.getElementById("executeSpeedSlider").value = 3000 - geschwindigkeit;
 	document.getElementById("controlUnitCheckbox").checked = false;
 
 	document.getElementById("AddressBusInput").addEventListener("keydown", AddressBusInputKeydown);//damit die Entertaste funktioniert
@@ -227,6 +227,7 @@ function updateSpeed() {
 	} else {
 		turboMode = false;
 	}
+	localStorage.setItem("execSpeed", geschwindigkeit);
 }
 
 
