@@ -3,6 +3,7 @@ const sliderStep = slider.max / 20;
 
 const cmdHTMLContainer = document.getElementById("cmdLine");
 const cmdHTML = document.getElementById("cmdLine").getElementsByClassName("cmd")[0];
+const cmdHTMLFeedback = document.getElementById("cmdFeedback");
 const validCmdColor = "#00c149";
 const invalidCmdColor = "#d60029";
 const continueCmdColor = "#ff8531";
@@ -50,10 +51,11 @@ const functionMapping = {
         ToggleControlUnit();
     },
     ":": EnterVimCmdMode,
-    "v": EnterVimCmdMode,
-    "a": () => { focusInputElement(document.getElementById("AddressBusInput")) },
-    "d": () => { focusInputElement(document.getElementById("DataBusInput")) },
-    "w": () => { focusInputElement(document.getElementById("RamInput")) }
+    v: EnterVimCmdMode,
+    a: () => { focusInputElement(document.getElementById("AddressBusInput")) },
+    d: () => { focusInputElement(document.getElementById("DataBusInput")) },
+    w: () => { focusInputElement(document.getElementById("RamInput")) },
+    Escape: () => { cmdHTML.classList.remove("afterExecution") }
 }
 
 const vimCmdMapping = {
@@ -94,6 +96,7 @@ function EnterVimCmdMode() {
     document.getElementById("RamInput").disabled = true;
     document.getElementById("AddressBusInput").disabled = true;
     document.getElementById("DataBusInput").disabled = true;
+    cmdHTMLContainer.classList.remove("afterExecution");
     cmdHTMLContainer.classList.add("active");
 }
 
@@ -102,6 +105,8 @@ function ExecuteVimCmd() {
     console.log("Execute VIM CMD:", vimCmd);
     if (!vimCmdMapping.hasOwnProperty(vimCmd)) {
         console.error("No VIM CMD:", vimCmd);
+        cmdHTMLFeedback.innerText = `Unknown command '${vimCmd}'`;
+        cmdHTMLContainer.classList.add("afterExecution");
     }
     else {
         let f = vimCmdMapping[vimCmd];

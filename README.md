@@ -46,8 +46,7 @@ This edited version can be viewed at [https://tobisma.github.io/johnny](https://
 ### shortcuts for buttons like `ram --> db`
 Those shortcuts are in VIM style meaning you need to enter command mode first by pressing <kbd>:</kbd> or <kbd>v</kbd>.
 Afterwards you type the commmand from the list below. Then press <kbd>⏎ Enter</kbd> to emulate pressing the button. While in command mode you can press <kbd>Esc</kbd> or <kbd>Ctrl</kbd><kbd>C</kbd>. While in command mode all basic shortcuts above are disabled.
-
-NOTE: Currently, visual feedback is still missing. Use Dev Tools to view what is happening in command mode.
+The visual feedback is in command mode in the bottom left corner
 
 #### List of commands in command mode
 | Command | Button |
@@ -83,14 +82,14 @@ NOTE: they are also working when the control unit is not visible
 | `=0` | `=0:pc++` |
 | `m0` | `mc:=0` |
 | `stop` | `stop` |
-| `h` | `stop`
+| `h` | `stop` |
 
 
 ## browser compatibility
 I recommend to use Firefox (continue reading for the reason).  
 This website works on Firefox and chromium based browsers (Edge, Chrome, ...). Not listed browsers have not been tested which does not mean they are not compatible.
 
-NOTE: If the dataset gets larger the time to update the RAM rows becomes longer
+NOTE: If the dataset gets larger the time to update the RAM rows becomes longer. But it has been fixed, so that chromium base browser only need ~500ms instead of 3.5sec
 
 ## package using electron
 1. Clone the repository locally and move into the folder
