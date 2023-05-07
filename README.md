@@ -18,6 +18,8 @@ This edited version can be viewed at [https://tobisma.github.io/johnny](https://
 - made electron packagable
 - implemented shortcuts for menu bar and ram moving
 - implemented VIM style shortcuts for buttons
+- remember execution speed
+- only allow writing numbers in input fields
 
 ## shortcuts
 ### basic shortcuts for menu and RAM
