@@ -496,7 +496,7 @@ function EditRam(CellNumber) {
 			document.getElementById("innerRamDiv").scrollTop = (selectedRamModule - 1) * tabelHeight;
 		} else if (selectedRamModuleTr.getBoundingClientRect().top - tabelHeight / 2 <= document.getElementById("RamDiv").getBoundingClientRect().top) {
 			// scroll when arrow leaves RAM table at the top
-			document.getElementById("innerRamDiv").scrollTop = (selectedRamModule - 1) * tabelHeight;
+			document.getElementById("innerRamDiv").scrollTop = selectedRamModule * tabelHeight;
 		}
 		document.getElementById("RamEingabe").style.top = (selectedRamModuleTr.getBoundingClientRect().top - RamEingabeHeight / 2 + tabelHeight / 2) + "px"; //neupositionierung des Peiles für die Rameingabe
 		let ramInputField = document.getElementById("RamInput");
