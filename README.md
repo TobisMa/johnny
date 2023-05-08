@@ -12,6 +12,7 @@ which automatically updates as soon as i make a commit to the master branch of t
 ## johnny changes
 This edited version can be viewed at [https://tobisma.github.io/johnny](https://tobisma.github.io/johnny)
 - implement a button to insert a row above the current selection
+- delete selected row
 - when selecting an address row, make the value available to edit directly in the input field
 - focus the input on selection of an address
 - intelligent number reading when editing RAM values (e. g. `1.3` is understood as `01.003` which would be `TAKE 003`) 
@@ -47,6 +48,7 @@ This edited version can be viewed at [https://tobisma.github.io/johnny](https://
 | <kbd>D</kbd> | Focus Data bus input | Data Bus |
 | <kbd>A</kbd> | Focus Address bus input | Address Bus |
 | <kbd>W</kbd> | Focus RAM row input | Write (to RAM) |
+| <kbd>Del</kbd> | Remove current selected line |
 
 ### shortcuts for buttons like `ram --> db`
 Those shortcuts are in VIM style meaning you need to enter command mode first by pressing <kbd>:</kbd> or <kbd>v</kbd>.

@@ -55,7 +55,8 @@ const functionMapping = {
     a: () => { focusInputElement(document.getElementById("AddressBusInput")) },
     d: () => { focusInputElement(document.getElementById("DataBusInput")) },
     w: () => { focusInputElement(document.getElementById("RamInput")) },
-    Escape: () => { cmdHTML.classList.remove("afterExecution") }
+    Escape: () => { cmdHTML.classList.remove("afterExecution") },
+    Delete: deleteRow
 }
 
 const vimCmdMapping = {

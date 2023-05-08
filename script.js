@@ -573,12 +573,12 @@ function insertRowAbove() {
 	selectedRamModule = newSelect;
 	getRamRow().parentNode.insertBefore(emptyRow, getRamRow());
 	
-	fixRamNumbers(newSelect);
+	fixRamNumbers(newSelect, +1);
 	selectedRamModule = newSelect; // important; override in fixRamNumbers could happen
 	EditRam(selectedRamModule);
 }
 
-function fixRamNumbers(offset) {
+function fixRamNumbers(offset, delta) {
 	let nodes = document.getElementById("RamTBody").childNodes;
 	let addressCols = document.getElementById("RamTBody").getElementsByClassName("col1");
 	let dataCols = document.getElementById("RamTBody").getElementsByClassName("col2");
@@ -597,11 +597,23 @@ function fixRamNumbers(offset) {
 
 		// fix data; should fix asm and opand as well
 		if (number[0] !== "00" && number[0] !== "10" && parseInt(number[1]) >= offset) {
-			writeToRam(CheckNumber(parseInt(number.join("")) + 1, maxNumber,0), row);
+			writeToRam(CheckNumber(parseInt(number.join("")) + delta, maxNumber,0), row);
 		}
 	}
 	// console.timeEnd("DataFix");
 }
+
+
+function deleteRow() {
+	let row = getRamRow();
+	writeToRam(00000, selectedRamModule);
+	row.style.background = "";
+	let table = row.parentNode;
+	table.insertBefore(row, table.childNodes[table.childNodes.length - 1]);
+	fixRamNumbers(row.dataset.addr, -1);
+	EditRam(selectedRamModule);
+}
+
 
 /*
 //this is needed to prevent Safari (ipad) from making the background scroll funny
