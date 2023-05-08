@@ -91,15 +91,31 @@ NOTE: they are also working when the control unit is not visible
 | `stop` | `stop` |
 | `h` | `stop` | HALT program |
 
+
+#### List of commands for menu bar
+| Command | Button |
+| --- | --- |
+| `lr` | _Load RAM_ |
+| `lm` | _Load microcode_ |
+| `sr` | _Save RAM_ |
+| `sm` | _Save microcode |
+| `cr` | _Clear Ram_ |
+| `cm` | _Clear microcode |
+
+
 ### How to remember them?
 They are made of "operators":
-| Operator | Meaning(s) |
-| --- | --- |
-| `a` | `Accumulator`, `Address Bus` |
-| `d` | `Data Bus` |
-| `r` | `Ram` |
-| `p` | `Program counter` |
-| `i` | `Instruction Register` |
+| Operator | Meaning(s) | Type |
+| --- | --- | --- |
+| `a` | `Accumulator`, `Address Bus` | _Destination_ |
+| `d` | `Data Bus` | _Destination_ |
+| `r` | `Ram` | _Destination_ |
+| `p` | `Program counter` | _Destination_ |
+| `i` | `Instruction Register` | _Destination_ |
+| `m` | `Micro code` | _Location_ |
+| `l` | _`Load`_ | _Action_ |
+| `s` | _`Save`_ | _Action_ |
+| `c` | _`Clear`_ | _Action_ |
 
 By putting them together buttons like `ram --> db` are represented as `rd` with the meaning from `r`(ram) to `d`(data bus).
 

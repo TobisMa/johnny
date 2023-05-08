@@ -85,7 +85,13 @@ const vimCmdMapping = {
     "=0": IncPc0Click,
     "m0": NullMcClick,
     "stop": HaltClick,
-    "h": HaltClick
+    "h": HaltClick,
+    "sr": downloadRam,
+    "sm": downloadMc,
+    "lr": uploadRam,
+    "lm": uploadMc,
+    "cr": newRam,
+    "cm": resetMicrocode
 }
 
 
