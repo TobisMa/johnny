@@ -458,8 +458,7 @@ function nextRamModule() {
 	//entfärben of Ram
 	getRamRow().style.background = "";
 	if (selectedRamModule < parseInt("9".repeat(ramLength - 1))) {
-
-		selectedRamModule++
+		selectedRamModule++;
 	}
 
 	//gelbfärbung der Spalte
@@ -505,12 +504,13 @@ function EditRam(CellNumber) {
 			selectedRamModuleTr.style.background = "yellow";
 		}
 
-		if (selectedRamModuleTr.getBoundingClientRect().top + tabelHeight / 2 >= document.getElementById("RamDiv").getBoundingClientRect().bottom) {
+		if (selectedRamModuleTr.getBoundingClientRect().top + 2 * tabelHeight >= document.getElementById("RamDiv").getBoundingClientRect().bottom) {
 			// scroll when arrow leaves RAM table at the bottom
-			document.getElementById("innerRamDiv").scrollTop = (selectedRamModule - 1) * tabelHeight;
-		} else if (selectedRamModuleTr.getBoundingClientRect().top - tabelHeight / 2 <= document.getElementById("RamDiv").getBoundingClientRect().top) {
+			let innerRamDiv = document.getElementById("innerRamDiv")
+			innerRamDiv.scrollTop = (selectedRamModule + 2) * tabelHeight - innerRamDiv.clientHeight;
+		} else if (selectedRamModuleTr.getBoundingClientRect().top - 2 * tabelHeight <= document.getElementById("RamDiv").getBoundingClientRect().top) {
 			// scroll when arrow leaves RAM table at the top
-			document.getElementById("innerRamDiv").scrollTop = selectedRamModule * tabelHeight;
+			document.getElementById("innerRamDiv").scrollTop = (selectedRamModule - 1) * tabelHeight;
 		}
 		document.getElementById("RamEingabe").style.top = (selectedRamModuleTr.getBoundingClientRect().top - RamEingabeHeight / 2 + tabelHeight / 2) + "px"; //neupositionierung des Peiles für die Rameingabe
 		let ramInputField = document.getElementById("RamInput");
