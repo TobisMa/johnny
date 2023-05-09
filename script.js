@@ -622,9 +622,9 @@ function getHighlightRamRow() {
 
 function insertRowAbove() {
 	getRamRow().style.background = ""; // reset background color
-
 	let newSelect = selectedRamModule;
 	let emptyRow = undefined;
+	console.log("selected", selectedRamModule);
 	for (let i = 999; i >= 900; i--) {
 		selectedRamModule = i;
 		if (getRamRow().getElementsByClassName("col2")[0].innerText === "00.000") {
@@ -638,22 +638,16 @@ function insertRowAbove() {
 		EditRam(selectedRamModule);
 		return;
 	}
-
-	Ram.splice(emptyRow.dataset.addr, 1); // remove old
 	
 	selectedRamModule = newSelect;
+	// Ram.splice(emptyRow.dataset.addr, 1);
 	getRamRow().parentNode.insertBefore(emptyRow, getRamRow());
 
 	fixRamNumbers(newSelect, +1);
+	Ram.splice(newSelect, 1, 0);
+	localStorage.setItem("johnny-ram", JSON.stringify(Ram));
 	selectedRamModule = newSelect; // important; override in fixRamNumbers could happen (in future)
 	EditRam(selectedRamModule);
-
-	console.log(emptyRow);
-	console.log(selectedRamModule);
-
-	Ram.splice(selectedRamModule, 0, 0); // add new
-	localStorage.setItem('johnny-ram', JSON.stringify(Ram));  // save
-	
 }
 
 function fixRamNumbers(offset, delta) {
@@ -661,6 +655,7 @@ function fixRamNumbers(offset, delta) {
 	let addressCols = document.getElementById("RamTBody").getElementsByClassName("col1");
 	let dataCols = document.getElementById("RamTBody").getElementsByClassName("col2");
 	let maxNumber = (1 + "9".repeat(ramLength)).toString();
+	delta = fixRAM ? delta : 0;
 
 	// console.time("AddressFix");
 	for (let row = 0; row < 1000; row++) {
@@ -669,37 +664,39 @@ function fixRamNumbers(offset, delta) {
 		addressCols[row].innerText = row;
 	}
 	// console.timeEnd("AddressFix");
-	if (fixRAM) {
-		// console.time("DataFix");
-		for (let row = 0; row < 1000; row++) {
-			let number = dataCols[row].innerText.split(".");
-	
-			// fix data; should fix asm and opand as well
-			if (number[0] !== "00" && number[0] !== "10" && parseInt(number[1]) >= offset) {
-				writeToRam(CheckNumber(parseInt(number.join("")) + delta, maxNumber, 0), row);
-			}
+	// console.time("DataFix");
+	for (let row = 0; row < 1000; row++) {
+		let number = dataCols[row].innerText.split(".");
+
+		// fix data; should fix asm and opand as well
+		if (number[0] !== "00" && number[0] !== "10" && parseInt(number[1]) >= offset) {
+			writeToRam(CheckNumber(parseInt(number.join("")) + delta, maxNumber, 0), row, false);
 		}
-		// console.timeEnd("DataFix");
+		else if (number[0] === "10") {
+			writeToRam(parseInt(number.join("")), row);
+		}
+		else if (number[1] !== "000" || Ram[row] !== 0) {
+			writeToRam(parseInt(number.join("")), row);
+		}
 	}
+	localStorage.setItem("johnny-ram", JSON.stringify(Ram));
+	// console.timeEnd("DataFix");
 }
 
 
 function deleteRow() {
 	let row = getRamRow();
-	writeToRam(00000, selectedRamModule);
+	writeToRam(00000, selectedRamModule, false);
 	row.style.background = "";
 	let table = row.parentNode;
-
-	// correct saved Ram
 	Ram.splice(selectedRamModule, 1);
 	Ram.push(0);
-	localStorage.setItem('johnny-ram', JSON.stringify(Ram));
-	
+
 	// fix screen values
 	table.insertBefore(row, table.childNodes[table.childNodes.length - 1]);
 	fixRamNumbers(row.dataset.addr, -1);
 	
-	
+	localStorage.setItem("johnny-ram", JSON.stringify(Ram));
 	EditRam(selectedRamModule);
 }
 
