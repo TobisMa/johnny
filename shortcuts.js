@@ -19,7 +19,7 @@ function changeSliderBy(delta) {
 
 
 function moveRam(delta) {
-    EditRam(CheckNumber(selectedRamModule + delta, 999, 1));
+    EditRam(CheckNumber(selectedRamModule + delta, 999, 0));
 }
 
 
@@ -196,7 +196,7 @@ function shortCutEventHandler(e) {
         newRam();
     }
     else {
-        console.log(e);
+        // console.log(e);
     }
 }
 
