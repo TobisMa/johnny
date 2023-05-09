@@ -5,13 +5,15 @@ var modal = document.getElementById("myModal");
 document.getElementById("settings_button").onclick = function() {
   modal.style.display = "block";
   document.getElementById("bonsaiModeButton").focus();
+  LeaveVimCmdMode();
 };
 
-// Get the <span> element that closes the modal
-document.getElementsByClassName("close")[0].onclick = function() {
+function closeSettings() {
   modal.style.display = "none";
 };
 
+// Get the <span> element that closes the modal
+document.getElementsByClassName("close")[0].addEventListener("click", closeSettings);
 
 
 // When the user clicks anywhere outside of the modal, close it
