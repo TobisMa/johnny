@@ -4,6 +4,7 @@ var modal = document.getElementById("myModal");
 // Get the button that opens the modal // When the user clicks on the button, open the modal
 document.getElementById("settings_button").onclick = function() {
   modal.style.display = "block";
+  document.getElementById("bonsaiModeButton").focus();
 };
 
 // Get the <span> element that closes the modal
