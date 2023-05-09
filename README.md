@@ -23,7 +23,10 @@ This edited version can be viewed at [https://tobisma.github.io/johnny](https://
 - remember execution speed
 - only allow writing numbers in input fields
 - remember configured execution speed
-
+- more intuitive scroll behaviour
+- settings
+    - turn on/off correcting RAM macro commands on insert/delete row
+    - configure how many lines if available should be above/below the selection while scrolling using arrows keys or <kbd>j</kbd><kbd>k</kbd>
 
 ## shortcuts
 ### basic shortcuts for menu and RAM

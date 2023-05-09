@@ -656,3 +656,16 @@ input[type="number"] {
 	display: inline;
 	color: #ff5151
 }
+
+.modal-content .left-align {
+	width: 80%;
+	min-width: 300px;
+	max-width: 100%;
+	text-align: left;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.lines-ahead {
+	width: 6ch;
+}
