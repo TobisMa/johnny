@@ -60,12 +60,17 @@ const ramLength = Math.log10(ramSize) + 1;
 const allowedRamInputChars = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "Delete", "Backspace", "ArrowRight", "ArrowLeft"]
 const digits = "0123456789".split("");
 
+// settings
+let fixRAM = true;
+let linesAheadTop = 1;
+let linesAheadBottom = 5;
+
 var Ram = JSON.parse(localStorage.getItem('johnny-ram'));
 if (Ram == null) {//default if local store has been cleared or johnny is started for the first time
 	Ram = [];
 	for (i = 0; i < ramSize; i++) {
 		Ram[i] = 0;
-		
+
 	}
 }
 
@@ -98,6 +103,9 @@ function initialize() {
 	window.addEventListener('resize', resize);
 
 	getRamRow().style.background = "#00F45D";
+
+	initializeSettings();
+
 	//ladeBildschirm
 	loaded = true;
 	document.getElementById("loading").innerText = "";
@@ -110,6 +118,48 @@ function initialize() {
 	}
 
 }//ende initialize
+
+
+function initializeSettings() {
+	// fixRAM
+	let fixRAMElement = document.getElementById("fixRAM");
+	fixRAM = localStorage.getItem("fixRAM")?.toLowerCase() !== "false";  // default to true on undefined !== "false"
+	fixRAMElement.checked = fixRAM;
+	fixRAMElement.addEventListener("change", (e) => {
+		fixRAM = e.target.checked;
+		localStorage.setItem("fixRAM", fixRAM);
+	});
+
+	// scroll ahead top
+	let scrollAheadTopElement = document.getElementById("ahead-lines-top");
+	linesAheadTop = parseInt(localStorage.getItem("linesAheadTop")) || linesAheadTop;
+	scrollAheadTopElement.value = linesAheadTop;
+
+	scrollAheadTopElement.addEventListener("keydown", (e) => {
+		if (shouldPreventDefault(e, digits)) {
+			e.preventDefault();
+		}
+	});
+	scrollAheadTopElement.addEventListener("change", (e) => {
+		linesAheadTop = parseInt(e.target.value);
+		localStorage.setItem("linesAheadTop", linesAheadTop);
+	}, true);
+
+	// scroll ahead bottom
+	let scrollAheadBottomElement = document.getElementById("ahead-lines-bottom");
+	linesAheadBottom = parseInt(localStorage.getItem("linesAheadBottom")) || linesAheadBottom;
+	scrollAheadBottomElement.value = linesAheadBottom;
+
+	scrollAheadBottomElement.addEventListener("keydown", (e) => {
+		if (shouldPreventDefault(e, digits)) {
+			e.preventDefault();
+		}
+	});
+	scrollAheadBottomElement.addEventListener("change", (e) => {
+		linesAheadBottom = parseInt(e.target.value);
+		localStorage.setItem("linesAheadBottom", linesAheadBottom);
+	}, true);
+}
 
 
 function resetMicrocode() {
@@ -214,8 +264,8 @@ function CheckNumber(X, maxValue, minValue) {//Überprüft ob nur Zaheln eingege
 	}
 	else if (X > maxValue) {
 		return maxValue
-	} 
-	else if (X < minValue) { 
+	}
+	else if (X < minValue) {
 		return minValue;
 	}
 	console.error("X is", X);
@@ -504,13 +554,13 @@ function EditRam(CellNumber) {
 			selectedRamModuleTr.style.background = "yellow";
 		}
 
-		if (selectedRamModuleTr.getBoundingClientRect().top + 2 * tabelHeight >= document.getElementById("RamDiv").getBoundingClientRect().bottom) {
+		if (selectedRamModuleTr.getBoundingClientRect().top + (linesAheadBottom + 1) * tabelHeight >= document.getElementById("RamDiv").getBoundingClientRect().bottom) {
 			// scroll when arrow leaves RAM table at the bottom
 			let innerRamDiv = document.getElementById("innerRamDiv")
-			innerRamDiv.scrollTop = (selectedRamModule + 2) * tabelHeight - innerRamDiv.clientHeight;
-		} else if (selectedRamModuleTr.getBoundingClientRect().top - 2 * tabelHeight <= document.getElementById("RamDiv").getBoundingClientRect().top) {
+			innerRamDiv.scrollTop = (selectedRamModule + linesAheadBottom + 1) * tabelHeight - innerRamDiv.clientHeight;
+		} else if (selectedRamModuleTr.getBoundingClientRect().top - (linesAheadTop + 1) * tabelHeight <= document.getElementById("RamDiv").getBoundingClientRect().top) {
 			// scroll when arrow leaves RAM table at the top
-			document.getElementById("innerRamDiv").scrollTop = (selectedRamModule - 1) * tabelHeight;
+			document.getElementById("innerRamDiv").scrollTop = (selectedRamModule - linesAheadTop) * tabelHeight;
 		}
 		document.getElementById("RamEingabe").style.top = (selectedRamModuleTr.getBoundingClientRect().top - RamEingabeHeight / 2 + tabelHeight / 2) + "px"; //neupositionierung des Peiles für die Rameingabe
 		let ramInputField = document.getElementById("RamInput");
@@ -605,16 +655,18 @@ function fixRamNumbers(offset, delta) {
 		addressCols[row].innerText = row;
 	}
 	// console.timeEnd("AddressFix");
-	// console.time("DataFix");
-	for (let row = 0; row < 1000; row++) {
-		let number = dataCols[row].innerText.split(".");
-
-		// fix data; should fix asm and opand as well
-		if (number[0] !== "00" && number[0] !== "10" && parseInt(number[1]) >= offset) {
-			writeToRam(CheckNumber(parseInt(number.join("")) + delta, maxNumber, 0), row);
+	if (fixRAM) {
+		// console.time("DataFix");
+		for (let row = 0; row < 1000; row++) {
+			let number = dataCols[row].innerText.split(".");
+	
+			// fix data; should fix asm and opand as well
+			if (number[0] !== "00" && number[0] !== "10" && parseInt(number[1]) >= offset) {
+				writeToRam(CheckNumber(parseInt(number.join("")) + delta, maxNumber, 0), row);
+			}
 		}
+		// console.timeEnd("DataFix");
 	}
-	// console.timeEnd("DataFix");
 }
 
 

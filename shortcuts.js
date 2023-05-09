@@ -57,7 +57,9 @@ const functionMapping = {
     a: () => { focusInputElement(document.getElementById("AddressBusInput")) },
     d: () => { focusInputElement(document.getElementById("DataBusInput")) },
     w: () => { focusInputElement(document.getElementById("RamInput")) },
-    Escape: () => { cmdHTML.classList.remove("afterExecution") },
+    Escape: () => { 
+        cmdHTML.classList.remove("afterExecution");
+    },
     Delete: deleteRow
 }
 
@@ -141,7 +143,7 @@ function LeaveVimCmdMode() {
     ramInput.disabled = false;
     focusInputElement(ramInput);
     updateVisualCmdMode();
-    cmdHTMLContainer.classList.remove("active")
+    cmdHTMLContainer.classList.remove("active");
     console.log("Left VIM CMD mode");
 
 }
@@ -167,7 +169,11 @@ function updateVisualCmdMode() {
 
 
 function shortCutEventHandler(e) {
-    if (vimCmdMode) {
+    if (modal.style.display !== "" && modal.style.display !== "none") {
+        console.warn("Settings are opened; Shortcuts disabled");
+        return;
+    }
+    else if (vimCmdMode) {
         switch (e.key) {
             case "Enter":
                 ExecuteVimCmd();

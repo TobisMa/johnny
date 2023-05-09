@@ -253,7 +253,23 @@ mit dank an Dr. Peter Dauscher
 			<!-- Modal content -->
 			<div class="modal-content">
 				<span class="close">&times;</span>
-				<button id="bonsaiModeButton" onclick="toggleBonsai()">bonsai mode</button>
+				<p>
+					<button id="bonsaiModeButton" onclick="toggleBonsai()">bonsai mode</button>
+				</p>
+				<div class="left-align">
+					<p>
+						<input type="checkbox" id="fixRAM"><label for="fixRAM">Correct Addresses in macro commands when inserting or deleting rows</label>
+					</p>
+					<p>
+						<input type="number" id="ahead-lines-top" class="lines-ahead" max="10" min="0" class="ahead-lines">
+						<label for="ahead-lines-top">How many lines should be above the selected line when scrolling up</label>
+						<br>
+						<br>	
+						<input type="number" id="ahead-lines-bottom" class="lines-ahead" max="10" min="0" class="ahead-lines">
+						<label for="ahead-lines-top">How many lines should be below the selected line when scrolling down</label>
+					</p>
+				</div>
+				<hr>
 				<p>This is an edited version by <a href="http://github.com/TobisMa" target="_blank">TobisMa</a> from the original</p>
 				<p>This programm is licenced under the GNU Affero General Public License. You can find the sourcecode of the original project at
 					<a href="https://github.com/laubersheini/johnny" target="_blank">https://github.com/laubersheini/johnny</a>. The source code of this site is at 
