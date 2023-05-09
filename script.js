@@ -66,6 +66,8 @@ let linesAheadTop = 1;
 let linesAheadBottom = 5;
 
 var Ram = JSON.parse(localStorage.getItem('johnny-ram'));
+
+
 if (Ram == null) {//default if local store has been cleared or johnny is started for the first time
 	Ram = [];
 	for (i = 0; i < ramSize; i++) {
@@ -541,7 +543,7 @@ function EditRam(CellNumber) {
 			// console.log(CellNumber.currentTarget.dataset.addr);
 		} else {
 			selectedRamModule = CellNumber;
-			console.log("TEST ramModule")
+			// console.log("TEST ramModule")
 		}
 		let selectedRamModuleTr = getRamRow();
 		if (!selectedRamModuleTr) {
@@ -632,14 +634,26 @@ function insertRowAbove() {
 	}
 	if (!emptyRow) {
 		console.error("All last 99 rows are used already");
+		selectedRamModule = newSelect;
+		EditRam(selectedRamModule);
 		return;
 	}
+
+	Ram.splice(emptyRow.dataset.addr, 1); // remove old
+	
 	selectedRamModule = newSelect;
 	getRamRow().parentNode.insertBefore(emptyRow, getRamRow());
 
 	fixRamNumbers(newSelect, +1);
-	selectedRamModule = newSelect; // important; override in fixRamNumbers could happen
+	selectedRamModule = newSelect; // important; override in fixRamNumbers could happen (in future)
 	EditRam(selectedRamModule);
+
+	console.log(emptyRow);
+	console.log(selectedRamModule);
+
+	Ram.splice(selectedRamModule, 0, 0); // add new
+	localStorage.setItem('johnny-ram', JSON.stringify(Ram));  // save
+	
 }
 
 function fixRamNumbers(offset, delta) {
@@ -675,8 +689,17 @@ function deleteRow() {
 	writeToRam(00000, selectedRamModule);
 	row.style.background = "";
 	let table = row.parentNode;
+
+	
+	// fix screen values
 	table.insertBefore(row, table.childNodes[table.childNodes.length - 1]);
 	fixRamNumbers(row.dataset.addr, -1);
+	
+	// correct saved Ram
+	Ram.splice(selectedRamModule, 1);  // RAM array is not updated yet. Index still valid
+	Ram.push(0);
+	localStorage.setItem('johnny-ram', JSON.stringify(Ram));
+	
 	EditRam(selectedRamModule);
 }
 

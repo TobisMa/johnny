@@ -5,3 +5,4 @@
 - settings
     - turn on/off correcting RAM macro commands on insert/delete row
     - configure how many lines if available should be above/below the selection while scrolling using arrows keys or <kbd>j</kbd><kbd>k</kbd>
+- fixing RAM saving on insert and delete row in local storage
