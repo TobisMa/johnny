@@ -690,15 +690,15 @@ function deleteRow() {
 	row.style.background = "";
 	let table = row.parentNode;
 
+	// correct saved Ram
+	Ram.splice(selectedRamModule, 1);
+	Ram.push(0);
+	localStorage.setItem('johnny-ram', JSON.stringify(Ram));
 	
 	// fix screen values
 	table.insertBefore(row, table.childNodes[table.childNodes.length - 1]);
 	fixRamNumbers(row.dataset.addr, -1);
 	
-	// correct saved Ram
-	Ram.splice(selectedRamModule, 1);  // RAM array is not updated yet. Index still valid
-	Ram.push(0);
-	localStorage.setItem('johnny-ram', JSON.stringify(Ram));
 	
 	EditRam(selectedRamModule);
 }
