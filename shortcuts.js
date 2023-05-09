@@ -19,6 +19,8 @@ function changeSliderBy(delta) {
 
 
 function moveRam(delta) {
+    console.log("selectedRamModule:", selectedRamModule);
+    console.log("selectedRamModuleType:", typeof selectedRamModule)
     EditRam(CheckNumber(selectedRamModule + delta, 999, 0));
 }
 

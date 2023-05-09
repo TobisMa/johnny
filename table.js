@@ -65,7 +65,7 @@ function generateRam(){
 	p.appendChild(newtr);
 	//Onclick event für eingeben von Daten
 
-	document.getElementsByClassName("RamCell")[n].addEventListener("click",EditRam)
+	document.getElementsByClassName("RamCell")[n].addEventListener("click", EditRam)
   };
 }//ende GenerateRam
 

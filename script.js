@@ -75,7 +75,7 @@ var turboMode = false;
 //funktionen ohne Zuordnung
 function initialize() {
 	Befehlsauswahl = document.getElementById("CommandSelect");
-	
+
 	generateRam();
 
 	MicroCode = JSON.parse(localStorage.getItem('johnny-microcode'));
@@ -481,15 +481,27 @@ function EditRam(CellNumber) {
 		}
 
 		if (typeof (CellNumber) == "object") {
+			// event type
+			// console.log(CellNumber);
 			//erkennen der Spalte
-			selectedRamModule = CellNumber.srcElement.parentNode.dataset.addr;
+			selectedRamModule = parseInt(CellNumber.currentTarget.dataset.addr);
+			// console.log("TEST ramModule (CellNumber.srcElement.parentNode.dataset.addr):", selectedRamModule);
+			// console.log(CellNumber);
+			// console.log(CellNumber.currentTarget);
+			// console.log(CellNumber.currentTarget.dataset);
+			// console.log(CellNumber.currentTarget.dataset.addr);
 		} else {
 			selectedRamModule = CellNumber;
-
+			console.log("TEST ramModule")
 		}
 		let selectedRamModuleTr = getRamRow();
+		if (!selectedRamModuleTr) {
+			console.error("RAM module row is undefined; RESET to 0");
+			selectedRamModule = 0;
+			return;
+		}
 		//gelbfärbung der Spalte
-		if (dataHighlightedRamModule != selectedRamModule) {
+		if (dataHighlightedRamModule !== selectedRamModule) {
 			selectedRamModuleTr.style.background = "yellow";
 		}
 
@@ -574,7 +586,7 @@ function insertRowAbove() {
 	}
 	selectedRamModule = newSelect;
 	getRamRow().parentNode.insertBefore(emptyRow, getRamRow());
-	
+
 	fixRamNumbers(newSelect, +1);
 	selectedRamModule = newSelect; // important; override in fixRamNumbers could happen
 	EditRam(selectedRamModule);
