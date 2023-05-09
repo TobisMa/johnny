@@ -60,7 +60,8 @@ const functionMapping = {
     Escape: () => { 
         cmdHTML.classList.remove("afterExecution");
     },
-    Delete: deleteRow
+    Delete: deleteRow,
+    Insert: insertRowAbove,
 }
 
 const vimCmdMapping = {
