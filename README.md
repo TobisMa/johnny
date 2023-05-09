@@ -98,9 +98,9 @@ NOTE: they are also working when the control unit is not visible
 | `lr` | _Load RAM_ |
 | `lm` | _Load microcode_ |
 | `sr` | _Save RAM_ |
-| `sm` | _Save microcode |
+| `sm` | _Save microcode_ |
 | `cr` | _Clear Ram_ |
-| `cm` | _Clear microcode |
+| `cm` | _Clear microcode_ |
 
 
 ### How to remember them?
