@@ -209,15 +209,17 @@ function AddressBusInputKeydown(e) {
 
 
 function CheckNumber(X, maxValue, minValue) {//Überprüft ob nur Zaheln eingegeben wurden +Größe der Zahlen
-	if (X <= maxValue && typeof X == "number" && X >= minValue) {
+	if (X <= maxValue && typeof X === "number" && X >= minValue) {
 		return X;
-
 	}
 	else if (X > maxValue) {
 		return maxValue
-
-	} else { return 0; }
-
+	} 
+	else if (X < minValue) { 
+		return minValue;
+	}
+	console.error("X is", X);
+	return 1;
 }
 
 function updateSpeed() {
@@ -597,7 +599,7 @@ function fixRamNumbers(offset, delta) {
 
 		// fix data; should fix asm and opand as well
 		if (number[0] !== "00" && number[0] !== "10" && parseInt(number[1]) >= offset) {
-			writeToRam(CheckNumber(parseInt(number.join("")) + delta, maxNumber,0), row);
+			writeToRam(CheckNumber(parseInt(number.join("")) + delta, maxNumber, 0), row);
 		}
 	}
 	// console.timeEnd("DataFix");
