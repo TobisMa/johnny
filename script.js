@@ -244,7 +244,7 @@ function RamInputKeydown(e) {
 	if (e.key == "Enter") {
 		ManuellRam();
 	}
-	else if (shouldPreventDefault(e, allowedRamInputChars)) {
+	else if (shouldPreventDefault(e, allowedRamInputChars) && (e.key == "Delete" && !useDeleteShortcut)) {
 		e.preventDefault();
 	}
 }
