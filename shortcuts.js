@@ -68,6 +68,10 @@ const functionMapping = {
     Insert: insertRowAbove,
 }
 
+const ctrlShortcutMapping = {
+    x: deleteRow,
+}
+
 const vimCmdMapping = {
     "a": ManuellAB,
     "a+": IncAccClick,
@@ -201,7 +205,10 @@ function shortCutEventHandler(e) {
         }
         updateVisualCmdMode();
     }
-    else if (functionMapping.hasOwnProperty(e.key)) {
+    else if (e.ctrlKey && !e.altKey && ctrlShortcutMapping.hasOwnProperty(e.key)) {
+        ctrlShortcutMapping[e.key]();
+    }
+    else if (!e.ctrlKey && !e.altKey && functionMapping.hasOwnProperty(e.key)) {
         functionMapping[e.key]();
     }
     else if (e.key === "c" && e.altKey) {
@@ -209,7 +216,7 @@ function shortCutEventHandler(e) {
         newRam();
     }
     else {
-        // console.log(e);
+        console.log(e);
     }
 }
 
