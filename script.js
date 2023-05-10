@@ -60,6 +60,8 @@ const ramLength = Math.log10(ramSize) + 1;
 const allowedRamInputChars = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "Delete", "Backspace", "ArrowRight", "ArrowLeft"]
 const digits = "0123456789".split("");
 
+const RamInputSelect = document.getElementById("CommandSelect");
+
 // settings
 let fixRAM = true;
 let linesAheadTop = 1;
@@ -101,6 +103,7 @@ function initialize() {
 	document.getElementById("AddressBusInput").addEventListener("keydown", AddressBusInputKeydown);//damit die Entertaste funktioniert
 	document.getElementById("DataBusInput").addEventListener("keydown", DataBusInputKeydown);
 	document.getElementById("RamInput").addEventListener("keydown", RamInputKeydown);
+	document.getElementById("RamInput").addEventListener("focus", UpdateRamInputSelect);
 	document.addEventListener("keydown", keyDownHandler); //nur zum überspringen des ladebildschirms (wird nach dem Laden wieder entfernt)
 	document.addEventListener("mousedown", mouseDownHandler); //nur zum überspringen des ladebildschirms (wird nach dem Laden wieder entfernt)
 	window.addEventListener('resize', resize);
@@ -121,6 +124,19 @@ function initialize() {
 	}
 
 }//ende initialize
+
+
+function UpdateRamInputSelect(e=null) {
+	let val = document.getElementById("RamInput").value.split(".");
+	if (val.length != 2) {
+		return;
+	}
+	let num = parseInt(val[0]);
+	if (typeof num === "number" && num >= 1) {
+		// console.log("Set RamInputSelect to", num);
+		RamInputSelect.value = num;
+	}
+}
 
 
 function initializeSettings() {
@@ -582,6 +598,7 @@ function EditRam(CellNumber) {
 		let val = ramInputField.value;
 		ramInputField.value = '';
 		ramInputField.value = val;
+		UpdateRamInputSelect();
 	}
 
 }
@@ -634,7 +651,7 @@ function insertRowAbove() {
 	getRamRow().style.background = ""; // reset background color
 	let newSelect = selectedRamModule;
 	let emptyRow = undefined;
-	console.log("selected", selectedRamModule);
+	// console.log("selected", selectedRamModule);
 	for (let i = 999; i >= 900; i--) {
 		selectedRamModule = i;
 		if (getRamRow().getElementsByClassName("col2")[0].innerText === "00.000") {
