@@ -64,6 +64,7 @@ const digits = "0123456789".split("");
 let fixRAM = true;
 let linesAheadTop = 1;
 let linesAheadBottom = 5;
+let useDeleteShortcut = false;
 
 var Ram = JSON.parse(localStorage.getItem('johnny-ram'));
 
@@ -161,6 +162,15 @@ function initializeSettings() {
 		linesAheadBottom = parseInt(e.target.value);
 		localStorage.setItem("linesAheadBottom", linesAheadBottom);
 	}, true);
+
+	// useDeleteShortcuts
+	let useDeleteShortcutElement = document.getElementById("useDeleteForDeleteRow");
+	useDeleteShortcut = localStorage.getItem("useDeleteForDeleteRow")?.toLowerCase() === "true";  // default to false on undefined !== "false"
+	useDeleteShortcutElement.checked = useDeleteShortcut;
+	useDeleteShortcutElement.addEventListener("change", (e) => {
+		useDeleteShortcut = e.target.checked;
+		localStorage.setItem("useDeleteForDeleteRow", useDeleteShortcut);
+	});
 }
 
 

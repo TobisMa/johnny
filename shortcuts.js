@@ -60,7 +60,11 @@ const functionMapping = {
     Escape: () => { 
         cmdHTML.classList.remove("afterExecution");
     },
-    Delete: deleteRow,
+    Delete: () => {
+        if (useDeleteShortcut) {
+            deleteRow();
+        }
+    },
     Insert: insertRowAbove,
 }
 

@@ -239,7 +239,7 @@ mit dank an Dr. Peter Dauscher
 		<div id="RamEingabe">
 			<p></p>
 			<input type="Number" id="RamInput" step=0.001 />
-			<select id="CommandSelect" onchange="CommandSelectChange()">
+			<select id="CommandSelect" onclick="CommandSelectChange()">
 			</select>
 			<button onclick="ManuellRam()" id="RamInputButton">write</button>
 			<p></p>
@@ -259,6 +259,8 @@ mit dank an Dr. Peter Dauscher
 				<div class="left-align">
 					<p>
 						<input type="checkbox" id="fixRAM"><label for="fixRAM">Correct Addresses in macro commands when inserting or deleting rows</label>
+						<br>
+						<input type="checkbox" id="useDeleteForDeleteRow"><label for="useDeleteForDeleteRow">Use <kbd>Delete</kbd> for deleting rows</label>
 					</p>
 					<p>
 						<input type="number" id="ahead-lines-top" class="lines-ahead" max="10" min="0" class="ahead-lines">

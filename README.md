@@ -30,7 +30,7 @@ This edited version can be viewed at [https://tobisma.github.io/johnny](https://
 
 ## shortcuts
 ### basic shortcuts for menu and RAM
-| Key | Action | Key meaining |
+| Key | Action | Key meaining & Notes |
 | :--- | :--- | :--- |
 | <kbd>E</kbd> | Reset & Execute Program | Execute |
 | <kbd>R</kbd> | Reset | Reset |
@@ -52,7 +52,7 @@ This edited version can be viewed at [https://tobisma.github.io/johnny](https://
 | <kbd>A</kbd> | Focus Address bus input | Address Bus |
 | <kbd>W</kbd> | Focus RAM row input | Write (to RAM) |
 | <kbd>Insert</kbd> | Insert row above current selected row in RAM | Insert |
-| <kbd>Del</kbd> | Remove current selected row in RAM | Delete |
+| <kbd>Del</kbd> | Remove current selected row in RAM | Delete (disabled per default; change in settings) |
 
 ### shortcuts for buttons like `ram --> db`
 Those shortcuts are in VIM style meaning you need to enter command mode first by pressing <kbd>:</kbd> or <kbd>v</kbd>.
