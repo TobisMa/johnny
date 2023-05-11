@@ -212,7 +212,7 @@ return"pc++";
 break;
 
 case 10://
-return"acc=0?->pc++";
+return"=0?pc++";
 break;
 
 case 19://
