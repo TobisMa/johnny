@@ -130,7 +130,7 @@ const functionMapping = {
 }
 
 const ctrlShortcutMapping = {
-    x: deleteRow,
+    Delete: deleteRow,
     y: () => { lastHistoryUse = "redo"; redo(); },
     z: () => { lastHistoryUse = "undo"; undo(); },
 }

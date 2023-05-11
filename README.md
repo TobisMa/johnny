@@ -27,7 +27,7 @@ This edited version can be viewed at [https://tobisma.github.io/johnny](https://
 - settings
     - turn on/off correcting RAM macro commands on insert/delete row
     - configure how many lines if available should be above/below the selection while scrolling using arrows keys or <kbd>j</kbd><kbd>k</kbd>
-- undo/redo on <kbd>Ctrl</kbd><kbd>Z</kbd> and <kbd>Ctrl</kbd><kbd>Y</kbd>
+- undo/redo on <kbd>Ctrl</kbd><kbd>Z</kbd> and <kbd>Ctrl</kbd><kbd>Y</kbd> &emsp; [ _experimental_ ]
 
 ## shortcuts
 ### basic shortcuts for menu and RAM
@@ -53,7 +53,7 @@ This edited version can be viewed at [https://tobisma.github.io/johnny](https://
 | <kbd>A</kbd> | Focus Address bus input | Address Bus |
 | <kbd>W</kbd> | Focus RAM row input | Write (to RAM) |
 | <kbd>Insert</kbd> | Insert row above current selected row in RAM | Insert |
-| <kbd>^ Ctrl</kbd><kbd>X</kbd> | Remove current selected row in RAM | |
+| <kbd>^ Ctrl</kbd><kbd>Del</kbd> | Remove current selected row in RAM | |
 | <kbd>Del</kbd> | Remove current selected row in RAM | Delete (disabled per default; change in settings) |
 
 ### shortcuts for buttons like `ram --> db`
