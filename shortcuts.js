@@ -50,6 +50,7 @@ function undo() {
             
             console.log(num, action.addr);
             writeToRam(num, action.addr);
+            EditRam(action.addr);
             break;
 
         case "insert":
@@ -79,6 +80,7 @@ function redo() {
         case "write":
             console.log(num, action.addr);
             writeToRam(num, action.addr);
+            EditRam(action.addr);
             break;
 
         case "insert":
