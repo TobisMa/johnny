@@ -19,8 +19,8 @@ function changeSliderBy(delta) {
 
 
 function moveRam(delta) {
-    console.log("selectedRamModule:", selectedRamModule);
-    console.log("selectedRamModuleType:", typeof selectedRamModule)
+    // console.log("selectedRamModule:", selectedRamModule);
+    // console.log("selectedRamModuleType:", typeof selectedRamModule)
     EditRam(CheckNumber(selectedRamModule + delta, 999, 0));
 }
 
@@ -31,6 +31,67 @@ function focusInputElement(element) {
     let val = element.value;
     element.value = '';
     element.value = val;
+}
+
+
+function undo() {
+    historyPointer--;
+    if (historyPointer < 0) {
+        historyPointer = 0;
+        window.alert("Bad luck... I cannot undo more actions for you");
+        return;
+    }
+    let action = history[historyPointer];
+    let currentSelect = selectedRamModule;
+    console.log("Undoing action: ", action);
+    let num = CheckNumber(parseInt(action.value.split(".").join("")), 19999, 0);
+    switch (action.action) {
+        case "write":
+            
+            console.log(num, action.addr);
+            writeToRam(num, action.addr);
+            break;
+
+        case "insert":
+            selectedRamModule = action.addr;
+            deleteRow(false);
+            break;
+
+        case "delete":
+            selectedRamModule = action.addr;
+            insertRowAbove(false);
+            writeToRam(num, action.addr);
+            break;
+    }
+}
+
+function redo() {
+    if (historyPointer < 0 || historyPointer >= history.length) {
+        historyPointer = history.length;
+        console.warn("Nothing to redo");
+        return;
+    }
+    let currentSelect = selectedRamModule;
+    let action = history[historyPointer];
+    console.log("Redoing", action);
+    let num = CheckNumber(parseInt(action.value.split(".").join("")), 19999, 0);
+    switch (action.action) {
+        case "write":
+            console.log(num, action.addr);
+            writeToRam(num, action.addr);
+            break;
+
+        case "insert":
+            selectedRamModule = action.addr;
+            insertRowAbove(false);
+            break;
+        
+        case "delete":
+            selectedRamModule = action.addr;
+            deleteRow(false);
+            break;
+    }
+    historyPointer++;
 }
 
 const functionMapping = {
@@ -70,6 +131,8 @@ const functionMapping = {
 
 const ctrlShortcutMapping = {
     x: deleteRow,
+    y: () => { lastHistoryUse = "redo"; redo(); },
+    z: () => { lastHistoryUse = "undo"; undo(); },
 }
 
 const vimCmdMapping = {
@@ -207,9 +270,11 @@ function shortCutEventHandler(e) {
         updateVisualCmdMode();
     }
     else if (e.ctrlKey && !e.altKey && ctrlShortcutMapping.hasOwnProperty(e.key)) {
+        e.preventDefault();
         ctrlShortcutMapping[e.key]();
     }
     else if (!e.ctrlKey && !e.altKey && functionMapping.hasOwnProperty(e.key)) {
+        e.preventDefault();
         functionMapping[e.key]();
     }
     else if (e.key === "c" && e.altKey) {
@@ -217,7 +282,7 @@ function shortCutEventHandler(e) {
         newRam();
     }
     else {
-        console.log(e);
+        // console.log(e);
     }
 }
 

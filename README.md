@@ -27,6 +27,7 @@ This edited version can be viewed at [https://tobisma.github.io/johnny](https://
 - settings
     - turn on/off correcting RAM macro commands on insert/delete row
     - configure how many lines if available should be above/below the selection while scrolling using arrows keys or <kbd>j</kbd><kbd>k</kbd>
+- undo/redo on <kbd>Ctrl</kbd><kbd>Z</kbd> and <kbd>Ctrl</kbd><kbd>Y</kbd>
 
 ## shortcuts
 ### basic shortcuts for menu and RAM
@@ -91,7 +92,7 @@ NOTE: they are also working when the control unit is not visible
 | `pa` | `pc --> ab` |
 | `p+` | `pc++` |
 | `p++` | `pc++` |
-| `=0` | `=0:pc++` |
+| `=0` | `=0?pc++` |
 | `m0` | `mc:=0` |
 | `stop` | `stop` |
 | `h` | `stop` | HALT program |

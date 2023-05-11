@@ -219,8 +219,14 @@ function ManuellRam(){
 		return;
 	} 
 	let num = input.length == 2 ? input[0].padStart(2, "0") + input[1].padStart(3, "0") : input;
+	addToHistory({
+		"action": "write",
+		"value": getRamRow().getElementsByClassName("col2")[0].innerText,
+		"addr": parseInt(getRamRow().dataset.addr)
+	})
 	writeToRam(CheckNumber(parseInt(num),(1 +"9".repeat(ramLength)).toString(),0),selectedRamModule)
 	nextRamModule();
+	console.log("Added to history: ", history);
 }
 
 

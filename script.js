@@ -66,7 +66,12 @@ const RamInputSelect = document.getElementById("CommandSelect");
 let fixRAM = true;
 let linesAheadTop = 1;
 let linesAheadBottom = 5;
-let useDeleteShortcut = false;
+let useDeleteShortcut = false;	
+
+const history = [];
+const historyMaxLength = 10;
+let historyPointer = 0;
+let lastHistoryUse = undefined;
 
 var Ram = JSON.parse(localStorage.getItem('johnny-ram'));
 
@@ -124,6 +129,27 @@ function initialize() {
 	}
 
 }//ende initialize
+
+
+function diffrentAction(action) {
+	if (lastHistoryUse === "undo") {
+
+	}
+}
+
+
+function addToHistory(action) {
+	if (historyPointer < 0) {
+		historyPointer = 0;
+		return;
+	}
+	console.log("Remove:", history.splice(historyPointer + 1, historyMaxLength));
+	history.push(action);
+	if (history.length >= 11) {
+		history.splice(0, history.length - historyMaxLength);
+	}
+	historyPointer = CheckNumber(historyPointer + 1, history.length, 0);
+}
 
 
 function UpdateRamInputSelect(e=null) {
@@ -648,7 +674,7 @@ function getHighlightRamRow() {
 	return document.getElementById("RamTBody").childNodes[dataHighlightedRamModule];
 }
 
-function insertRowAbove() {
+function insertRowAbove(writeHistory=true) {
 	getRamRow().style.background = ""; // reset background color
 	let newSelect = selectedRamModule;
 	let emptyRow = undefined;
@@ -675,6 +701,13 @@ function insertRowAbove() {
 	Ram.splice(newSelect, 1, 0);
 	localStorage.setItem("johnny-ram", JSON.stringify(Ram));
 	selectedRamModule = newSelect; // important; override in fixRamNumbers could happen (in future)
+	if (writeHistory) {
+		addToHistory({
+			"action": "insert",
+			"addr": selectedRamModule,
+			"value": "00.000" // no one actually cares since it is always 0
+		})
+	}
 	EditRam(selectedRamModule);
 }
 
@@ -712,8 +745,10 @@ function fixRamNumbers(offset, delta) {
 }
 
 
-function deleteRow() {
+function deleteRow(writeHistory=true) {
 	let row = getRamRow();
+	let oldValue = row.getElementsByClassName("col2")[0].innerText;
+	let oldRow = parseInt(row.dataset.addr);
 	writeToRam(00000, selectedRamModule, false);
 	row.style.background = "";
 	let table = row.parentNode;
@@ -725,6 +760,13 @@ function deleteRow() {
 	fixRamNumbers(row.dataset.addr, -1);
 	
 	localStorage.setItem("johnny-ram", JSON.stringify(Ram));
+	if (writeHistory) {
+		addToHistory({
+			"action": "delete",
+			"addr": oldRow,
+			"value": oldValue
+		});
+	}
 	EditRam(selectedRamModule);
 }
 
