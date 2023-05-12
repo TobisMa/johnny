@@ -66,7 +66,8 @@ const RamInputSelect = document.getElementById("CommandSelect");
 let fixRAM = true;
 let linesAheadTop = 1;
 let linesAheadBottom = 5;
-let useDeleteShortcut = false;	
+let useDeleteShortcut = false;
+let fixRamNumbersWithEq = false;
 
 const history = [];
 const historyMaxLength = 10;
@@ -212,6 +213,15 @@ function initializeSettings() {
 	useDeleteShortcutElement.addEventListener("change", (e) => {
 		useDeleteShortcut = e.target.checked;
 		localStorage.setItem("useDeleteForDeleteRow", useDeleteShortcut);
+	});
+
+	// fixRamNumbers behaviour
+	let fixRamEqElement = document.getElementById("fixRamOperation");
+	fixRamNumbersWithEq = localStorage.getItem("fixRamEq")?.toLowerCase() === "true";
+	fixRamEqElement.checked = fixRamNumbersWithEq;
+	fixRamEqElement.addEventListener("change", (e) => {
+		fixRamNumbersWithEq = e.target.checked;
+		localStorage.setItem("fixRamEq", fixRamNumbersWithEq);
 	});
 }
 
@@ -730,7 +740,7 @@ function fixRamNumbers(offset, delta) {
 		let number = dataCols[row].innerText.split(".");
 
 		// fix data; should fix asm and opand as well
-		if (number[0] !== "00" && number[0] !== "10" && parseInt(number[1]) >= offset) {
+		if (number[0] !== "00" && number[0] !== "10" && (parseInt(number[1]) > offset || (fixRamNumbersWithEq && parseInt(number[1]) === offset))) {
 			writeToRam(CheckNumber(parseInt(number.join("")) + delta, maxNumber, 0), row, false);
 		}
 		else if (number[0] === "10") {
