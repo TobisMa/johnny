@@ -53,7 +53,7 @@ This edited version can be viewed at [https://tobisma.github.io/johnny](https://
 | <kbd>A</kbd> | Focus Address bus input | Address Bus |
 | <kbd>W</kbd> | Focus RAM row input | Write (to RAM) |
 | <kbd>Insert</kbd> | Insert row above current selected row in RAM | Insert |
-| <kbd>^ Ctrl</kbd><kbd>Del</kbd> | Remove current selected row in RAM | |
+| <kbd>⇧ Shift</kbd><kbd>Del</kbd> | Remove current selected row in RAM | |
 | <kbd>Del</kbd> | Remove current selected row in RAM | Delete (disabled per default; change in settings) |
 
 ### shortcuts for buttons like `ram --> db`

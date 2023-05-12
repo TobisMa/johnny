@@ -125,16 +125,11 @@ const functionMapping = {
     Escape: () => { 
         cmdHTML.classList.remove("afterExecution");
     },
-    Delete: () => {
-        if (useDeleteShortcut) {
-            deleteRow();
-        }
-    },
+    Delete: deleteRow, // check for shift hardcoded :(, but it works
     Insert: insertRowAbove,
 }
 
 const ctrlShortcutMapping = {
-    Delete: deleteRow,
     y: () => { lastHistoryUse = "redo"; redo(); },
     z: () => { lastHistoryUse = "undo"; undo(); },
 }
@@ -279,7 +274,9 @@ function shortCutEventHandler(e) {
     }
     else if (!e.ctrlKey && !e.altKey && functionMapping.hasOwnProperty(e.key)) {
         e.preventDefault();
-        functionMapping[e.key]();
+        if (useDeleteShortcut || (e.key === "Delete" && e.shiftKey)) {
+            functionMapping[e.key]();
+        }
     }
     else if (e.key === "c" && e.altKey) {
         e.preventDefault();
