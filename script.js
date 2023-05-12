@@ -143,7 +143,7 @@ function addToHistory(action) {
 		historyPointer = 0;
 		return;
 	}
-	console.log("Remove:", history.splice(historyPointer + 1, historyMaxLength));
+	console.log("Remove:", history.splice(historyPointer, historyMaxLength));
 	history.push(action);
 	if (history.length >= 11) {
 		history.splice(0, history.length - historyMaxLength);
