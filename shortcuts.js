@@ -168,6 +168,9 @@ const vimCmdMapping = {
     "cm": resetMicrocode,
     "del": deleteRow,
     "rec": aufnahme,
+    "cnf": () => {
+        document.getElementById("settings_button").click();
+    }
 }
 
 

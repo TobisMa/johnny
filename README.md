@@ -107,7 +107,8 @@ NOTE: they are also working when the control unit is not visible
 | `sm` | _Save microcode_ |
 | `cr` | _Clear Ram_ |
 | `cm` | _Clear microcode_ |
-
+| `rec` | _Record micro code_ |
+| `cnf` | _Open settings_ |
 
 ### How to remember them?
 They are made of "operators":
