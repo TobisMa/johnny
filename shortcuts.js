@@ -166,7 +166,8 @@ const vimCmdMapping = {
     "lm": uploadMc,
     "cr": newRam,
     "cm": resetMicrocode,
-    "del": deleteRow
+    "del": deleteRow,
+    "rec": aufnahme,
 }
 
 
