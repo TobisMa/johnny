@@ -273,7 +273,7 @@ function shortCutEventHandler(e) {
     }
     else if (!e.ctrlKey && !e.altKey && functionMapping.hasOwnProperty(e.key)) {
         e.preventDefault();
-        if (useDeleteShortcut || (e.key === "Delete" && e.shiftKey)) {
+        if (e.key !== "Delete" || useDeleteShortcut || (e.key === "Delete" && e.shiftKey)) {
             functionMapping[e.key]();
         }
     }
