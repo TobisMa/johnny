@@ -48,48 +48,47 @@ function undo() {
     let num = CheckNumber(parseInt(action.value.split(".").join("")), 19999, 0);
     switch (action.action) {
         case "write":
-            
             console.log(num, action.addr);
             writeToRam(num, action.addr);
             EditRam(action.addr);
             break;
-            
-            case "insert":
-                selectedRamModule = action.addr;
-                deleteRow(false);
-                break;
+
+        case "insert":
+            selectedRamModule = action.addr;
+            deleteRow(false);
+            break;
 
         case "delete":
             selectedRamModule = action.addr;
             insertRowAbove(false);
             writeToRam(num, action.addr);
             break;
-        }
     }
-    
-    function redo() {
-        if (historyPointer < 0 || historyPointer >= history.length) {
-            historyPointer = history.length;
-            console.warn("Nothing to redo");
-            return;
-        }
-        let currentSelect = selectedRamModule;
-        let action = history[historyPointer];
-        console.log("Redoing", action);
-        console.log(historyPointer, history);
-        let num = CheckNumber(parseInt(action.value.split(".").join("")), 19999, 0);
-        switch (action.action) {
-            case "write":
-                console.log(num, action.addr);
-                writeToRam(num, action.addr);
-                EditRam(action.addr);
-                break;
+}
+
+function redo() {
+    if (historyPointer < 0 || historyPointer >= history.length) {
+        historyPointer = history.length;
+        console.warn("Nothing to redo");
+        return;
+    }
+    let currentSelect = selectedRamModule;
+    let action = history[historyPointer];
+    console.log("Redoing", action);
+    console.log(historyPointer, history);
+    let num = CheckNumber(parseInt(action.value.split(".").join("")), 19999, 0);
+    switch (action.action) {
+        case "write":
+            console.log(num, action.addr);
+            writeToRam(num, action.addr);
+            EditRam(action.addr);
+            break;
 
         case "insert":
             selectedRamModule = action.addr;
             insertRowAbove(false);
             break;
-        
+
         case "delete":
             selectedRamModule = action.addr;
             deleteRow(false);
@@ -122,7 +121,7 @@ const functionMapping = {
     a: () => { focusInputElement(document.getElementById("AddressBusInput")) },
     d: () => { focusInputElement(document.getElementById("DataBusInput")) },
     w: () => { focusInputElement(document.getElementById("RamInput")) },
-    Escape: () => { 
+    Escape: () => {
         cmdHTML.classList.remove("afterExecution");
     },
     Delete: deleteRow, // check for shift hardcoded :(, but it works
