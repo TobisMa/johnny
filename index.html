@@ -134,8 +134,8 @@ mit dank an Dr. Peter Dauscher
 			</div>
 		</nav>
 
-		<input type="number" id="AddressBusInput" min="0" max="999">
-		<input type="number" id="DataBusInput">
+		<input type="text" id="AddressBusInput" min="0" max="999" placeholder="Address">
+		<input type="text" id="DataBusInput" placeholder="Data">
 		<p id="AddressBus">000</p>
 		<p id="DataBus">00000</p>
 		<p id="Accumulator">00000</p>
@@ -238,7 +238,7 @@ mit dank an Dr. Peter Dauscher
 
 		<div id="RamEingabe">
 			<p></p>
-			<input type="Number" id="RamInput" step=0.001 />
+			<input type="text" id="RamInput" step=0.001 />
 			<select id="CommandSelect" onclick="CommandSelectChange()">
 			</select>
 			<button onclick="ManuellRam()" id="RamInputButton">write</button>
