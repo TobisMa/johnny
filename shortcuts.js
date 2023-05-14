@@ -131,6 +131,10 @@ const functionMapping = {
 const ctrlShortcutMapping = {
     y: () => { lastHistoryUse = "redo"; redo(); },
     z: () => { lastHistoryUse = "undo"; undo(); },
+    s: downloadRam,
+    S: downloadMc,
+    o: uploadRam,
+    O: uploadMc
 }
 
 const vimCmdMapping = {

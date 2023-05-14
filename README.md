@@ -32,6 +32,8 @@ This edited version can be viewed at [https://tobisma.github.io/johnny](https://
 
 ## shortcuts
 ### basic shortcuts for menu and RAM
+Actions on RAM which are possible from micro code, as well (e. g. save) are with perssing <kbd>⇧ Shift</kbd> additionally.
+
 | Key | Action | Key meaining & Notes |
 | :--- | :--- | :--- |
 | <kbd>E</kbd> | Reset & Execute Program | Execute |
@@ -56,10 +58,14 @@ This edited version can be viewed at [https://tobisma.github.io/johnny](https://
 | <kbd>Insert</kbd> | Insert row above current selected row in RAM | Insert |
 | <kbd>⇧ Shift</kbd><kbd>Del</kbd> | Remove current selected row in RAM | |
 | <kbd>Del</kbd> | Remove current selected row in RAM | Delete (disabled per default; change in settings) |
+| <kbd>⌃ Ctrl</kbd><kbd>O</kbd> | Opening RAM file from disk | Open |
+| <kbd>⌃ Ctrl</kbd><kbd>⇧ Shift</kbd><kbd>O</kbd> | Opening micro code file from disk | Open |
+| <kbd>⌃ Ctrl</kbd><kbd>S</kbd> | Saving current RAM to file | Save |
+| <kbd>⌃ Ctrl</kbd><kbd>⇧ Shift</kbd><kbd>S</kbd> | Saving current micro code to file | Save |
 
 ### shortcuts for buttons like `ram --> db`
 Those shortcuts are in VIM style meaning you need to enter command mode first by pressing <kbd>:</kbd> or <kbd>v</kbd>.
-Afterwards you type the commmand from the list below. Then press <kbd>⏎ Enter</kbd> to emulate pressing the button. While in command mode you can press <kbd>Esc</kbd> or <kbd>Ctrl</kbd><kbd>C</kbd>. While in command mode all basic shortcuts above are disabled.
+Afterwards you type the commmand from the list below. Then press <kbd>⏎ Enter</kbd> to emulate pressing the button. While in command mode you can press <kbd>Esc</kbd> or <kbd>^ Ctrl</kbd><kbd>C</kbd>. While in command mode all basic shortcuts above are disabled.
 The visual feedback is in command mode in the bottom left corner
 
 #### List of commands in command mode
