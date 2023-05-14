@@ -198,11 +198,33 @@ function resetComputer(){
 
 
 function downloadMc(){
-	download(MicroCode.join("\r\n"), "Micro_code.mc","txt")
+	let filename = "Micro_code.mc";
+	if (setFilenameOnSave) {
+		filename = window.prompt("Filename for current micro code: ", filename);
+		if (filename === null) {
+			console.warn("User canceled save");
+			return;
+		}
+		if (!filename.endsWith(".mc")) {
+			filename += ".mc";
+		}
+	} 
+	download(MicroCode.join("\r\n"), filename, "txt")
 
 }
 function downloadRam(){
-	download(Ram.join("\r\n"), "Ram.ram","txt")
+	filename = "Ram.ram";
+	if (setFilenameOnSave) {
+		filename = window.prompt("Filename for current RAM data: ", filename);
+		if (filename === null) {
+			console.warn("User canceled save");
+			return;
+		}
+		if (!filename.endsWith(".ram")) {
+			filename += ".ram";
+		}
+	}
+	download(Ram.join("\r\n"), filename,"txt");
 
 }
 

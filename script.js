@@ -73,6 +73,7 @@ const history = [];
 const historyMaxLength = 10;
 let historyPointer = 0;
 let lastHistoryUse = undefined;
+let setFilenameOnSave = false;
 
 var Ram = JSON.parse(localStorage.getItem('johnny-ram'));
 
@@ -217,12 +218,20 @@ function initializeSettings() {
 
 	// fixRamNumbers behaviour
 	let fixRamEqElement = document.getElementById("fixRamOperation");
-	fixRamNumbersWithEq = localStorage.getItem("fixRamEq")?.toLowerCase() === "true";
+	fixRamNumbersWithEq = localStorage.getItem("fixRamEq")?.toLowerCase() === "true"; // default to false on undefined !== "false"
 	fixRamEqElement.checked = fixRamNumbersWithEq;
 	fixRamEqElement.addEventListener("change", (e) => {
 		fixRamNumbersWithEq = e.target.checked;
 		localStorage.setItem("fixRamEq", fixRamNumbersWithEq);
 	});
+
+	let setFilenameOnSaveElement = document.getElementById("setFilenameOnSave");
+	setFilenameOnSave = localStorage.getItem("setFilenameOnSave")?.toLowerCase() === "true"; // default to false on undefined !== "false"
+	setFilenameOnSaveElement.checked = setFilenameOnSave;
+	setFilenameOnSaveElement.addEventListener("change", (e) => {
+		setFilenameOnSave = e.target.checked;
+		localStorage.setItem("setFilenameOnSave", setFilenameOnSave);
+	})
 }
 
 

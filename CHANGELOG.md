@@ -5,3 +5,4 @@
 - undo/redo &emsp; [ _experimental_ ]
 - patched some display issues
 - setting to control what RAM numbers are fixed
+- prompt on saving RAM or micro code in a file
