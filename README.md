@@ -51,6 +51,8 @@ Actions on RAM which are possible from micro code, as well (e. g. save) are with
 | <kbd>-</kbd> | Make execution slower | |
 | <kbd>Alt</kbd><kbd>C</kbd> | Clear Ram | Clear |
 | <kbd>⌥ Option</kbd><kbd>C</kbd> | Clear RAM | Clear |
+| <kbd>⇧ Shift</kbd><kbd>Alt</kbd><kbd>C</kbd> | Reset micro code | _Clear_ |
+| <kbd>⇧ Shift</kbd><kbd>⌥ Option</kbd><kbd>C</kbd> | Reset micro code | _Clear_ |
 | <kbd>:</kbd> | Enter command mode for buttons | _Vim keybinding_ | 
 | <kbd>v</kbd> | Enter command mode for buttons | Vim |
 | <kbd>D</kbd> | Focus Data bus input | Data Bus |

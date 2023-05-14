@@ -282,9 +282,14 @@ function shortCutEventHandler(e) {
             functionMapping[e.key]();
         }
     }
-    else if (e.key === "c" && e.altKey) {
+    else if (e.key.toLowerCase() === "c" && e.altKey && !e.ctrlKey) {
         e.preventDefault();
-        newRam();
+        if (e.shiftKey) {
+            resetMicrocode();
+        }
+        else {
+            newRam();
+        }
     }
     else {
         // console.log(e);
