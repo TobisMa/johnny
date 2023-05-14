@@ -248,7 +248,6 @@ function ManuellRam(){
 	})
 	writeToRam(CheckNumber(parseInt(num),(1 +"9".repeat(ramLength)).toString(),0),selectedRamModule)
 	nextRamModule();
-	console.log("Added to history: ", history);
 }
 
 

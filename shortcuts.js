@@ -43,12 +43,11 @@ function undo() {
     }
     let action = history[historyPointer];
     let currentSelect = selectedRamModule;
-    console.log("Undoing action: ", action);
-    console.log(historyPointer, history);
+    // console.log("Undoing action: ", action);
+    // console.log(historyPointer, history);
     let num = CheckNumber(parseInt(action.value.split(".").join("")), 19999, 0);
     switch (action.action) {
         case "write":
-            console.log(num, action.addr);
             writeToRam(num, action.addr);
             EditRam(action.addr);
             break;
@@ -74,12 +73,10 @@ function redo() {
     }
     let currentSelect = selectedRamModule;
     let action = history[historyPointer];
-    console.log("Redoing", action);
-    console.log(historyPointer, history);
+    // console.log("Redoing", action);
     let num = CheckNumber(parseInt(action.value.split(".").join("")), 19999, 0);
     switch (action.action) {
         case "write":
-            console.log(num, action.addr);
             writeToRam(num, action.addr);
             EditRam(action.addr);
             break;
@@ -200,7 +197,7 @@ function ExecuteVimCmd() {
     }
     else {
         let f = vimCmdMapping[vimCmd];
-        console.log(f);
+        // console.log(f);
         try {
             f();
         }
