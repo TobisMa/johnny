@@ -150,7 +150,7 @@ function addToHistory(action) {
 	if (history.length >= 11) {
 		history.splice(0, history.length - historyMaxLength);
 	}
-	historyPointer = CheckNumber(historyPointer + 1, history.length, 0);
+	historyPointer = CheckNumber(historyPointer + 1, history.length, 0);	
 }
 
 
