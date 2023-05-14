@@ -70,7 +70,7 @@ let useDeleteShortcut = false;
 let fixRamNumbersWithEq = false;
 
 const history = [];
-const historyMaxLength = 10;
+let historyMaxLength = 30;
 let historyPointer = 0;
 let lastHistoryUse = undefined;
 let setFilenameOnSave = false;
@@ -147,7 +147,7 @@ function addToHistory(action) {
 	}
 	console.log("Remove:", history.splice(historyPointer, historyMaxLength));
 	history.push(action);
-	if (history.length >= 11) {
+	if (history.length >= historyMaxLength + 1) {
 		history.splice(0, history.length - historyMaxLength);
 	}
 	historyPointer = CheckNumber(historyPointer + 1, history.length, 0);	
@@ -196,7 +196,7 @@ function initializeSettings() {
 	let scrollAheadBottomElement = document.getElementById("ahead-lines-bottom");
 	linesAheadBottom = parseInt(localStorage.getItem("linesAheadBottom")) || linesAheadBottom;
 	scrollAheadBottomElement.value = linesAheadBottom;
-
+	
 	scrollAheadBottomElement.addEventListener("keydown", (e) => {
 		if (shouldPreventDefault(e, digits)) {
 			e.preventDefault();
@@ -205,6 +205,21 @@ function initializeSettings() {
 	scrollAheadBottomElement.addEventListener("change", (e) => {
 		linesAheadBottom = parseInt(e.target.value);
 		localStorage.setItem("linesAheadBottom", linesAheadBottom);
+	}, true);
+	
+	// remembered history actions
+	let historyActionsElement = document.getElementById("history-actions");
+	historyMaxLength = parseInt(localStorage.getItem("historyMaxLength")) || historyMaxLength;
+	historyActionsElement.value = historyMaxLength;
+
+	historyActionsElement.addEventListener("keydown", (e) => {
+		if (shouldPreventDefault(e, digits)) {
+			e.preventDefault();
+		}
+	})
+	historyActionsElement.addEventListener("change", (e) => {
+		historyMaxLength = parseInt(e.target.value);
+		localStorage.setItem("historyMaxLength", historyMaxLength);
 	}, true);
 
 	// useDeleteShortcuts
@@ -225,6 +240,7 @@ function initializeSettings() {
 		localStorage.setItem("fixRamEq", fixRamNumbersWithEq);
 	});
 
+	// prompt when saving RAM/mc
 	let setFilenameOnSaveElement = document.getElementById("setFilenameOnSave");
 	setFilenameOnSave = localStorage.getItem("setFilenameOnSave")?.toLowerCase() === "true"; // default to false on undefined !== "false"
 	setFilenameOnSaveElement.checked = setFilenameOnSave;

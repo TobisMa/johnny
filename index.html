@@ -266,13 +266,18 @@ mit dank an Dr. Peter Dauscher
 						<br>
 						<input type="checkbox" id="setFilenameOnSave"><label for="setFilenameOnSave">Prompt for a filename on saving the RAM or micro code. No need to rename the file later</label>
 					</p>
+					<hr>
 					<p>
-						<input type="number" id="ahead-lines-top" class="lines-ahead" max="10" min="0" class="ahead-lines">
+						<input type="number" id="ahead-lines-top" class="lines-ahead" max="10" min="0">
 						<label for="ahead-lines-top">How many lines should be above the selected line when scrolling up</label>
 						<br>
 						<br>	
-						<input type="number" id="ahead-lines-bottom" class="lines-ahead" max="10" min="0" class="ahead-lines">
+						<input type="number" id="ahead-lines-bottom" class="lines-ahead" max="10" min="0">
 						<label for="ahead-lines-top">How many lines should be below the selected line when scrolling down</label>
+						<br>
+						<br>
+						<input type="number" id="history-actions" class="lines-ahead" max="100" min="10">
+						<label for="history-actions">How many actions should be undoable. When there are 5 undone and now an action like insert is executed. The redoable history will be deleted. It is not possible to undo the old actions anymore</label>
 					</p>
 				</div>
 				<hr>
