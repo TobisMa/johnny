@@ -40,7 +40,7 @@ This edited version can be viewed at [https://tobisma.github.io/johnny](https://
 | 1 | `db --> ram` |
 | 2 | `ram --> db` |
 | 3 | `db --> ins` |
-| 4 | `ins --> db` |
+| 4 | `ins --> ab` |
 | 5 | `ins --> mc` |
 | 6 | _none_ |
 | 7 | `mc:=0` |

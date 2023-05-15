@@ -79,7 +79,7 @@ const buttonIdFromText = {
 	"db --> ram": 1,
 	"ram --> db": 2,
 	"db --> ins": 3,
-	"ins --> db": 4,
+	"ins --> ab": 4,
 	"ins --> mc": 5,
 	"mc:=0": 7,
 	"pc --> ab": 8,
@@ -339,21 +339,38 @@ function getIdFromButton(buttonStringInput) {
 		if (buttonString.endsWith("mc")) {
 			return buttonIdFromText["ins --> mc"];
 		}
-		else if (buttonString.endsWith("db")) {
-			return buttonIdFromText["ins --> db"];
+		else if (buttonString.endsWith("ab")) {
+			return buttonIdFromText["ins --> ab"];
 		}
 		else if (buttonString.endsWith("pc")) {
 			return buttonIdFromText["ins --> pc"];
 		}
 	}
+	else if (buttonString.startsWith("pc")) {
+		if (buttonString.endsWith("+")) {
+			return buttonIdFromText["pc++"];
+		}
+		else if (buttonString.endsWith("ab")) {
+			return buttonIdFromText["pc --> ab"];
+		}
+	}
+	else if (buttonString.startsWith("ram") && buttonString.endsWith("db")) {
+		return buttonIdFromText["ram --> db"];
+	}
 	else if (buttonString.startsWith("=") && buttonString.endsWith("+")) {
-		return buttonIdFromText["=0?pc++"]
+		return buttonIdFromText["=0?pc++"];
 	}
 	else if (buttonString.startsWith("mc") && buttonString.endsWith("0")) {
 		return buttonIdFromText["mc:=0"];
 	}
 	else if (buttonString === "stop") {
 		return buttonIdFromText["stop"];
+	}
+	else if (buttonString === "plus") {
+		return buttonIdFromText["plus"];
+	}
+	else if (buttonString === "minus" || buttonString.startsWith("sub")) {
+		return buttonIdFromText["minus"];
 	}
 	alert(`Did not understand button signature '${buttonStringInput}'`);
 }
