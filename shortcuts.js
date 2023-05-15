@@ -42,12 +42,12 @@ function undo() {
         return;
     }
     let action = history[historyPointer];
-    let currentSelect = selectedRamModule;
     // console.log("Undoing action: ", action);
     // console.log(historyPointer, history);
     let num = CheckNumber(parseInt(action.value.split(".").join("")), 19999, 0);
     switch (action.action) {
         case "write":
+            history[historyPointer].value = document.getElementsByClassName("col2")[action.addr].innerText;
             writeToRam(num, action.addr);
             EditRam(action.addr);
             break;
@@ -71,12 +71,12 @@ function redo() {
         console.warn("Nothing to redo");
         return;
     }
-    let currentSelect = selectedRamModule;
     let action = history[historyPointer];
     // console.log("Redoing", action);
     let num = CheckNumber(parseInt(action.value.split(".").join("")), 19999, 0);
     switch (action.action) {
         case "write":
+            history[historyPointer].value = document.getElementsByClassName("col2")[action.addr].innerText;
             writeToRam(num, action.addr);
             EditRam(action.addr);
             break;
