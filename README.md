@@ -59,6 +59,56 @@ This edited version can be viewed at [https://tobisma.github.io/johnny](https://
 
 _Made by [Sagalim](https://github.com/Sagalim) and [Isabell05](https://github.com/isabell05)_
 
+
+## how does single micro code instruction editing work?
+To get the menu for editing you need to make a double click on the entry.
+Then an entry pops up asking for a number or button. The numerers are the micro code instrcution numbers listed in the table above.
+
+The buttons are parsed by checking the start of the input and the end.
+You can either just type out the full button like `db --> ram` or continue reading to understand how to shorten your buttons. As always, exceptions from the rule are listed at the end. 
+
+Operators and destinations which are being checked:
+### Destinations
+- `ram`
+- `db`
+- `mc`
+- `ins`
+- `pc`
+- `acc`
+
+### Operators
+Operators are always used after an _`Destination`_
+
+| Operator | Meaning |
+| :--- | :--- |
+| `+` | add one to the destination if such an button exists (e. g. `pc++` for `pc+`) |
+| `-` | same as the `+`-operator but for subtracting |
+| `0` | reset the destination to zero (e. g. `acc0` means `acc:=0`)
+
+### how to build your buttons
+#### from destination to destination
+just first type the first destination (the starting point) followed by the secind destination. For example, `dbram` would translate to `db --> ram` or `insab` would translate to `ins --> ab`. As mentioned in the beginning typing `db --> ram` works fine as well, because it still starts with `db` and ends with `ram`.
+
+#### destination prepended to an operator
+Examples: `acc-`, `pc+`, `mc0`
+`acc-` and `pc+` just mean `acc++` and `pc++`. It is just an character shorter  
+`mc0` is a bit more complicated but button inputs ending on `0` mean to reset the _destination_. So, `mc0` refers to `mc:=0` and `acc0` would be `acc:=0`.
+
+### Buttons which are supported but have no direct scheme
+
+prepended inputs by `^` means the following string needs to be at the beginning of the input
+prepended inputs by `$` mean they need to be at the end. 
+For example `^'ram' $'db'` describes that the input needs to start with `ram` and needs to end with `db`. This input corresponds to the button `ram --> db`
+
+| Input | Corresponding buttons | Example inputs, which are valid for the button| 
+| :--- | :--- | --- |
+| `plus` | `plus` | |
+| `minus` | `minus` | |
+| ^`sub` | `minus` | `subtract` |
+| `stop` | `stop` | |
+| ^`=` $`+` | `=0?pc++` | `=0?+`, `=+`, `=0?pc+` | 
+
+
 ## shortcuts
 ### basic shortcuts for menu and RAM
 Actions on RAM which are possible from micro code, as well (e. g. save) are with perssing <kbd>⇧ Shift</kbd> additionally.

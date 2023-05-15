@@ -2568,7 +2568,8 @@ body,
 }
 
 </style>
-        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
 <style>
@@ -2660,7 +2661,7 @@ which automatically updates as soon as i make a commit to the master branch of t
 </tr>
 <tr>
 <td style="text-align:center">4</td>
-<td style="text-align:left"><code>ins --&gt; db</code></td>
+<td style="text-align:left"><code>ins --&gt; ab</code></td>
 </tr>
 <tr>
 <td style="text-align:center">5</td>
@@ -2725,6 +2726,92 @@ which automatically updates as soon as i make a commit to the master branch of t
 </tbody>
 </table>
 <p><em>Made by <a href="https://github.com/Sagalim">Sagalim</a> and <a href="https://github.com/isabell05">Isabell05</a></em></p>
+<h2 id="how-does-single-micro-code-instruction-editing-work">how does single micro code instruction editing work?</h2>
+<p>To get the menu for editing you need to make a double click on the entry.
+Then an entry pops up asking for a number or button. The numerers are the micro code instrcution numbers listed in the table above.</p>
+<p>The buttons are parsed by checking the start of the input and the end.
+You can either just type out the full button like <code>db --&gt; ram</code> or continue reading to understand how to shorten your buttons. As always, exceptions from the rule are listed at the end.</p>
+<p>Operators and destinations which are being checked:</p>
+<h3 id="destinations">Destinations</h3>
+<ul>
+<li><code>ram</code></li>
+<li><code>db</code></li>
+<li><code>mc</code></li>
+<li><code>ins</code></li>
+<li><code>pc</code></li>
+<li><code>acc</code></li>
+</ul>
+<h3 id="operators">Operators</h3>
+<p>Operators are always used after an <em><code>Destination</code></em></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Operator</th>
+<th style="text-align:left">Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>+</code></td>
+<td style="text-align:left">add one to the destination if such an button exists (e. g. <code>pc++</code> for <code>pc+</code>)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>-</code></td>
+<td style="text-align:left">same as the <code>+</code>-operator but for subtracting</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>0</code></td>
+<td style="text-align:left">reset the destination to zero (e. g. <code>acc0</code> means <code>acc:=0</code>)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="how-to-build-your-buttons">how to build your buttons</h3>
+<h4 id="from-destination-to-destination">from destination to destination</h4>
+<p>just first type the first destination (the starting point) followed by the secind destination. For example, <code>dbram</code> would translate to <code>db --&gt; ram</code> or <code>insab</code> would translate to <code>ins --&gt; ab</code>. As mentioned in the beginning typing <code>db --&gt; ram</code> works fine as well, because it still starts with <code>db</code> and ends with <code>ram</code>.</p>
+<h4 id="destination-prepended-to-an-operator">destination prepended to an operator</h4>
+<p>Examples: <code>acc-</code>, <code>pc+</code>, <code>mc0</code>
+<code>acc-</code> and <code>pc+</code> just mean <code>acc++</code> and <code>pc++</code>. It is just an character shorter<br>
+<code>mc0</code> is a bit more complicated but button inputs ending on <code>0</code> mean to reset the <em>destination</em>. So, <code>mc0</code> refers to <code>mc:=0</code> and <code>acc0</code> would be <code>acc:=0</code>.</p>
+<h3 id="buttons-which-are-supported-but-have-no-direct-scheme">Buttons which are supported but have no direct scheme</h3>
+<p>prepended inputs by <code>^</code> means the following string needs to be at the beginning of the input
+prepended inputs by <code>$</code> mean they need to be at the end.
+For example <code>^'ram' $'db'</code> describes that the input needs to start with <code>ram</code> and needs to end with <code>db</code>. This input corresponds to the button <code>ram --&gt; db</code></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Input</th>
+<th style="text-align:left">Corresponding buttons</th>
+<th>Example inputs, which are valid for the button</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>plus</code></td>
+<td style="text-align:left"><code>plus</code></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>minus</code></td>
+<td style="text-align:left"><code>minus</code></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">^<code>sub</code></td>
+<td style="text-align:left"><code>minus</code></td>
+<td><code>subtract</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>stop</code></td>
+<td style="text-align:left"><code>stop</code></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">^<code>=</code> $<code>+</code></td>
+<td style="text-align:left"><code>=0?pc++</code></td>
+<td><code>=0?+</code>, <code>=+</code>, <code>=0?pc+</code></td>
+</tr>
+</tbody>
+</table>
 <h2 id="shortcuts">shortcuts</h2>
 <h3 id="basic-shortcuts-for-menu-and-ram">basic shortcuts for menu and RAM</h3>
 <p>Actions on RAM which are possible from micro code, as well (e. g. save) are with perssing <kbd>⇧ Shift</kbd> additionally.</p>
@@ -3155,7 +3242,7 @@ This website works on Firefox and chromium based browsers (Edge, Chrome, ...). N
 </ol>
 </div>
         </div>
-        
+        <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
         <script async type="text/javascript">
 /* From extension bierner.markdown-mermaid */
 /*! For license information please see index.bundle.js.LICENSE.txt */
