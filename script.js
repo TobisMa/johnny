@@ -287,10 +287,19 @@ function updateMcInstruction(e) {
 	let instructionText = null;
 	if (isNaN(parsedInstruction)) {
 		// parese instrcution from button input
-		parsedInstruction = getIdFromButton(newInstruction);
+		parsedInstruction = getIdFromButton(newInstruction);	
 	}
 	console.log("Parsed instruction: " + parsedInstruction);
-	instructionText = microCodeToText(parsedInstruction);
+	if (!parsedInstruction) {
+		alert(`Did not understand button signature '${newInstruction}'`);
+		return;
+	}
+	try {
+		instructionText = microCodeToText(parsedInstruction);
+	} catch (e) {
+		alert(`Unknown micro code instruction ${parsedInstruction}`);
+		return;
+	}
 	if (instructionText === undefined) {
 		console.warn("No micro code:", parsedInstruction);
 		return;
@@ -372,7 +381,7 @@ function getIdFromButton(buttonStringInput) {
 	else if (buttonString === "minus" || buttonString.startsWith("sub")) {
 		return buttonIdFromText["minus"];
 	}
-	alert(`Did not understand button signature '${buttonStringInput}'`);
+	return undefined;
 }
 
 
