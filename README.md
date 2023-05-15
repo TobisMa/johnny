@@ -1,4 +1,4 @@
-# johnny - original
+# johnny - documentation
 Simulation of a von neumann arcitecture
 
 The programm is hosted by inf-schule.de

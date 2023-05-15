@@ -10,3 +10,6 @@
 - shortcuts for saving micro code or RAM in a file
 - shortcuts for opening a file storing micro code or RAM data
 - shortcut to reset micro code (clear)
+
+Patches:
+- undo/redo on write works
