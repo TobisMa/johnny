@@ -30,6 +30,33 @@ This edited version can be viewed at [https://tobisma.github.io/johnny](https://
 - undo/redo on <kbd>Ctrl</kbd><kbd>Z</kbd> and <kbd>Ctrl</kbd><kbd>Y</kbd> &emsp;
 - setting to configure how many actions are remembered
 - prompt when saving RAM or micro code in a file
+- documentation of the micro code numbers in the downloadable file
+
+
+## overview about the numbers used in a *.mc file
+| Number | Corresponding button |
+| :---: | :--- |
+| 1 | `db --> ram` |
+| 2 | `ram --> db` |
+| 3 | `db --> ins` |
+| 4 | `ins --> db` |
+| 5 | `ins --> mc` |
+| 6 | _none_ |
+| 7 | `mc:=0` |
+| 8 | `pc --> ab` |
+| 9 | `pc++` |
+| 10 | `=0?pc++` |
+| 11 | `ins --> pc` |
+| 12 | `acc:=0` |
+| 13 | `plus` |
+| 14 | `minus` |
+| 15 | `acc --> db` |
+| 16 | `acc++` |
+| 17 | `acc--` |
+| 18 | `db --> acc` |****
+| 19 | `stop` |
+
+_Made by [Sagalim](https://github.com/Sagalim) and [Isabell05](https://github.com/isabell05)_
 
 ## shortcuts
 ### basic shortcuts for menu and RAM

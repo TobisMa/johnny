@@ -2634,7 +2634,96 @@ which automatically updates as soon as i make a commit to the master branch of t
 <li>undo/redo on <kbd>Ctrl</kbd><kbd>Z</kbd> and <kbd>Ctrl</kbd><kbd>Y</kbd>  </li>
 <li>setting to configure how many actions are remembered</li>
 <li>prompt when saving RAM or micro code in a file</li>
+<li>documentation of the micro code numbers in the downloadable file</li>
 </ul>
+<h2 id="overview-about-the-numbers-used-in-a-mc-file">overview about the numbers used in a *.mc file</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Number</th>
+<th style="text-align:left">Corresponding button</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:left"><code>db --&gt; ram</code></td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:left"><code>ram --&gt; db</code></td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:left"><code>db --&gt; ins</code></td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:left"><code>ins --&gt; db</code></td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:left"><code>ins --&gt; mc</code></td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:left"><em>none</em></td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:left"><code>mc:=0</code></td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td style="text-align:left"><code>pc --&gt; ab</code></td>
+</tr>
+<tr>
+<td style="text-align:center">9</td>
+<td style="text-align:left"><code>pc++</code></td>
+</tr>
+<tr>
+<td style="text-align:center">10</td>
+<td style="text-align:left"><code>=0?pc++</code></td>
+</tr>
+<tr>
+<td style="text-align:center">11</td>
+<td style="text-align:left"><code>ins --&gt; pc</code></td>
+</tr>
+<tr>
+<td style="text-align:center">12</td>
+<td style="text-align:left"><code>acc:=0</code></td>
+</tr>
+<tr>
+<td style="text-align:center">13</td>
+<td style="text-align:left"><code>plus</code></td>
+</tr>
+<tr>
+<td style="text-align:center">14</td>
+<td style="text-align:left"><code>minus</code></td>
+</tr>
+<tr>
+<td style="text-align:center">15</td>
+<td style="text-align:left"><code>acc --&gt; db</code></td>
+</tr>
+<tr>
+<td style="text-align:center">16</td>
+<td style="text-align:left"><code>acc++</code></td>
+</tr>
+<tr>
+<td style="text-align:center">17</td>
+<td style="text-align:left"><code>acc--</code></td>
+</tr>
+<tr>
+<td style="text-align:center">18</td>
+<td style="text-align:left"><code>db --&gt; acc</code></td>
+</tr>
+<tr>
+<td style="text-align:center">19</td>
+<td style="text-align:left"><code>stop</code></td>
+</tr>
+</tbody>
+</table>
+<p><em>Made by <a href="https://github.com/Sagalim">Sagalim</a> and <a href="https://github.com/isabell05">Isabell05</a></em></p>
 <h2 id="shortcuts">shortcuts</h2>
 <h3 id="basic-shortcuts-for-menu-and-ram">basic shortcuts for menu and RAM</h3>
 <p>Actions on RAM which are possible from micro code, as well (e. g. save) are with perssing <kbd>⇧ Shift</kbd> additionally.</p>
