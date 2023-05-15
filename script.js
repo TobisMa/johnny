@@ -75,6 +75,27 @@ let historyPointer = 0;
 let lastHistoryUse = undefined;
 let setFilenameOnSave = false;
 
+const buttonIdFromText = {
+	"db --> ram": 1,
+	"ram --> db": 2,
+	"db --> ins": 3,
+	"ins --> db": 4,
+	"ins --> mc": 5,
+	"mc:=0": 7,
+	"pc --> ab": 8,
+	"pc++": 9,
+	"=0?pc++": 10,
+	"ins --> pc": 11,
+	"acc:=0": 12,
+	"plus": 13,
+	"minus": 14,
+	"acc --> db": 15,
+	"acc++": 16,
+	"acc--": 17,
+	"db --> acc": 18,
+	"stop": 19
+}
+
 var Ram = JSON.parse(localStorage.getItem('johnny-ram'));
 
 
@@ -248,6 +269,93 @@ function initializeSettings() {
 		setFilenameOnSave = e.target.checked;
 		localStorage.setItem("setFilenameOnSave", setFilenameOnSave);
 	})
+}
+
+function updateMcInstruction(e) {
+	let address = parseInt(e.target.parentNode.dataset.row);
+	if (address === undefined) {
+		console.log("Wrong td; parent has no data-row attr");
+		console.log(e.target);
+		return;
+	}
+
+	let newInstruction = prompt("New micro code (number or button label):", microCodeToText(parseInt(MicroCode[address])));
+	if (newInstruction === null) {
+		return;
+	}
+	let parsedInstruction = parseInt(newInstruction);
+	let instructionText = null;
+	if (isNaN(parsedInstruction)) {
+		// parese instrcution from button input
+		parsedInstruction = getIdFromButton(newInstruction);
+	}
+	console.log("Parsed instruction: " + parsedInstruction);
+	instructionText = microCodeToText(parsedInstruction);
+	if (instructionText === undefined) {
+		console.warn("No micro code:", parsedInstruction);
+		return;
+	}
+	let element = e.target;
+	element.innerText = instructionText;
+	MicroCode[address] = parsedInstruction.toString();
+	localStorage.setItem("johnny-microcode", JSON.stringify(MicroCode));
+}
+
+
+function getIdFromButton(buttonStringInput) {
+	let buttonString = buttonStringInput.toLowerCase().trim();
+	if (buttonIdFromText.hasOwnProperty(buttonString)) {
+		return buttonIdFromText[buttonString];
+	}
+	else if (buttonString.startsWith("acc")) {
+		// acc buttons
+		if (buttonString.endsWith("+")) {
+			return buttonIdFromText["acc++"];
+		}
+		else if (buttonString.endsWith("-")) {
+			return buttonIdFromText["acc--"];
+		}
+		else if (buttonString.endsWith("0")) {
+			return buttonIdFromText["acc:=0"];
+		}
+		else if (buttonString.endsWith("db")) {
+			return buttonIdFromText["acc --> db"];
+		}
+	}
+	else if (buttonString.startsWith("db")) {
+		// db buttons
+		if (buttonString.endsWith("acc")) {
+			return buttonIdFromText["db --> acc"];
+		}
+		else if (buttonString.endsWith("ins")) {
+			return buttonIdFromText["db --> ins"];
+		}
+		else if (buttonString.endsWith("ram")) {
+			return buttonIdFromText["db --> ram"];
+		}
+	}
+	else if (buttonString.startsWith("ins")) {
+		// ins buttons
+		if (buttonString.endsWith("mc")) {
+			return buttonIdFromText["ins --> mc"];
+		}
+		else if (buttonString.endsWith("db")) {
+			return buttonIdFromText["ins --> db"];
+		}
+		else if (buttonString.endsWith("pc")) {
+			return buttonIdFromText["ins --> pc"];
+		}
+	}
+	else if (buttonString.startsWith("=") && buttonString.endsWith("+")) {
+		return buttonIdFromText["=0?pc++"]
+	}
+	else if (buttonString.startsWith("mc") && buttonString.endsWith("0")) {
+		return buttonIdFromText["mc:=0"];
+	}
+	else if (buttonString === "stop") {
+		return buttonIdFromText["stop"];
+	}
+	alert(`Did not understand button signature '${buttonStringInput}'`);
 }
 
 
@@ -448,6 +556,7 @@ function aufnehmen(befehl) {
 
 		newtd2 = document.getElementsByClassName("Mccol2")[recordingCounter];
 		newtd2.innerText = microCodeToText(befehl);
+		newtd2.addEventListener("dblclick", updateMcInstruction);
 
 		localStorage.setItem("johnny-microcode", JSON.stringify(MicroCode));
 

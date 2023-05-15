@@ -112,6 +112,9 @@ function GenerateMicroCodeTable() {
 		newtr.appendChild(newtd1);
 
 		newtd2.innerText = microCodeToText(parseInt(MicroCode[i]))
+		if (!newtd2.innerText.startsWith("-")) {
+			newtd2.addEventListener("dblclick", updateMcInstruction);
+		}
 		newtr.appendChild(newtd2);
 		p.appendChild(newtr);
 	}

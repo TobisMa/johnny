@@ -31,6 +31,7 @@ This edited version can be viewed at [https://tobisma.github.io/johnny](https://
 - setting to configure how many actions are remembered
 - prompt when saving RAM or micro code in a file
 - documentation of the micro code numbers in the downloadable file
+- editing (not deleting/adding) already recorded micro instructions
 
 
 ## overview about the numbers used in a *.mc file
@@ -53,7 +54,7 @@ This edited version can be viewed at [https://tobisma.github.io/johnny](https://
 | 15 | `acc --> db` |
 | 16 | `acc++` |
 | 17 | `acc--` |
-| 18 | `db --> acc` |****
+| 18 | `db --> acc` |
 | 19 | `stop` |
 
 _Made by [Sagalim](https://github.com/Sagalim) and [Isabell05](https://github.com/isabell05)_
