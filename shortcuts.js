@@ -76,6 +76,20 @@ function undo() {
             document.getElementsByClassName("Mccol2")[action.addr].innerText = microCodeToText(num);
             localStorage.setItem("johnny-microcode", JSON.stringify(MicroCode));
             break;
+
+	case "clearRam":
+	    Ram = action.ram.slice();
+	    localStorage.setItem("johnny-ram",JSON.stringify(Ram));
+            updateRam();
+	    EditRam(action.selected || 0);
+	    break;
+
+	case "resetMc":
+	    MicroCode = action.mc.slice();
+	    localStorage.setItem("johnny-microcode", JSON.stringify(MicroCode));
+	    GenerateMicroCodeTable();
+	    break;
+	     	
     }
 }
 
@@ -118,6 +132,15 @@ function redo() {
             document.getElementsByClassName("Mccol2")[action.addr].innerText = microCodeToText(num);
             localStorage.setItem("johnny-microcode", JSON.stringify(MicroCode));
             break;
+
+	case "clearRam":
+	    newRam(false);
+	    break;
+
+	case "resetMc":
+	    resetMicrocode(false);
+	    break;
+	    
     }
     historyPointer++;
 }

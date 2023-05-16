@@ -151,7 +151,10 @@ function IncPcClick(){
 }
 
 
-function newRam(){
+function newRam(writeHistory=true){
+        if (history[historyPointer - 1]?.action !== "clearRam" && writeHistory) {
+		addToHistory({action: "clearRam", ram: Ram.slice(), selected: selectedRamModule});
+	}
 	for(i=0;i<1000;i++){
 		Ram[i] =0;
   }
