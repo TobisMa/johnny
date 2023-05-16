@@ -61,52 +61,57 @@ _Made by [Sagalim](https://github.com/Sagalim) and [Isabell05](https://github.co
 
 
 ## how does single micro code instruction editing work?
-To get the menu for editing you need to make a double click on the entry.
-Then an entry pops up asking for a number or button. The numerers are the micro code instrcution numbers listed in the table above.
+To get the menu for editing you need to make a double click on the entry in the micro code table.
+Then, an prompt pops up asking for a number or a button. The numbers are the micro code instrcution numbers listed in the table above.
 
-The buttons are parsed by checking the start of the input and the end.
-You can either just type out the full button like `db --> ram` or continue reading to understand how to shorten your buttons. As always, exceptions from the rule are listed at the end. 
+The buttons are text input. They are parsed by checking the start of the input and the end.
+You can either just type out the full button like `db --> ram` or continue reading to understand how to shorten your buttons. The numbers are the shortest way, but also the most complicated. As always, there are exceptions. Those are listed at the end.
 
-Operators and destinations which are being checked:
+Buttons are built using the following operators and destinations:
 ### Destinations
-- `ram`
-- `db`
-- `mc`
-- `ins`
-- `pc`
-- `acc`
+| Destination | Component |
+| :--- | :--- |
+| `ram` | `RAM` |
+| `db` | `Data Bus` |
+| `mc` | `micro code` |
+| `ins` | `instruction register` |
+| `pc` | `program counter` |
+| `acc` | `accumulator` |
 
 ### Operators
 Operators are always used after an _`Destination`_
 
 | Operator | Meaning |
 | :--- | :--- |
-| `+` | add one to the destination if such an button exists (e. g. `pc++` for `pc+`) |
-| `-` | same as the `+`-operator but for subtracting |
+| `+` | increase the destination by one if such an button exists (e. g. `pc++` for `pc+`) |
+| `-` | same as the `+`-operator but for decreasing |
 | `0` | reset the destination to zero (e. g. `acc0` means `acc:=0`)
 
 ### how to build your buttons
 #### from destination to destination
-just first type the first destination (the starting point) followed by the secind destination. For example, `dbram` would translate to `db --> ram` or `insab` would translate to `ins --> ab`. As mentioned in the beginning typing `db --> ram` works fine as well, because it still starts with `db` and ends with `ram`.
+just type the first destination (the starting point) followed by the second destination. For example, `dbram` would translate to `db --> ram` or `insab` would translate to `ins --> ab`. As mentioned in the beginning typing `db --> ram` works fine as well, because it still starts with `db` and ends with `ram`.
 
 #### destination prepended to an operator
-Examples: `acc-`, `pc+`, `mc0`
+Examples: `acc-`, `pc+`, `mc0`  
 `acc-` and `pc+` just mean `acc++` and `pc++`. It is just an character shorter  
 `mc0` is a bit more complicated but button inputs ending on `0` mean to reset the _destination_. So, `mc0` refers to `mc:=0` and `acc0` would be `acc:=0`.
 
-### Buttons which are supported but have no direct scheme
+### The exceptions
 
-prepended inputs by `^` means the following string needs to be at the beginning of the input
-prepended inputs by `$` mean they need to be at the end. 
-For example `^'ram' $'db'` describes that the input needs to start with `ram` and needs to end with `db`. This input corresponds to the button `ram --> db`
-
-| Input | Corresponding buttons | Example inputs, which are valid for the button| 
+| Input | Corresponding button | Example inputs, which are valid for the button| 
 | :--- | :--- | --- |
 | `plus` | `plus` | |
 | `minus` | `minus` | |
 | ^`sub` | `minus` | `subtract` |
 | `stop` | `stop` | |
 | ^`=` $`+` | `=0?pc++` | `=0?+`, `=+`, `=0?pc+` | 
+
+---
+> - `^` prepended to a code block signals that the input needs to start with this code block
+> - `$` prepended to a code block signals that the input needs to end on that code block  
+> ---
+> For example `^'ram' $'db'` describes that the input needs to start with `ram` and needs to end with `db`. This input corresponds to the button `ram --> db`
+---
 
 
 ## shortcuts
@@ -129,8 +134,8 @@ Actions on RAM which are possible from micro code, as well (e. g. save) are with
 | <kbd>-</kbd> | Make execution slower | |
 | <kbd>Alt</kbd><kbd>C</kbd> | Clear Ram | Clear |
 | <kbd>⌥ Option</kbd><kbd>C</kbd> | Clear RAM | Clear |
-| <kbd>⇧ Shift</kbd><kbd>Alt</kbd><kbd>C</kbd> | Reset micro code | _Clear_ |
-| <kbd>⇧ Shift</kbd><kbd>⌥ Option</kbd><kbd>C</kbd> | Reset micro code | _Clear_ |
+| <kbd>Alt</kbd><kbd>⇧ Shift</kbd><kbd>C</kbd> | Reset micro code | _Clear_ |
+| <kbd>⌥ Option</kbd><kbd>⇧ Shift</kbd><kbd>C</kbd> | Reset micro code | _Clear_ |
 | <kbd>:</kbd> | Enter command mode for buttons | _Vim keybinding_ | 
 | <kbd>v</kbd> | Enter command mode for buttons | Vim |
 | <kbd>D</kbd> | Focus Data bus input | Data Bus |
@@ -145,9 +150,9 @@ Actions on RAM which are possible from micro code, as well (e. g. save) are with
 | <kbd>⌃ Ctrl</kbd><kbd>⇧ Shift</kbd><kbd>S</kbd> | Saving current micro code to file | Save |
 
 ### shortcuts for buttons like `ram --> db`
-Those shortcuts are in VIM style meaning you need to enter command mode first by pressing <kbd>:</kbd> or <kbd>v</kbd>.
-Afterwards you type the commmand from the list below. Then press <kbd>⏎ Enter</kbd> to emulate pressing the button. While in command mode you can press <kbd>Esc</kbd> or <kbd>^ Ctrl</kbd><kbd>C</kbd>. While in command mode all basic shortcuts above are disabled.
-The visual feedback is in command mode in the bottom left corner
+Those shortcuts are in VIM style meaning you need to enter command mode first by pressing <kbd>:</kbd>(VIM keybinding) or <kbd>V</kbd> (added by this website).
+Afterwards you type the commmand from the list below. Then press <kbd>⏎ Enter</kbd> to emulate pressing the button. While in command mode you can press <kbd>Esc</kbd> or <kbd>^ Ctrl</kbd><kbd>C</kbd> to leave command mode. While in command mode all basic shortcuts above are disabled.
+The visual feedback is in command mode in the bottom left corner.
 
 #### List of commands in command mode
 | Command | Button | Meaning & Notes |
@@ -199,7 +204,7 @@ NOTE: they are also working when the control unit is not visible
 | `cnf` | _Open settings_ |
 
 ### How to remember them?
-They are made of "operators":
+They are made of "operators" (and similar to the buttons read when editing micro instructions):
 | Operator | Meaning(s) | Type |
 | --- | --- | --- |
 | `a` | `Accumulator`, `Address Bus` | _Destination_ |
