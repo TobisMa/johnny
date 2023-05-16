@@ -305,6 +305,11 @@ function updateMcInstruction(e) {
 		return;
 	}
 	let element = e.target;
+	addToHistory({
+		action: "mcEdit",
+		addr: address,
+		value: getIdFromButton(e.target.innerText)  // old value
+	});
 	element.innerText = instructionText;
 	MicroCode[address] = parsedInstruction.toString();
 	localStorage.setItem("johnny-microcode", JSON.stringify(MicroCode));

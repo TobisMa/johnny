@@ -44,7 +44,13 @@ function undo() {
     let action = history[historyPointer];
     // console.log("Undoing action: ", action);
     // console.log(historyPointer, history);
-    let num = CheckNumber(parseInt(action.value.split(".").join("")), 19999, 0);
+    let num;
+    if (action.action === "write" || action.action === "delete") {
+        num = CheckNumber(parseInt(action.value.split(".").join("")), 19999, 0);
+    }
+    else if (action.action === "mcEdit") {
+        num = parseInt(action.value);
+    }
     switch (action.action) {
         case "write":
             history[historyPointer].value = document.getElementsByClassName("col2")[action.addr].innerText;
@@ -61,6 +67,14 @@ function undo() {
             selectedRamModule = action.addr;
             insertRowAbove(false);
             writeToRam(num, action.addr);
+            break;
+
+        case "mcEdit":
+            history[historyPointer].value = MicroCode[action.addr];
+            MicroCode[action.addr] = num;
+            // console.log(num);
+            document.getElementsByClassName("Mccol2")[action.addr].innerText = microCodeToText(num);
+            localStorage.setItem("johnny-microcode", JSON.stringify(MicroCode));
             break;
     }
 }
@@ -73,7 +87,13 @@ function redo() {
     }
     let action = history[historyPointer];
     // console.log("Redoing", action);
-    let num = CheckNumber(parseInt(action.value.split(".").join("")), 19999, 0);
+    let num;
+    if (action.action === "write") {
+        num = CheckNumber(parseInt(action.value.split(".").join("")), 19999, 0);
+    }
+    else if (action.action === "mcEdit") {
+        num = parseInt(action.value);
+    }
     switch (action.action) {
         case "write":
             history[historyPointer].value = document.getElementsByClassName("col2")[action.addr].innerText;
@@ -89,6 +109,14 @@ function redo() {
         case "delete":
             selectedRamModule = action.addr;
             deleteRow(false);
+            break;
+
+        case "mcEdit":
+            history[historyPointer].value = MicroCode[action.addr];
+            MicroCode[action.addr] = num;
+            // console.log(num);
+            document.getElementsByClassName("Mccol2")[action.addr].innerText = microCodeToText(num);
+            localStorage.setItem("johnny-microcode", JSON.stringify(MicroCode));
             break;
     }
     historyPointer++;
