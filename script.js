@@ -391,7 +391,7 @@ function getIdFromButton(buttonStringInput) {
 
 
 function resetMicrocode(writeHistory=true) {
-	if (writeHistory && history[historyPointer - 1]?.action !== "resetMc") {
+	if (MicroCode && writeHistory && history[historyPointer - 1]?.action !== "resetMc") {
 	    addToHistory({action: "resetMc", mc: MicroCode.slice()});
 	}
 
