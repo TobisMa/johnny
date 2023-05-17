@@ -296,8 +296,8 @@ function updateVisualCmdMode() {
 
 
 function shortCutEventHandler(e) {
-    if (modal.style.display !== "" && modal.style.display !== "none") {
-        console.warn("Settings are opened; Shortcuts disabled");
+    if (modal.style.display !== "" && modal.style.display !== "none" || e.target.id === "aufnahmeName") {
+        console.warn("Settings are opened or an text input is selected; Shortcuts disabled");
         return;
     }
     else if (vimCmdMode) {
