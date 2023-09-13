@@ -6,7 +6,6 @@ mit dank an Dr. Peter Dauscher
 
 */
 //daten die zückgesetzt werden müssen
-var Addressbus = 0;
 var Datenbus = 0;
 var halt = false;
 var Akkumulator = 0;
