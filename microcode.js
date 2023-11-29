@@ -234,7 +234,7 @@ document.getElementById("MicoCodeCounter").innerText = zeroPad(MicroCodeCounter,
 
 //Funktionen des MicroCode
 function RamDb(){
-	Datenbus = Ram[selectedRamModule];
+	Datenbus = Ram[AddressBus];
 	highlightRamAccess()
 	document.getElementById("DataBus").innerHTML = zeroPad(Datenbus,ramLength+1);
 	aufnehmen(2);
@@ -242,7 +242,7 @@ function RamDb(){
 
 
 function DbRam(){
-	writeToRam(Datenbus,selectedRamModule)
+	writeToRam(Datenbus, AddressBus)
 	highlightRamAccess()
 	aufnehmen(1);
 }
