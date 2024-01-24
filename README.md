@@ -31,12 +31,17 @@ This edited version can be viewed at [https://tobisma.github.io/johnny](https://
 - setting to configure how many actions are remembered
 - prompt when saving RAM or micro code in a file
 - documentation of the micro code numbers in the downloadable file
-- editing (not deleting/adding) already recorded micro instructions
+- editing already recorded micro instructions
+- renaming macro codes in the microcode registers
+- checking for name collision
+- no multiple additions to the macro code selection
+- better numbering system for where to start the new macro code
 
 
 ## overview about the numbers used in a *.mc file
 | Number | Corresponding button |
 | :---: | :--- |
+| 0 | `no instruction` |
 | 1 | `db --> ram` |
 | 2 | `ram --> db` |
 | 3 | `db --> ins` |

@@ -89,7 +89,7 @@ function GenerateMicroCodeTable() {
 
 
 
-
+	let prevText = "";
 	for (i = 0; i < 200; i++) {
 		newtr = document.createElement("tr");
 
@@ -112,11 +112,13 @@ function GenerateMicroCodeTable() {
 		newtr.appendChild(newtd1);
 
 		newtd2.innerText = microCodeToText(parseInt(MicroCode[i]))
-		if (!newtd2.innerText.startsWith("-")) {
+		if (!newtd2.innerText.startsWith("-") || !prevText.startsWith("-")) {
 			newtd2.addEventListener("dblclick", updateMcInstruction);
 		}
 		newtr.appendChild(newtd2);
 		p.appendChild(newtr);
+
+		prev = newtd2.innerText;
 	}
 
 
@@ -126,9 +128,11 @@ function GenerateMicroCodeTable() {
 	while (p.firstChild) {//entfernen alter einträge(wichtig wenn Mc neu geladen wird)
 		p.removeChild(p.firstChild);
 	}
-	for (i = 200; i < MicroCode.length; i++) {
-
+	for (let i = 200; i < MicroCode.length; i++) {
 		document.getElementsByClassName("Mccol1")[(i - 200) * 10].appendChild(document.createTextNode("   " + MicroCode[i] + ":"));
+		if (i != 200) {  // ignore FETCH (that is hardcoded fr)
+			document.getElementsByClassName("Mccol1")[(i - 200) * 10].addEventListener("click", (e) => {renameOwnMcCmd(e, (i - 200) * 10, MicroCode[i])});
+		}
 
 		if (i > 200) { //fetch nicht als auswählbaren befehl
 			newOption = document.createElement("option");
