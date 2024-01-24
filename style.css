@@ -669,3 +669,8 @@ input[type="number"] {
 .lines-ahead {
 	width: 6ch;
 }
+
+#aufnahmeZahl:focus-within:invalid {
+	 outline: 2px solid red;
+} 
+

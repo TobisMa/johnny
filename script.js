@@ -6,6 +6,7 @@ mit dank an Dr. Peter Dauscher
 
 */
 //daten die zückgesetzt werden müssen
+var Addressbus = 0;
 var Datenbus = 0;
 var halt = false;
 var Akkumulator = 0;
@@ -285,7 +286,7 @@ function updateMcInstruction(e) {
 	let parsedInstruction = parseInt(newInstruction);
 	let instructionText = null;
 	if (isNaN(parsedInstruction)) {
-		// parese instrcution from button input
+		// parse instrcution from button input
 		parsedInstruction = getIdFromButton(newInstruction);	
 	}
 	console.log("Parsed instruction: " + parsedInstruction);
@@ -549,9 +550,10 @@ function aufnahme() {
 		document.getElementById("recordMcPanel").style.backgroundColor = "";
 	} else {
 		recording = true;
-		recordingCounter = Math.floor(CheckNumber(parseInt(document.getElementById("aufnahmeZahl").value), 200, 0) / 10) * 10 // ignorieren der letzen stelle
+		recordingCounter = CheckNumber(parseInt(document.getElementById("aufnahmeZahl").value), 20, 0) * 10 // ignorieren der letzen stelle
 		MicroCode[recordingCounter / 10 + 200] = document.getElementById("aufnahmeName").value; //speichern des Namens
 		document.getElementsByClassName("Mccol1")[recordingCounter].innerText = recordingCounter + "   " + MicroCode[recordingCounter / 10 + 200] + ":";//name im Mc Tabelle einfügen
+		document.getElementsByClassName("Mccol1")[recordingCounter].addEventListener(() => {})
 
 		for (i = recordingCounter; i < recordingCounter + 10; i++) {//zurückseten der Befehle im Mc
 			MicroCode[i] = 0;
