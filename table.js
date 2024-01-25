@@ -112,9 +112,7 @@ function GenerateMicroCodeTable() {
 		newtr.appendChild(newtd1);
 
 		newtd2.innerText = microCodeToText(parseInt(MicroCode[i]))
-		if (!newtd2.innerText.startsWith("-") || !prevText.startsWith("-")) {
-			newtd2.addEventListener("dblclick", updateMcInstruction);
-		}
+		newtd2.addEventListener("dblclick", updateMcInstruction);
 		newtr.appendChild(newtd2);
 		p.appendChild(newtr);
 
@@ -131,7 +129,9 @@ function GenerateMicroCodeTable() {
 	for (let i = 200; i < MicroCode.length; i++) {
 		document.getElementsByClassName("Mccol1")[(i - 200) * 10].appendChild(document.createTextNode("   " + MicroCode[i] + ":"));
 		if (i != 200) {  // ignore FETCH (that is hardcoded fr)
-			document.getElementsByClassName("Mccol1")[(i - 200) * 10].addEventListener("click", (e) => {renameOwnMcCmd(e, (i - 200) * 10, MicroCode[i])});
+			callback = (e) => {renameOwnMcCmd(e, (i - 200) * 10, MicroCode[i])}
+			document.getElementsByClassName("Mccol1")[(i - 200) * 10].addEventListener("click", callback);
+			eventListeners[MicroCode[i]] = callback;
 		}
 
 		if (i > 200) { //fetch nicht als auswählbaren befehl

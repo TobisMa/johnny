@@ -2,10 +2,20 @@ var indicators= document.getElementsByClassName("dataMovement");
 
 
 function FadeOut(number){
+	// console.debug("Number", number, "; indic:", indicators);
+	if (indicators[number] === undefined) {
+		console.warn("No indicator for number ", number);
+		return;
+	}
 	indicators[number].style.display="none";
 }
 
 function FadeIn(number){
+	// console.debug("Number", number, "; indic:", indicators);
+	if (indicators[number] === undefined) {
+		console.warn("No indicator for number ", number);
+		return;
+	}
 	indicators[number].style.display="block";
 }
 

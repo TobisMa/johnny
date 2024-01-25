@@ -97,6 +97,7 @@ const buttonIdFromText = {
 }
 
 var Ram = JSON.parse(localStorage.getItem('johnny-ram'));
+var eventListeners = {};
 
 
 if (Ram == null) {//default if local store has been cleared or johnny is started for the first time
@@ -123,10 +124,10 @@ function renameOwnMcCmd(e, recordPos, oldName) {
 	document.getElementsByClassName("Mccol1")[recordPos].innerText = recordPos + "   " + newName + ":";  // Name aktualisieren
 	MicroCode[recordPos / 10 + 200] = newName;
 	document.getElementById("CommandSelect").childNodes.forEach(element => {
-		console.log("reoldName mc: ");
-		console.log(element);
+		// console.log("reoldName mc: ");
+		// console.log(element);
 		if (element.value == recordPos / 10) { // NOTE: == necessary; no ===
-			console.log(element);
+			// console.log(element);
 			element.innerText = zeroPad(recordPos / 10) + ": " + MicroCode[recordPos / 10 + 200];
 		}
 	})
@@ -591,16 +592,39 @@ function aufnahme() {
 		name = name.toUpperCase();
 		let inUse = false;
 		if (MicroCode.slice(200).includes(name)) {
-			let override = window.confirm("Name already in use. Do you want to overwrite it?");
+			let code = MicroCode.slice(200).indexOf(name);
+			console.warn(code, recordingCounter);
+			if (code * 10 != recordingCounter) {
+				window.alert(`Name already in use at address ${code}. Please choose another name`);
+				return;
+			} 
+			let override = window.confirm("Name already in use at this location. Do you want to overwrite it?");
 			inUse = true;
 			if (!override) {
 				return;
 			}
 		}
+		let oldName = MicroCode[recordingCounter / 10 + 200];
+		if (MicroCode[recordingCounter] !== 0) {
+			if (oldName !== name) {
+				window.alert("Adress already used for another macro code");
+				return;
+			}
+			else if (!inUse) {
+				answer = window.confirm("Micro code instructions already exist at this location.\nDo you want to overwrite them?");
+				if (!answer) {
+					return;
+				}
+			}
+		}
 
 		MicroCode[recordingCounter / 10 + 200] = name; //speichern des Namens
 		document.getElementsByClassName("Mccol1")[recordingCounter].innerText = recordingCounter + "   " + MicroCode[recordingCounter / 10 + 200] + ":";//name im Mc Tabelle einfügen
-		document.getElementsByClassName("Mccol1")[recordingCounter].addEventListener("click", (e) => { renameOwnMcCmd(e, tempRecordingCounter, name); });
+		document.getElementsByClassName("Mccol1")[recordingCounter].removeEventListener("click", eventListeners[oldName]);
+		delete eventListeners[oldName];
+		let callback = (e) => { renameOwnMcCmd(e, tempRecordingCounter, name); };
+		document.getElementsByClassName("Mccol1")[recordingCounter].addEventListener("click", callback);
+		eventListeners[name] = callback;
 
 		for (i = recordingCounter; i < recordingCounter + 10; i++) {//zurückseten der Befehle im Mc
 			MicroCode[i] = 0;
@@ -621,8 +645,9 @@ function aufnahme() {
 			newOption.setAttributeNode(Att);
 			newOption.appendChild(document.createTextNode(zeroPad(recordingCounter / 10) + ": " + MicroCode[recordingCounter / 10 + 200]));
 			document.getElementById("CommandSelect").appendChild(newOption)
-			aufnahmeBlinken();
 		}
+
+		aufnahmeBlinken();
 
 	}
 }
