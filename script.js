@@ -291,7 +291,7 @@ function initializeSettings() {
 
 	// prompt when saving RAM/mc
 	let setFilenameOnSaveElement = document.getElementById("setFilenameOnSave");
-	setFilenameOnSave = localStorage.getItem("setFilenameOnSave")?.toLowerCase() === "true"; // default to false on undefined !== "false"
+	setFilenameOnSave = localStorage.getItem("setFilenameOnSave")?.toLowerCase() !== "false"; // default to true
 	setFilenameOnSaveElement.checked = setFilenameOnSave;
 	setFilenameOnSaveElement.addEventListener("change", (e) => {
 		setFilenameOnSave = e.target.checked;
