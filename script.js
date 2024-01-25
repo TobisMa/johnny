@@ -584,8 +584,11 @@ function aufnahme() {
 		clearTimeout(timeoutforblinking);
 		document.getElementById("recordMcPanel").style.backgroundColor = "";
 	} else {
+		if (!document.getElementById("aufnahmeZahl").validity.valid || !document.getElementById("aufnahmeName").validity.valid) {
+			return;
+		}
 		recording = true;
-		recordingCounter = CheckNumber(parseInt(document.getElementById("aufnahmeZahl").value), 20, 0) * 10; // ignorieren der letzen stelle
+		recordingCounter = CheckNumber(parseInt(document.getElementById("aufnahmeZahl").value), 19, 0) * 10; // ignorieren der letzen stelle
 		let tempRecordingCounter = recordingCounter;
 
 		let name = document.getElementById("aufnahmeName").value;
@@ -664,7 +667,7 @@ function aufnehmen(befehl) {
 
 		let newtd2 = document.getElementsByClassName("Mccol2")[recordingCounter];
 		newtd2.innerText = microCodeToText(befehl);
-		newtd2.addEventListener("dblclick", updateMcInstruction);
+		newtd2.addEventListener("click", updateMcInstruction);
 
 		localStorage.setItem("johnny-microcode", JSON.stringify(MicroCode));
 

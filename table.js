@@ -112,7 +112,7 @@ function GenerateMicroCodeTable() {
 		newtr.appendChild(newtd1);
 
 		newtd2.innerText = microCodeToText(parseInt(MicroCode[i]))
-		newtd2.addEventListener("dblclick", updateMcInstruction);
+		newtd2.addEventListener("click", updateMcInstruction);
 		newtr.appendChild(newtd2);
 		p.appendChild(newtr);
 

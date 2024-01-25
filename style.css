@@ -670,7 +670,11 @@ input[type="number"] {
 	width: 6ch;
 }
 
-#aufnahmeZahl:focus-within:invalid {
+:is(#aufnahmeZahl, #aufnahmeName):focus-within:invalid {
 	 outline: 2px solid red;
-} 
+}
+
+:is(#aufnahmeZahl, #aufnahmeName):focus-within:valid {
+	 outline: 2px solid #30ff30;
+}
 

@@ -122,10 +122,10 @@ mit dank an Dr. Peter Dauscher
                     <div id="recordMcPanel" class="control">
                         <abbr title="Record macrocode"><img tabindex=0 src="./images/record_macro.svg" onclick="aufnahme()"
                             class="icon" /></abbr>
-                        <abbr title="Address in micro programm memory of new Macrocode "><input type="number"
-                            id="aufnahmeZahl" step="1" min="0" max="20" value="11" pattern="[012]\d?" required></abbr>
+                        <abbr title="Address in micro programm memory of new Macrocode "><input type="text" inputmode="numeric"
+                            id="aufnahmeZahl" step="1" min="1" max="19" value="11" pattern="[1-9]|1\d" placeholder="addr" required></abbr>
                         <abbr title="Name of new macro program"><input type="text" id="aufnahmeName" maxlength="5"
-                            value="NN"></abbr>
+                            value="" placeholder="name" pattern="[a-zA-Z0-9]+" required></abbr>
                         <!--<button onclick="toggleBonsai"></button> how tf did this slip troug TODO: was this neded in any way? -->
                     </div>
 
