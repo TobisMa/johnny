@@ -596,7 +596,6 @@ function aufnahme() {
 		let inUse = false;
 		if (MicroCode.slice(200).includes(name)) {
 			let code = MicroCode.slice(200).indexOf(name);
-			console.warn(code, recordingCounter);
 			if (code * 10 != recordingCounter) {
 				window.alert(`Name already in use at address ${code}. Please choose another name`);
 				return;
@@ -608,8 +607,8 @@ function aufnahme() {
 			}
 		}
 		let oldName = MicroCode[recordingCounter / 10 + 200];
-		if (MicroCode[recordingCounter] !== 0) {
-			if (oldName !== name) {
+		if (MicroCode[recordingCounter] != 0) {   // microccode is stored as string. no type equality
+			if (oldName !== undefined && oldName !== name) {
 				window.alert("Adress already used for another macro code");
 				return;
 			}
