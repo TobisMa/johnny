@@ -158,11 +158,33 @@ function initialize() {
 
 	document.getElementById("AddressBusInput").addEventListener("keydown", AddressBusInputKeydown);//damit die Entertaste funktioniert
 	document.getElementById("DataBusInput").addEventListener("keydown", DataBusInputKeydown);
+
 	document.getElementById("RamInput").addEventListener("keydown", RamInputKeydown);
 	document.getElementById("RamInput").addEventListener("focus", UpdateRamInputSelect);
+
 	document.addEventListener("keydown", keyDownHandler); //nur zum überspringen des ladebildschirms (wird nach dem Laden wieder entfernt)
 	document.addEventListener("mousedown", mouseDownHandler); //nur zum überspringen des ladebildschirms (wird nach dem Laden wieder entfernt)
+
 	window.addEventListener('resize', resize);
+
+	let aufnahmeHighlight = (e) => {
+		if (e.key == "Enter") {
+			aufnahme();
+		}
+		if (e.target.value) {
+			let recordingStart = parseInt(e.target.value) * 10;
+			if (recordingStart !== NaN && recordingStart > 9 && recordingStart < 200) {  // recording range [1..19]
+				if (MicroCode[recordingStart] != 0) {
+					e.target.style.outlineColor = "orange";
+					return;  // don't let it override styles at the bottom
+				}
+			}
+		}
+		e.target.style.removeProperty("outline-color");
+	}
+	document.getElementById("aufnahmeZahl").addEventListener("keyup", aufnahmeHighlight);
+	document.getElementById("aufnahmeZahl").addEventListener("focusout", aufnahmeHighlight);
+	document.getElementById("aufnahmeZahl").addEventListener("focusin", aufnahmeHighlight);
 
 	getRamRow().style.background = "#00F45D";
 
@@ -585,9 +607,9 @@ function aufnahme() {
 		document.getElementById("recordMcPanel").style.backgroundColor = "";
 	} else {
 		if (!document.getElementById("aufnahmeZahl").validity.valid || !document.getElementById("aufnahmeName").validity.valid) {
+			window.alert("Please provide a address in the micorcode registers as well as an name for the new macro code");
 			return;
 		}
-		recording = true;
 		recordingCounter = CheckNumber(parseInt(document.getElementById("aufnahmeZahl").value), 19, 0) * 10; // ignorieren der letzen stelle
 		let tempRecordingCounter = recordingCounter;
 
@@ -609,17 +631,20 @@ function aufnahme() {
 		let oldName = MicroCode[recordingCounter / 10 + 200];
 		if (MicroCode[recordingCounter] != 0) {   // microccode is stored as string. no type equality
 			if (oldName !== undefined && oldName !== name) {
-				window.alert("Adress already used for another macro code");
-				return;
+				let answer = window.confirm("Adress already used for another macro code. Clear?");
+				if (!answer) {
+					return;
+				}
 			}
 			else if (!inUse) {
-				answer = window.confirm("Micro code instructions already exist at this location.\nDo you want to overwrite them?");
+				let answer = window.confirm("Micro code instructions already exist at this location.\nDo you want to overwrite them?");
 				if (!answer) {
 					return;
 				}
 			}
 		}
 
+		recording = true;
 		MicroCode[recordingCounter / 10 + 200] = name; //speichern des Namens
 		document.getElementsByClassName("Mccol1")[recordingCounter].innerText = recordingCounter + "   " + MicroCode[recordingCounter / 10 + 200] + ":";//name im Mc Tabelle einfügen
 		document.getElementsByClassName("Mccol1")[recordingCounter].removeEventListener("click", eventListeners[oldName]);

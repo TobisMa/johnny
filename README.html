@@ -392,10 +392,10 @@ which automatically updates as soon as i make a commit to the master branch of t
 <li>settings
 <ul>
 <li>turn on/off correcting RAM macro commands on insert/delete row</li>
-<li>configure how many lines if available should be above/below the selection while scrolling using arrows keys or <kbd>j</kbd><kbd>k</kbd></li>
+<li>configure how many lines if available should be above/below the selection while scrolling using arrows keys or <kbd>j</kbd> <kbd>k</kbd></li>
 </ul>
 </li>
-<li>undo/redo on <kbd>Ctrl</kbd><kbd>Z</kbd> and <kbd>Ctrl</kbd><kbd>Y</kbd>  </li>
+<li>undo/redo on <kbd>Ctrl</kbd> <kbd>Z</kbd> and <kbd>Ctrl</kbd> <kbd>Y</kbd>  </li>
 <li>setting to configure how many actions are remembered</li>
 <li>prompt when saving RAM or micro code in a file</li>
 <li>documentation of the micro code numbers in the downloadable file</li>
@@ -649,7 +649,7 @@ You can either just type out the full button like <code>db --&gt; ram</code> or 
 <td style="text-align:left">Pause</td>
 </tr>
 <tr>
-<td style="text-align:left"><kbd>⇧ Shift</kbd><kbd>S</kbd></td>
+<td style="text-align:left"><kbd>⇧ Shift</kbd> <kbd>S</kbd></td>
 <td style="text-align:left">Execute one micro step</td>
 <td style="text-align:left">Step</td>
 </tr>
@@ -689,22 +689,22 @@ You can either just type out the full button like <code>db --&gt; ram</code> or 
 <td style="text-align:left"></td>
 </tr>
 <tr>
-<td style="text-align:left"><kbd>Alt</kbd><kbd>C</kbd></td>
+<td style="text-align:left"><kbd>Alt</kbd> <kbd>C</kbd></td>
 <td style="text-align:left">Clear Ram</td>
 <td style="text-align:left">Clear</td>
 </tr>
 <tr>
-<td style="text-align:left"><kbd>⌥ Option</kbd><kbd>C</kbd></td>
+<td style="text-align:left"><kbd>⌥ Option</kbd> <kbd>C</kbd></td>
 <td style="text-align:left">Clear RAM</td>
 <td style="text-align:left">Clear</td>
 </tr>
 <tr>
-<td style="text-align:left"><kbd>Alt</kbd><kbd>⇧ Shift</kbd><kbd>C</kbd></td>
+<td style="text-align:left"><kbd>Alt</kbd> <kbd>⇧ Shift</kbd> <kbd>C</kbd></td>
 <td style="text-align:left">Reset micro code</td>
 <td style="text-align:left"><em>Clear</em></td>
 </tr>
 <tr>
-<td style="text-align:left"><kbd>⌥ Option</kbd><kbd>⇧ Shift</kbd><kbd>C</kbd></td>
+<td style="text-align:left"><kbd>⌥ Option</kbd> <kbd>⇧ Shift</kbd> <kbd>C</kbd></td>
 <td style="text-align:left">Reset micro code</td>
 <td style="text-align:left"><em>Clear</em></td>
 </tr>
@@ -739,9 +739,14 @@ You can either just type out the full button like <code>db --&gt; ram</code> or 
 <td style="text-align:left">Insert</td>
 </tr>
 <tr>
-<td style="text-align:left"><kbd>⇧ Shift</kbd><kbd>Del</kbd></td>
+<td style="text-align:left"><kbd>⇧ Shift</kbd> <kbd>Del</kbd></td>
 <td style="text-align:left">Remove current selected row in RAM</td>
-<td style="text-align:left"></td>
+<td style="text-align:left">Delete</td>
+</tr>
+<tr>
+<td style="text-align:left"><kbd>⇧ Shift</kbd> <kbd>Q</kbd></td>
+<td style="text-align:left">record a microcode</td>
+<td style="text-align:left"><em>as in vim macros</em> (you are recording a macrocode after all xD)</td>
 </tr>
 <tr>
 <td style="text-align:left"><kbd>Del</kbd></td>
@@ -749,22 +754,22 @@ You can either just type out the full button like <code>db --&gt; ram</code> or 
 <td style="text-align:left">Delete (disabled per default; change in settings)</td>
 </tr>
 <tr>
-<td style="text-align:left"><kbd>⌃ Ctrl</kbd><kbd>O</kbd></td>
+<td style="text-align:left"><kbd>⌃ Ctrl</kbd> <kbd>O</kbd></td>
 <td style="text-align:left">Opening RAM file from disk</td>
 <td style="text-align:left">Open</td>
 </tr>
 <tr>
-<td style="text-align:left"><kbd>⌃ Ctrl</kbd><kbd>⇧ Shift</kbd><kbd>O</kbd></td>
+<td style="text-align:left"><kbd>⌃ Ctrl</kbd> <kbd>⇧ Shift</kbd> <kbd>O</kbd></td>
 <td style="text-align:left">Opening micro code file from disk</td>
 <td style="text-align:left">Open</td>
 </tr>
 <tr>
-<td style="text-align:left"><kbd>⌃ Ctrl</kbd><kbd>S</kbd></td>
+<td style="text-align:left"><kbd>⌃ Ctrl</kbd> <kbd>S</kbd></td>
 <td style="text-align:left">Saving current RAM to file</td>
 <td style="text-align:left">Save</td>
 </tr>
 <tr>
-<td style="text-align:left"><kbd>⌃ Ctrl</kbd><kbd>⇧ Shift</kbd><kbd>S</kbd></td>
+<td style="text-align:left"><kbd>⌃ Ctrl</kbd> <kbd>⇧ Shift</kbd> <kbd>S</kbd></td>
 <td style="text-align:left">Saving current micro code to file</td>
 <td style="text-align:left">Save</td>
 </tr>
@@ -772,7 +777,7 @@ You can either just type out the full button like <code>db --&gt; ram</code> or 
 </table>
 <h3 id="shortcuts-for-buttons-like-ram----db">shortcuts for buttons like <code>ram --&gt; db</code></h3>
 <p>Those shortcuts are in VIM style meaning you need to enter command mode first by pressing <kbd>:</kbd>(VIM keybinding) or <kbd>V</kbd> (added by this website).
-Afterwards you type the commmand from the list below. Then press <kbd>⏎ Enter</kbd> to emulate pressing the button. While in command mode you can press <kbd>Esc</kbd> or <kbd>^ Ctrl</kbd><kbd>C</kbd> to leave command mode. While in command mode all basic shortcuts above are disabled.
+Afterwards you type the commmand from the list below. Then press <kbd>⏎ Enter</kbd> to emulate pressing the button. While in command mode you can press <kbd>Esc</kbd> or <kbd>^ Ctrl</kbd> <kbd>C</kbd> to leave command mode. While in command mode all basic shortcuts above are disabled.
 The visual feedback is in command mode in the bottom left corner.</p>
 <h4 id="list-of-commands-in-command-mode">List of commands in command mode</h4>
 <table>

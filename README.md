@@ -26,8 +26,8 @@ This edited version can be viewed at [https://tobisma.github.io/johnny](https://
 - more intuitive scroll behaviour
 - settings
     - turn on/off correcting RAM macro commands on insert/delete row
-    - configure how many lines if available should be above/below the selection while scrolling using arrows keys or <kbd>j</kbd><kbd>k</kbd>
-- undo/redo on <kbd>Ctrl</kbd><kbd>Z</kbd> and <kbd>Ctrl</kbd><kbd>Y</kbd> &emsp;
+    - configure how many lines if available should be above/below the selection while scrolling using arrows keys or <kbd>j</kbd> <kbd>k</kbd>
+- undo/redo on <kbd>Ctrl</kbd> <kbd>Z</kbd> and <kbd>Ctrl</kbd> <kbd>Y</kbd> &emsp;
 - setting to configure how many actions are remembered
 - prompt when saving RAM or micro code in a file
 - documentation of the micro code numbers in the downloadable file
@@ -129,7 +129,7 @@ Actions on RAM which are possible from micro code, as well (e. g. save) are with
 | <kbd>R</kbd> | Reset | Reset |
 | <kbd>S</kbd> | Execute one macro step | Step |
 | <kbd>P</kbd> | Pause execution | Pause |
-| <kbd>⇧ Shift</kbd><kbd>S</kbd> | Execute one micro step | Step |
+| <kbd>⇧ Shift</kbd> <kbd>S</kbd> | Execute one micro step | Step |
 | <kbd>↑</kbd> | Move one up in RAM | |
 | <kbd>↓</kbd> | Move one down in RAM | |
 | <kbd>K</kbd> | Move one up in RAM | _Vim keybinding_ |
@@ -137,26 +137,27 @@ Actions on RAM which are possible from micro code, as well (e. g. save) are with
 | <kbd>U</kbd> | Toggle control unit view | Unit |
 | <kbd>+</kbd> | Make execution faster | |
 | <kbd>-</kbd> | Make execution slower | |
-| <kbd>Alt</kbd><kbd>C</kbd> | Clear Ram | Clear |
-| <kbd>⌥ Option</kbd><kbd>C</kbd> | Clear RAM | Clear |
-| <kbd>Alt</kbd><kbd>⇧ Shift</kbd><kbd>C</kbd> | Reset micro code | _Clear_ |
-| <kbd>⌥ Option</kbd><kbd>⇧ Shift</kbd><kbd>C</kbd> | Reset micro code | _Clear_ |
+| <kbd>Alt</kbd> <kbd>C</kbd> | Clear Ram | Clear |
+| <kbd>⌥ Option</kbd> <kbd>C</kbd> | Clear RAM | Clear |
+| <kbd>Alt</kbd> <kbd>⇧ Shift</kbd> <kbd>C</kbd> | Reset micro code | _Clear_ |
+| <kbd>⌥ Option</kbd> <kbd>⇧ Shift</kbd> <kbd>C</kbd> | Reset micro code | _Clear_ |
 | <kbd>:</kbd> | Enter command mode for buttons | _Vim keybinding_ | 
 | <kbd>v</kbd> | Enter command mode for buttons | Vim |
 | <kbd>D</kbd> | Focus Data bus input | Data Bus |
 | <kbd>A</kbd> | Focus Address bus input | Address Bus |
 | <kbd>W</kbd> | Focus RAM row input | Write (to RAM) |
 | <kbd>Insert</kbd> | Insert row above current selected row in RAM | Insert |
-| <kbd>⇧ Shift</kbd><kbd>Del</kbd> | Remove current selected row in RAM | |
+| <kbd>⇧ Shift</kbd> <kbd>Del</kbd> | Remove current selected row in RAM | Delete |
+| <kbd>⇧ Shift</kbd> <kbd>Q</kbd> | record a microcode | _as in vim macros_ (you are recording a macrocode after all xD) |
 | <kbd>Del</kbd> | Remove current selected row in RAM | Delete (disabled per default; change in settings) |
-| <kbd>⌃ Ctrl</kbd><kbd>O</kbd> | Opening RAM file from disk | Open |
-| <kbd>⌃ Ctrl</kbd><kbd>⇧ Shift</kbd><kbd>O</kbd> | Opening micro code file from disk | Open |
-| <kbd>⌃ Ctrl</kbd><kbd>S</kbd> | Saving current RAM to file | Save |
-| <kbd>⌃ Ctrl</kbd><kbd>⇧ Shift</kbd><kbd>S</kbd> | Saving current micro code to file | Save |
+| <kbd>⌃ Ctrl</kbd> <kbd>O</kbd> | Opening RAM file from disk | Open |
+| <kbd>⌃ Ctrl</kbd> <kbd>⇧ Shift</kbd> <kbd>O</kbd> | Opening micro code file from disk | Open |
+| <kbd>⌃ Ctrl</kbd> <kbd>S</kbd> | Saving current RAM to file | Save |
+| <kbd>⌃ Ctrl</kbd> <kbd>⇧ Shift</kbd> <kbd>S</kbd> | Saving current micro code to file | Save |
 
 ### shortcuts for buttons like `ram --> db`
 Those shortcuts are in VIM style meaning you need to enter command mode first by pressing <kbd>:</kbd>(VIM keybinding) or <kbd>V</kbd> (added by this website).
-Afterwards you type the commmand from the list below. Then press <kbd>⏎ Enter</kbd> to emulate pressing the button. While in command mode you can press <kbd>Esc</kbd> or <kbd>^ Ctrl</kbd><kbd>C</kbd> to leave command mode. While in command mode all basic shortcuts above are disabled.
+Afterwards you type the commmand from the list below. Then press <kbd>⏎ Enter</kbd> to emulate pressing the button. While in command mode you can press <kbd>Esc</kbd> or <kbd>^ Ctrl</kbd> <kbd>C</kbd> to leave command mode. While in command mode all basic shortcuts above are disabled.
 The visual feedback is in command mode in the bottom left corner.
 
 #### List of commands in command mode

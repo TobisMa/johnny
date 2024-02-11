@@ -8,6 +8,8 @@ const validCmdColor = "#00c149";
 const invalidCmdColor = "#ff5151";
 const continueCmdColor = "#ff8531";
 
+const ignoreElements = ["aufnahmeName", "aufnahmeZahl"];
+
 let vimCmdMode = false;
 let vimCmd = "";
 
@@ -174,6 +176,7 @@ const functionMapping = {
     },
     Delete: deleteRow, // check for shift hardcoded :(, but it works
     Insert: insertRowAbove,
+    Q: aufnahme,
 }
 
 const ctrlShortcutMapping = {
@@ -182,7 +185,7 @@ const ctrlShortcutMapping = {
     s: downloadRam,
     S: downloadMc,
     o: uploadRam,
-    O: uploadMc
+    O: uploadMc,
 }
 
 const vimCmdMapping = {
@@ -296,7 +299,7 @@ function updateVisualCmdMode() {
 
 
 function shortCutEventHandler(e) {
-    if (modal.style.display !== "" && modal.style.display !== "none" || e.target.id === "aufnahmeName") {
+    if (modal.style.display !== "" && modal.style.display !== "none" || ignoreElements.includes(e.target.id))  {
         console.warn("Settings are opened or an text input is selected; Shortcuts disabled");
         return;
     }
