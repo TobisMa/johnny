@@ -8,7 +8,7 @@ const validCmdColor = "#00c149";
 const invalidCmdColor = "#ff5151";
 const continueCmdColor = "#ff8531";
 
-const ignoreElements = ["aufnahmeName", "aufnahmeZahl"];
+const ignoreElements = ["aufnahmeName", "aufnahmeZahl", "customDialog", "CommandSelect"];
 
 let vimCmdMode = false;
 let vimCmd = "";
@@ -177,6 +177,8 @@ const functionMapping = {
     Delete: deleteRow, // check for shift hardcoded :(, but it works
     Insert: insertRowAbove,
     Q: aufnahme,
+    A: () => { if (!controlUnit) {ToggleControlUnit()} focusInputElement(document.getElementById("aufnahmeZahl")); },
+    N: () => { if (!controlUnit) {ToggleControlUnit()} focusInputElement(document.getElementById("aufnahmeName")); },
 }
 
 const ctrlShortcutMapping = {
@@ -237,6 +239,8 @@ function EnterVimCmdMode() {
     document.getElementById("RamInput").disabled = true;
     document.getElementById("AddressBusInput").disabled = true;
     document.getElementById("DataBusInput").disabled = true;
+    document.getElementById("aufnahmeZahl").disabled = true;
+    document.getElementById("aufnahmeName").disabled = true;
     cmdHTMLContainer.classList.remove("afterExecution");
     cmdHTMLContainer.classList.add("active");
 }
@@ -267,8 +271,11 @@ function ExecuteVimCmd() {
 function LeaveVimCmdMode() {
     vimCmdMode = false;
     vimCmd = "";
+    document.getElementById("RamInput").disabled = false;
     document.getElementById("AddressBusInput").disabled = false;
     document.getElementById("DataBusInput").disabled = false;
+    document.getElementById("aufnahmeZahl").disabled = false;
+    document.getElementById("aufnahmeName").disabled = false;
     let ramInput = document.getElementById("RamInput");
     ramInput.disabled = false;
     focusInputElement(ramInput);
@@ -298,16 +305,26 @@ function updateVisualCmdMode() {
 }
 
 
+function isIgnoreElements(target) {
+    let ignore = [];
+    ignoreElements.forEach(e => {
+        let selector = "#" + e + " *";
+        let children = document.querySelectorAll(selector);
+        if (new Array(...children).includes(target) || e == target.id) {
+            ignore.push(true);
+        }
+    });
+    return ignore.length > 0;
+}
+
+
 function shortCutEventHandler(e) {
-    if (modal.style.display !== "" && modal.style.display !== "none" || ignoreElements.includes(e.target.id))  {
+    if (modal.style.display !== "" && modal.style.display !== "none" || isIgnoreElements(e.target))  {
         console.warn("Settings are opened or an text input is selected; Shortcuts disabled");
         return;
     }
     else if (vimCmdMode) {
         switch (e.key) {
-            case "Enter":
-                ExecuteVimCmd();
-                break;
             case "Escape":
                 LeaveVimCmdMode();
                 break;
@@ -350,5 +367,27 @@ function shortCutEventHandler(e) {
     }
 }
 
+function emulateKeyPress(key, ctrlKey, altKey, metaKey) {
+    if (!key) {
+        console.debug("Key is ", key);
+        return;
+    }
+    ctrlKey = ctrlKey ?? false;
+    altKey = altKey ?? false;
+    metaKey = metaKey ?? false;
+
+    window.dispatchEvent(new KeyboardEvent(
+        "keydown",
+        {
+            key: key,
+            ctrlKey: ctrlKey,
+            shiftKey: key.toUpperCase() === key,
+            altKey: altKey,
+            metaKey: metaKey,
+        },
+    ));
+}
+
 window.addEventListener("keydown", shortCutEventHandler);
+window.addEventListener("keyup", (e) => {if (e.key === "Enter" && vimCmdMode) ExecuteVimCmd(); } );  // to prevent problems with custom dialogs
 // document.getElementById("RamInput").addEventListener("keydown", shortCutEventHandler);

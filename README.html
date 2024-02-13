@@ -498,8 +498,8 @@ which automatically updates as soon as i make a commit to the master branch of t
 </table>
 <p><em>Made by <a href="https://github.com/Sagalim">Sagalim</a> and <a href="https://github.com/isabell05">Isabell05</a></em></p>
 <h2 id="how-does-single-micro-code-instruction-editing-work">how does single micro code instruction editing work?</h2>
-<p>To get the menu for editing you need to make a double click on the entry in the micro code table.
-Then, an prompt pops up asking for a number or a button. The numbers are the micro code instrcution numbers listed in the table above.</p>
+<p>To get the menu for editing you need to make a click on the entry in the micro code table.
+Then, an prompt pops up asking for a number or a button. The numbers are the micro code instrcution numbers listed in the table above. When clicking on the input field a list with possible optinos will show.</p>
 <p>The buttons are text input. They are parsed by checking the start of the input and the end.
 You can either just type out the full button like <code>db --&gt; ram</code> or continue reading to understand how to shorten your buttons. The numbers are the shortest way, but also the most complicated. As always, there are exceptions. Those are listed at the end.</p>
 <p>Buttons are built using the following operators and destinations:</p>
@@ -550,7 +550,7 @@ You can either just type out the full button like <code>db --&gt; ram</code> or 
 <tbody>
 <tr>
 <td style="text-align:left"><code>+</code></td>
-<td style="text-align:left">increase the destination by one if such an button exists (e. g. <code>pc++</code> for <code>pc+</code>)</td>
+<td style="text-align:left">increase the destination by one if such an button exists (e. g. <code>pc+</code> for <code>pc++</code>)</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>-</code></td>
@@ -600,7 +600,7 @@ You can either just type out the full button like <code>db --&gt; ram</code> or 
 <td></td>
 </tr>
 <tr>
-<td style="text-align:left">^<code>=</code> $<code>+</code></td>
+<td style="text-align:left">^<code>=</code>$<code>+</code></td>
 <td style="text-align:left"><code>=0?pc++</code></td>
 <td><code>=0?+</code>, <code>=+</code>, <code>=0?pc+</code></td>
 </tr>
@@ -744,9 +744,24 @@ You can either just type out the full button like <code>db --&gt; ram</code> or 
 <td style="text-align:left">Delete</td>
 </tr>
 <tr>
+<td style="text-align:left"><kbd>⇧ Shift</kbd> <kbd>A</kbd></td>
+<td style="text-align:left">Focus the address input for custom macro codes</td>
+<td style="text-align:left">Address (and Shift because microcode)</td>
+</tr>
+<tr>
+<td style="text-align:left"><kbd>⇧ Shift</kbd> <kbd>N</kbd></td>
+<td style="text-align:left">Focus the name input for custom micro codes</td>
+<td style="text-align:left">Name (and Shift because microcode)</td>
+</tr>
+<tr>
 <td style="text-align:left"><kbd>⇧ Shift</kbd> <kbd>Q</kbd></td>
 <td style="text-align:left">record a microcode</td>
 <td style="text-align:left"><em>as in vim macros</em> (you are recording a macrocode after all xD)</td>
+</tr>
+<tr>
+<td style="text-align:left"><kbd>⇧ Shift</kbd> <kbd>Enter</kbd></td>
+<td style="text-align:left">record a microcode</td>
+<td style="text-align:left">works only in the input fields for address and name of a custom makrocode. Exists because <kbd>⇧ Shift</kbd><kbd>Q</kbd> will be disabled</td>
 </tr>
 <tr>
 <td style="text-align:left"><kbd>Del</kbd></td>

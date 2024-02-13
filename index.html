@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 mit dank an Dr. Peter Dauscher
--->
+---->
 <html lang="en">
 
     <head>
@@ -29,6 +29,7 @@ mit dank an Dr. Peter Dauscher
         <meta charset="utf-8" />
         <link rel="stylesheet" href="./ios-pwa-promt/promt_pwa.css">
         <link rel="stylesheet" type="text/css" href="./style.css">
+        <link rel="stylesheet" type="text/css" href="./dialog.css">
         <link rel="manifest" href="./johnny.webmanifest">
         <link rel="apple-touch-icon" sizes="256x256" href="./icons/firefox/firefox-general-256-256.png">
         <title>Johnny 2.0</title>
@@ -55,7 +56,7 @@ mit dank an Dr. Peter Dauscher
             <p style="  font-size:4vmin ">2009-2014</p>
         </div>
         <div id="programm" style="display: none">
-            <!-- Bilder die die Datenbewegung anzeigen (reinfolge nicht verändern!) -->
+            <!-- Bilder die die Datenbewegung anzeigen (reinfolge nicht verändern!) ---->
             <img src="./images/datamovement/dbram.png" class="dataMovement" />
             <img src="./images/datamovement/ramdb.png" class="dataMovement" />
             <img src="./images/datamovement/dbins.png" class="dataMovement" />
@@ -74,7 +75,7 @@ mit dank an Dr. Peter Dauscher
             <div class="dataMovement" id="HaltButtonHighlight"></div>
             <div class="dataMovement" id="IncPc0Highlight"></div>
 
-            <!--Bilder der Kopfzeile -->
+            <!--Bilder der Kopfzeile ---->
             <nav id="control-nav">
                 <div id="ramOptions">
                     <div id="ramFile">
@@ -120,22 +121,22 @@ mit dank an Dr. Peter Dauscher
                             class="icon" /></abbr>
                     </div>
                     <div id="recordMcPanel" class="control">
-                        <abbr title="Record macrocode"><img tabindex=0 src="./images/record_macro.svg" onclick="aufnahme()"
+                        <abbr title="Record macrocode (Shift + Q)"><img tabindex=0 src="./images/record_macro.svg" onclick="aufnahme()"
                             class="icon" /></abbr>
                         <abbr title="Address in micro programm memory of new Macrocode "><input type="text" inputmode="numeric"
-                            id="aufnahmeZahl" step="1" min="1" max="19" value="11" pattern="[1-9]|1\d" placeholder="addr" required></abbr>
+                            id="aufnahmeZahl" step="1" min="1" max="19" value="11" pattern="[1-9]|1\d" placeholder="Address" required></abbr>
                         <abbr title="Name of new macro program"><input type="text" id="aufnahmeName" maxlength="5"
                             value="" placeholder="name" pattern="[a-zA-Z0-9]+" required></abbr>
-                        <!--<button onclick="toggleBonsai"></button> how tf did this slip troug TODO: was this neded in any way? -->
+                        <!--<button onclick="toggleBonsai"></button> how tf did this slip troug TODO: was this neded in any way? ---->
                     </div>
 
-                    <!-- Trigger/Open The Modal -->
+                    <!-- Trigger/Open The Modal ---->
                     <button id="settings_button">settings</button>
                 </div>
             </nav>
 
-            <input type="text" id="AddressBusInput" min="0" max="999" placeholder="Address">
-            <input type="text" id="DataBusInput" placeholder="Data">
+            <input type="text" title="Input for address in RAM" id="AddressBusInput" min="0" max="999" placeholder="Address">
+            <input type="text" title="Input for value in data bus" id="DataBusInput" placeholder="Data">
             <p id="AddressBus">000</p>
             <p id="DataBus">00000</p>
             <p id="Accumulator">00000</p>
@@ -148,20 +149,20 @@ mit dank an Dr. Peter Dauscher
             <abbr title="set Data Bus"><button onclick="ManuellDb()" id="DbInputButton">ManuellDb</button> </abbr>
             <abbr title="set Address Bus"><button onclick="ManuellAB()" id="ABInputButton">ManuellAb</button> </abbr>
 
-            <button onclick="RamDbClick()" id="RamDbButton">ram-->db</button>
-            <button onclick="DbRamClick()" id="DbRamButton">db-->ram</button>
-            <button onclick="DbAccClick()" id="DbAccButton">db-->acc</button>
-            <button onclick="AccDbClick()" id="AccDbButton">acc-->db</button>
+            <button onclick="RamDbClick()" id="RamDbButton">ram--&gt;db</button>
+            <button onclick="DbRamClick()" id="DbRamButton">db--&gt;ram</button>
+            <button onclick="DbAccClick()" id="DbAccButton">db--&gt;acc</button>
+            <button onclick="AccDbClick()" id="AccDbButton">acc--&gt;db</button>
             <button onclick="NullAccClick()" id="NullAccButton" class="hiddenInBonsai">acc:=0</button>
             <button onclick="IncAccClick()" id="IncAccButton">acc++</button>
-            <button onclick="DecAccClick()" id="DecAccButton">acc--</button>
+            <button onclick="DecAccClick()" id="DecAccButton">acc</button>
             <button onclick="AddAccClick()" id="AddAccButton" class="hiddenInBonsai">plus</button>
             <button onclick="SubAccClick()" id="SubAccButton" class="hiddenInBonsai">minus</button>
-            <button onclick="DbInsClick()" id="DbInsButton" class="control">db-->ins</button>
-            <button onclick="InsMcClick()" id="InsMcButton" class="control">ins-->mc</button>
-            <button onclick="InsAdClick()" id="InsAbButton" class="control">ins-->ab</button>
-            <button onclick="InsPcClick()" id="InsPcButton" class="control">ins-->pc</button>
-            <button onclick="PcAdClick()" id="PcAbButton" class="control">pc-->ab</button>
+            <button onclick="DbInsClick()" id="DbInsButton" class="control">db--&gt;ins</button>
+            <button onclick="InsMcClick()" id="InsMcButton" class="control">ins--&gt;mc</button>
+            <button onclick="InsAdClick()" id="InsAbButton" class="control">ins--&gt;ab</button>
+            <button onclick="InsPcClick()" id="InsPcButton" class="control">ins--&gt;pc</button>
+            <button onclick="PcAdClick()" id="PcAbButton" class="control">pc--&gt;ab</button>
             <button onclick="NullMcClick()" id="NullMcButton" class="control">mc:=0</button>
             <button onclick="IncPcClick()" id="IncPcButton" class="control">pc++</button>
             <button onclick="IncPc0Click()" id="IncPc0Button" class="control">=0?pc++</button>
@@ -169,12 +170,12 @@ mit dank an Dr. Peter Dauscher
             <button onclick="insertRowAbove()" id="InsertRowButton" title="Inserts a row above selection (Insert)">Insert Row</button>
 
 
-            <!--nicht entfernen onclick der Bilder greift hierdrauf zu -->
+            <!--nicht entfernen onclick der Bilder greift hierdrauf zu ---->
             <input type='file' accept='.mc' id='microcodefile' style="display:none">
             <input type='file' accept='.ram' id='ramfile' style="display:none">
 
 
-                <!-- Scollbare Tabelle -->
+                <!-- Scollbare Tabelle ---->
             <div id="RamDiv">
 
 
@@ -196,7 +197,7 @@ mit dank an Dr. Peter Dauscher
                             <div style="height:54.2vh;" id="innerRamDiv">
                                 <table cellspacing="0" cellpadding="1" border="1" width="100%">
                                     <tbody id="RamTBody">
-                                        <!-- hier wird in table.js die Tabelle eingefügt-->
+                                        <!-- hier wird in table.js die Tabelle eingefügt---->
                                     </tbody>
                                 </table>
                             </div>
@@ -238,7 +239,7 @@ mit dank an Dr. Peter Dauscher
 
             <div id="RamEingabe">
                 <p></p>
-                <input type="text" id="RamInput" step=0.001 />
+                <input type="text" id="RamInput" inputmode="numeric" title="input value for RAM at current selected address" />
                 <select id="CommandSelect" onclick="CommandSelectChange()">
                 </select>
                 <button onclick="ManuellRam()" id="RamInputButton">write</button>
@@ -247,10 +248,10 @@ mit dank an Dr. Peter Dauscher
 
 
 
-            <!-- The Modal -->
+            <!-- The Modal ---->
             <div id="myModal" class="modal">
 
-                <!-- Modal content -->
+                <!-- Modal content ---->
                 <div class="modal-content">
                     <span class="close">&times;</span>
                     <p>
@@ -295,7 +296,7 @@ mit dank an Dr. Peter Dauscher
 
             </div>
 
-            <!--This is for showing a hint for IOS users that they can install Johnny as a PWA-->
+            <!--This is for showing a hint for IOS users that they can install Johnny as a PWA---->
             <div class="hidden pwaPromptOverlay visibilityClass iOSClass iOSPWA-overlay " aria-label="Close" role="button"
                 onClick="iosPromtPwa.dismissPrompt()"></div>
             <div class="hidden pwaPrompt visibilityClass iOSClass iOSPWA-container ">
@@ -363,6 +364,7 @@ mit dank an Dr. Peter Dauscher
             <script type="text/javascript" src="./bonsai.js"></script>
             <script type="text/javascript" src="./settings.js"></script>
             <script type="text/javascript" src="./shortcuts.js"></script>
+            <script type="text/javascript" src="./dialog.js"></script>
             <script>{
                 let ua = window.navigator.userAgent;
                 //    if( !!ua.match(/iPad/i) || !!ua.match(/iPhone/i)){

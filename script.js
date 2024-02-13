@@ -57,8 +57,9 @@ var loaded = false;
 const ramSize = 1000  //this ideally has to be a multiple of 10
 const ramLength = Math.log10(ramSize) + 1;
 
-const allowedRamInputChars = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "Delete", "Backspace", "ArrowRight", "ArrowLeft"]
+const allowedRamInputChars = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "Delete", "Backspace", "ArrowRight", "ArrowLeft"];
 const digits = "0123456789".split("");
+const allowedNameChars = new Array(..."abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ").concat("Delete", "Backspace",  "ArrowRight", "ArrowLeft", "ArrowDown", "ArrowUp", "Insert", "Escape", "Shift", "Enter");
 
 const RamInputSelect = document.getElementById("CommandSelect");
 
@@ -111,13 +112,13 @@ if (Ram == null) {//default if local store has been cleared or johnny is started
 
 var turboMode = false;
 
-function renameOwnMcCmd(e, recordPos, oldName) {
-	let newName = prompt("New Makroname: ", oldName);
+async function renameOwnMcCmd(e, recordPos, oldName) {
+	let newName = await promptDialog("New Makroname: ", oldName);
 	if (newName === undefined || newName.length === 0 || newName == oldName) {
 		return;
 	}
 	else if (MicroCode.slice(200).includes(newName)) {
-		alert("Name already in use. Please choose another name");
+		warnDialog("Name already in use. Please choose another name");
 		return;
 	}
 	console.log(recordPos);
@@ -140,7 +141,7 @@ function renameOwnMcCmd(e, recordPos, oldName) {
 }
 
 //funktionen ohne Zuordnung
-function initialize() {
+async function initialize() {
 	Befehlsauswahl = document.getElementById("CommandSelect");
 
 	generateRam();
@@ -167,9 +168,22 @@ function initialize() {
 
 	window.addEventListener('resize', resize);
 
-	let aufnahmeHighlight = (e) => {
-		if (e.key == "Enter") {
-			aufnahme();
+	let aufnahmeAddrHighlight = (e) => {
+		if (e.type === "keyup") {
+			if (e.key.length === 1 && !digits.includes(e.key)) {
+				e.preventDefault();
+				if (e.key.length === 1) {  // yes, I bet. There won't be a function key like control, NumLock, ... whose name is only 1 char long
+					e.target.value = e.target.value.substring(0, e.target.selectionStart - 1) + e.target.value.substring(e.target.selectionStart);
+				}
+				emulateKeyPress(e.key, e.ctrlKey, e.altKey, e.metaKey);
+				return;
+			}
+			else if (e.key === "Enter" && e.shiftKey) {
+				aufnahme();
+			}
+			else if (e.key === "Escape") {
+				focusInputElement(document.getElementById("RamInput"));
+			}
 		}
 		if (e.target.value) {
 			let recordingStart = parseInt(e.target.value) * 10;
@@ -182,9 +196,47 @@ function initialize() {
 		}
 		e.target.style.removeProperty("outline-color");
 	}
-	document.getElementById("aufnahmeZahl").addEventListener("keyup", aufnahmeHighlight);
-	document.getElementById("aufnahmeZahl").addEventListener("focusout", aufnahmeHighlight);
-	document.getElementById("aufnahmeZahl").addEventListener("focusin", aufnahmeHighlight);
+	document.getElementById("aufnahmeZahl").addEventListener("keyup", aufnahmeAddrHighlight);
+	document.getElementById("aufnahmeZahl").addEventListener("focusout", aufnahmeAddrHighlight);
+	document.getElementById("aufnahmeZahl").addEventListener("focusin", aufnahmeAddrHighlight);
+
+	let aufnahmeNameHighlight = (e) => {
+		if (e.type === "keyup") {
+			console.log(e);
+			if (!allowedNameChars.includes(e.key)) {
+				e.preventDefault();
+				if (e.key.length === 1) {  // yes, I bet. There won't be a function key like control, NumLock, ... whose name is only 1 char long
+					e.target.value = e.target.value.substring(0, e.target.selectionStart - 1) + e.target.value.substring(e.target.selectionStart);
+				}
+				emulateKeyPress(e.key, e.ctrlKey, e.altKey, e.metaKey);
+				return;
+			}
+			else if (e.key === "Enter" && e.shiftKey) {
+				console.log("Start recording");
+				aufnahme();
+			}
+			else if (e.key === "Escape") {
+				focusInputElement(document.getElementById("RamInput"));
+				return;
+			}
+		}
+		e.target.style.removeProperty("outline-color");
+		if (e.target.value) {
+			e.target.value = e.target.value.toUpperCase();
+			let name = MicroCode[parseInt(document.getElementById("aufnahmeZahl").value) + 200];
+			if (name !== undefined && name !== NaN) {
+				if (name === e.target.value) {
+					e.target.style.outlineColor = "orange";
+				}
+				else if (MicroCode.slice(200).includes(name)) {
+					e.target.style.outlineColor = "red";
+				}
+			}
+		}
+	};
+	document.getElementById("aufnahmeName").addEventListener("keyup", aufnahmeNameHighlight);
+	document.getElementById("aufnahmeName").addEventListener("focusout", aufnahmeNameHighlight);
+	document.getElementById("aufnahmeName").addEventListener("focusin", aufnahmeNameHighlight);
 
 	getRamRow().style.background = "#00F45D";
 
@@ -202,13 +254,6 @@ function initialize() {
 	}
 
 }//ende initialize
-
-
-function diffrentAction(action) {
-	if (lastHistoryUse === "undo") {
-
-	}
-}
 
 
 function addToHistory(action) {
@@ -321,7 +366,7 @@ function initializeSettings() {
 	})
 }
 
-function updateMcInstruction(e) {
+async function updateMcInstruction(e) {
 	let address = parseInt(e.target.parentNode.dataset.row);
 	if (address === undefined) {
 		console.log("Wrong td; parent has no data-row attr");
@@ -333,7 +378,7 @@ function updateMcInstruction(e) {
 		return;
 	}
 
-	let newInstruction = prompt("New micro code (number or button label):", microCodeToText(parseInt(MicroCode[address])));
+	let newInstruction = await promptDialog("New micro code (number or button label):", microCodeToText(parseInt(MicroCode[address])), Object.keys(buttonIdFromText).sort());
 	if (newInstruction === null || newInstruction.length == 0) {
 		return;
 	}
@@ -345,13 +390,13 @@ function updateMcInstruction(e) {
 	}
 	console.log("Parsed instruction: " + parsedInstruction);
 	if (parsedInstruction !== 0 && !parsedInstruction) {
-		alert(`Did not understand button signature '${newInstruction}'`);
+		warnDialog(`Did not understand button signature '${newInstruction}'`);
 		return;
 	}
 	try {
 		instructionText = microCodeToText(parsedInstruction);
 	} catch (e) {
-		alert(`Unknown micro code instruction ${parsedInstruction}`);
+		warnDialog(`Unknown micro code instruction ${parsedInstruction}`);
 		return;
 	}
 	if (instructionText === undefined) {
@@ -599,15 +644,15 @@ function aufnahmeBlinken() {
 	timeoutforblinking = setTimeout(aufnahmeBlinken, blinkgeschwindigkeit);
 }
 
-function aufnahme() {
-
+async function aufnahme() {
 	if (recording) {
 		recording = false;
 		clearTimeout(timeoutforblinking);
 		document.getElementById("recordMcPanel").style.backgroundColor = "";
 	} else {
 		if (!document.getElementById("aufnahmeZahl").validity.valid || !document.getElementById("aufnahmeName").validity.valid) {
-			window.alert("Please provide a address in the micorcode registers as well as an name for the new macro code");
+			console.debug("invalid values");
+			warnDialog("Please provide a address in the micorcode registers as well as an name for the new macro code");
 			return;
 		}
 		recordingCounter = CheckNumber(parseInt(document.getElementById("aufnahmeZahl").value), 19, 0) * 10; // ignorieren der letzen stelle
@@ -619,10 +664,10 @@ function aufnahme() {
 		if (MicroCode.slice(200).includes(name)) {
 			let code = MicroCode.slice(200).indexOf(name);
 			if (code * 10 != recordingCounter) {
-				window.alert(`Name already in use at address ${code}. Please choose another name`);
+				warnDialog(`Name already in use at address ${code}. Please choose another name`);
 				return;
 			} 
-			let override = window.confirm("Name already in use at this location. Do you want to overwrite it?");
+			let override = await confirmDialog("Name already in use at this location. Do you want to overwrite it?", true);
 			inUse = true;
 			if (!override) {
 				return;
@@ -631,13 +676,13 @@ function aufnahme() {
 		let oldName = MicroCode[recordingCounter / 10 + 200];
 		if (MicroCode[recordingCounter] != 0) {   // microccode is stored as string. no type equality
 			if (oldName !== undefined && oldName !== name) {
-				let answer = window.confirm("Adress already used for another macro code. Clear?");
+				let answer = await confirmDialog("Adress already used for another macro code. Clear?", true);
 				if (!answer) {
 					return;
 				}
 			}
 			else if (!inUse) {
-				let answer = window.confirm("Micro code instructions already exist at this location.\nDo you want to overwrite them?");
+				let answer = await confirmDialog("Micro code instructions already exist at this location.\nDo you want to overwrite them?", false);
 				if (!answer) {
 					return;
 				}

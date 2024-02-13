@@ -66,8 +66,8 @@ _Made by [Sagalim](https://github.com/Sagalim) and [Isabell05](https://github.co
 
 
 ## how does single micro code instruction editing work?
-To get the menu for editing you need to make a double click on the entry in the micro code table.
-Then, an prompt pops up asking for a number or a button. The numbers are the micro code instrcution numbers listed in the table above.
+To get the menu for editing you need to make a click on the entry in the micro code table.
+Then, an prompt pops up asking for a number or a button. The numbers are the micro code instrcution numbers listed in the table above. When clicking on the input field a list with possible optinos will show. 
 
 The buttons are text input. They are parsed by checking the start of the input and the end.
 You can either just type out the full button like `db --> ram` or continue reading to understand how to shorten your buttons. The numbers are the shortest way, but also the most complicated. As always, there are exceptions. Those are listed at the end.
@@ -88,7 +88,7 @@ Operators are always used after an _`Destination`_
 
 | Operator | Meaning |
 | :--- | :--- |
-| `+` | increase the destination by one if such an button exists (e. g. `pc++` for `pc+`) |
+| `+` | increase the destination by one if such an button exists (e. g. `pc+` for `pc++`) |
 | `-` | same as the `+`-operator but for decreasing |
 | `0` | reset the destination to zero (e. g. `acc0` means `acc:=0`)
 
@@ -109,7 +109,7 @@ Examples: `acc-`, `pc+`, `mc0`
 | `minus` | `minus` | |
 | ^`sub` | `minus` | `subtract` |
 | `stop` | `stop` | |
-| ^`=` $`+` | `=0?pc++` | `=0?+`, `=+`, `=0?pc+` | 
+| ^`=`$`+` | `=0?pc++` | `=0?+`, `=+`, `=0?pc+` | 
 
 ---
 > - `^` prepended to a code block signals that the input needs to start with this code block
@@ -148,7 +148,10 @@ Actions on RAM which are possible from micro code, as well (e. g. save) are with
 | <kbd>W</kbd> | Focus RAM row input | Write (to RAM) |
 | <kbd>Insert</kbd> | Insert row above current selected row in RAM | Insert |
 | <kbd>⇧ Shift</kbd> <kbd>Del</kbd> | Remove current selected row in RAM | Delete |
+| <kbd>⇧ Shift</kbd> <kbd>A</kbd> | Focus the address input for custom macro codes | Address (and Shift because microcode) |
+| <kbd>⇧ Shift</kbd> <kbd>N</kbd> | Focus the name input for custom micro codes | Name (and Shift because microcode) |
 | <kbd>⇧ Shift</kbd> <kbd>Q</kbd> | record a microcode | _as in vim macros_ (you are recording a macrocode after all xD) |
+| <kbd>⇧ Shift</kbd> <kbd>Enter</kbd>| record a microcode | works only in the input fields for address and name of a custom makrocode. Exists because <kbd>⇧ Shift</kbd><kbd>Q</kbd> will be disabled |
 | <kbd>Del</kbd> | Remove current selected row in RAM | Delete (disabled per default; change in settings) |
 | <kbd>⌃ Ctrl</kbd> <kbd>O</kbd> | Opening RAM file from disk | Open |
 | <kbd>⌃ Ctrl</kbd> <kbd>⇧ Shift</kbd> <kbd>O</kbd> | Opening micro code file from disk | Open |

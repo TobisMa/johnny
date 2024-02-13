@@ -177,19 +177,23 @@ function newRam(writeHistory=true){
 
 function ToggleControlUnit(){
 
-	var elemente = document.getElementsByClassName("control")
+	var elemente = document.getElementsByClassName("control");
 
 	if(controlUnit){
-	for(i=0; i<elemente.length;i++){
-	elemente[i].style.display = "none";}
-	controlUnit = false ;
-	FadeIn(10);
-	}else{
-	for(i=0; i<elemente.length;i++){
-	elemente[i].style.display = "inline";}
-	controlUnit = true;
-	FadeOut(10);
+		for(i=0; i<elemente.length;i++){
+			elemente[i].style.display = "none";
+		}
+		controlUnit = false ;
+		FadeIn(10);
 	}
+	else {
+		for(i=0; i<elemente.length;i++){
+			elemente[i].style.display = "inline";
+		}
+		controlUnit = true;
+		FadeOut(10);
+	}
+	document.getElementById("controlUnitCheckbox").checked = controlUnit;
 }
 
 
@@ -210,10 +214,10 @@ function resetComputer(){
 }
 
 
-function downloadMc(){
+async function downloadMc(){
 	let filename = "Micro_code.mc";
 	if (setFilenameOnSave) {
-		filename = window.prompt("Filename for current micro code: ", filename);
+		filename = await promptDialog("Filename for current micro code: ", filename);
 		if (filename === null) {
 			console.warn("User canceled save");
 			return;
@@ -225,10 +229,10 @@ function downloadMc(){
 	download(MicroCode.join("\r\n"), filename, "txt")
 
 }
-function downloadRam(){
+async function downloadRam(){
 	filename = "Ram.ram";
 	if (setFilenameOnSave) {
-		filename = window.prompt("Filename for current RAM data: ", filename);
+		filename = await promptDialog("Filename for current RAM data: ", filename);
 		if (filename === null) {
 			console.warn("User canceled save");
 			return;

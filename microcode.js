@@ -214,7 +214,7 @@ function microStep(display){
 
         default:
             console.log("Ungültiger Befehl " +MicroCode[MicroCodeCounter] + "in Adresse " + MicroCodeCounter + " programm wird beendent");
-            alert("Kein Befehl in Microcodeadresse " + MicroCodeCounter + " Das Programm wird beendet")
+            warnDialog("Kein Befehl in Microcodeadresse " + MicroCodeCounter + " Das Programm wird beendet")
             Halt();
             NullMc();
             break
@@ -389,7 +389,7 @@ function IncPc0(){
 
 
 function Halt(){
-    alert("Ende des Programms")
+    warnDialog("Ende des Programms")
     halt = true ;
     aufnehmen(19);
 }
