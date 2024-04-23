@@ -1,12 +1,8 @@
 # johnny - documentation
 Simulation of a von neumann arcitecture
 
-The programm is hosted by inf-schule.de
-https://inf-schule.de/content/7_rechner/3_johnny/johnny2/
-
-With the hosting at inf-schule.de it does take some time for them to apply new versions and bugfixes. As such there is also a Github page at:
-https://laubersheini.github.io/johnny
-which automatically updates as soon as i make a commit to the master branch of this repo so it should always be more up to date.
+The core of this version is at [https://github.com/Laubersheini/johnny](https://github.com/Laubersheini/johnny) to be found. This version 
+contains a lot additional and useful features besides bugfixes.
 
 # johnny - modifications
 ## johnny changes
