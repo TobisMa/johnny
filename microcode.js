@@ -304,7 +304,7 @@ function DecAcc(){
 }
 
 function AddAcc(){
-    if(Akkumulator+Datenbus<"2" + "0".repeat(ramLength)){
+    if(Akkumulator+Datenbus< 2 * Math.pow(10, ramLength)) {
         Akkumulator+=Datenbus;
     }else Akkumulator= (1 +"9".repeat(ramLength)).toString();
     document.getElementById("Accumulator").innerHTML = zeroPad(Akkumulator,ramLength +1 )
