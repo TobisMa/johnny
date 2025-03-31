@@ -226,6 +226,8 @@ By putting them together buttons like `ram --> db` are represented as `rd` with 
 
 Adding `+` or `-` causes counting buttons to be triggered. For example `p+` means to add to the program counter. An alias would be `p++`. Just for the case someone types two `+`. In a context like `a+` the `a` stands for `Accumulator` instead of `Address Bus` because there are no counting buttons for the address bus.
 
+## Other Tools
+- Basic Java to johnny macro code compiler: [TheCyberWeaver/SimpleJavaCompiler](TheCyberWeaver/SimpleJavaCompiler)
 
 ## browser compatibility
 I recommend to use Firefox (continue reading for the reason).  
